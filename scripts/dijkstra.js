@@ -49,8 +49,6 @@ const findShortestPath = (graph, start, end) => {
                 current = graph[key];
             }
         });
-
-        console.log(distances);
     }
 };
 
