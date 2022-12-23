@@ -5,6 +5,14 @@ let graph = {
     D: { B: 5 },
 };
 
+let graph2 = {
+    A: { B: 6, D: 1 },
+    B: { A: 6, C: 5, D: 2, E: 2 },
+    C: { B: 5, E: 5 },
+    D: { A: 1, B: 2, E: 1 },
+    E: { B: 2, C: 5, D: 1 },
+};
+
 /**
  * Implementation of the dijkstra algorithm. Finds the shortest path between two points
  *
@@ -25,8 +33,8 @@ const findShortestPath = (graph, start, end) => {
     distances.set(start, 0);
 
     let currentNode;
-    let currentNeighbors;
-    let currentMinDistance;
+    let currentNeighbors = {};
+    let currentMinDistance = 0;
 
     while (queue.length > 0) {
         let currentDistances = [];
@@ -42,18 +50,18 @@ const findShortestPath = (graph, start, end) => {
             }
         });
 
+        if (currentNode === end) {
+            path.push(currentNode);
+            return path;
+        }
+
+        path.push(currentNode);
+
         queue = queue.filter((value) => {
             return value !== currentNode;
         });
 
-        path.push(currentNode);
-
         currentNeighbors = graph[currentNode];
-        
-        if (Object.hasOwn(currentNeighbors, end)) {
-            path.push(end);
-            return path;
-        }
 
         for (let neighbor in currentNeighbors) {
             if (queue.includes(neighbor)) {
@@ -70,4 +78,4 @@ const findShortestPath = (graph, start, end) => {
     }
 };
 
-console.log(findShortestPath(graph, "D", "C"));
+console.log(findShortestPath(graph2, "B", "A"));
