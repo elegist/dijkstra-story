@@ -21,6 +21,7 @@ let graph2 = {
  * @param {String} end Ending point of the algorithm.
  */
 const findShortestPath = (graph, start, end) => {
+    //FIXME: If two edges have the same weight, the algorithm does not always pick the real shortest path, and does not go back to check so.
     let path = [];
     let queue = [];
     let distances = new Map();
