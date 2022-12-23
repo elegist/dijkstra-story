@@ -7,49 +7,67 @@ let graph = {
 
 /**
  * Implementation of the dijkstra algorithm. Finds the shortest path between two points
- * 
+ *
  * @param {Object} graph Represents the network made out of nodes. Graph should include all of the edge informations. Format: {Point: {Point: Cost, (...)}, (...)}.
  * @param {String} start Starting point of the algorithm.
  * @param {String} end Ending point of the algorithm.
  */
 const findShortestPath = (graph, start, end) => {
     let path = [];
-    let unvisited = [];
-    let visited = [];
-    let distances = {};
-
-    let current = graph[start];
+    let queue = [];
+    let distances = new Map();
 
     for (let node in graph) {
-        unvisited.push(node);
-        distances[node] = Infinity;
+        distances.set(node, Infinity);
+        queue.push(node);
     }
 
-    distances[start] = 0;
+    distances.set(start, 0);
 
-    for (let i = 0; i < 2; i++) {
-        for (let neighbor in current) {
-            if (distances[neighbor] === Infinity) {
-                distances[neighbor] = current[neighbor];
-            } else {
-                distances[neighbor] += current[neighbor];
-            }
-        }
+    let currentNode;
+    let currentNeighbors;
+    let currentMinDistance;
 
-        let distanceValues = Object.values(distances);
+    while (queue.length > 0) {
+        let currentDistances = [];
 
-        if (distanceValues.includes(0)) {
-            distanceValues.splice(distanceValues.indexOf(0), 1);
-        }
-
-        let minDistance = Math.min(...distanceValues);
-
-        Object.getOwnPropertyNames(distances).some((key) => {
-            if (distances[key] === minDistance) {
-                current = graph[key];
+        distances.forEach((distance, key) => {
+            if (queue.includes(key)) {
+                currentDistances.push(distances.get(key));
+                currentMinDistance = Math.min(...currentDistances);
+                if (distance === currentMinDistance) {
+                    currentNode = key;
+                    return;
+                }
             }
         });
+
+        queue = queue.filter((value) => {
+            return value !== currentNode;
+        });
+
+        path.push(currentNode);
+
+        currentNeighbors = graph[currentNode];
+        
+        if (Object.hasOwn(currentNeighbors, end)) {
+            path.push(end);
+            return path;
+        }
+
+        for (let neighbor in currentNeighbors) {
+            if (queue.includes(neighbor)) {
+                if (distances.get(neighbor) === Infinity) {
+                    distances.set(neighbor, currentNeighbors[neighbor]);
+                } else {
+                    distances.set(
+                        neighbor,
+                        distances.get(neighbor) + currentNeighbors[neighbor]
+                    );
+                }
+            }
+        }
     }
 };
 
-findShortestPath(graph, "A", "D");
+console.log(findShortestPath(graph, "D", "C"));
