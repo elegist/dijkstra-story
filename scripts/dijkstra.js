@@ -1,3 +1,5 @@
+import PriorityQueue from "./priorityQueue.js";
+
 let graph = {
     A: { B: 2, C: 3 },
     B: { A: 2, C: 4, D: 5 },
