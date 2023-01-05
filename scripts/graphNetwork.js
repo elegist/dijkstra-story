@@ -3,7 +3,7 @@ const nodes = document.querySelectorAll(".node");
 gsap.set(".path", { opacity: 0 });
 
 let appearAnimation = gsap.timeline({
-    defaults: { duration: .85, ease: Back.easeOut.config(2), opacity: 0 },
+    defaults: { duration: 0.85, ease: Back.easeOut.config(2), opacity: 0 },
 });
 
 appearAnimation
@@ -14,11 +14,11 @@ appearAnimation
         transformOrigin: "center",
         rotation: 30,
         stagger: {
-            each: .1,
+            each: 0.1,
             from: "random",
             grid: "auto",
-            ease: "power3.inOut"
-        }
+            ease: "power3.inOut",
+        },
     })
     .from(".pin", {
         scale: 1.4,
@@ -26,11 +26,9 @@ appearAnimation
         y: -20,
         ease: "expo.out",
         stagger: {
-            each: .1,
+            each: 0.1,
             from: "random",
             grid: "auto",
-            ease: "power3.inOut"
-        }
+            ease: "power3.inOut",
+        },
     });
-
-
