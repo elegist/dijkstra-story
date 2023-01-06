@@ -1,4 +1,20 @@
-const nodes = document.querySelectorAll(".node");
+const nodeParent = document.getElementById("nodes");
+
+for (const child of nodeParent.children) {
+    child.classList.add("node");
+
+    for (const element of child.children) {
+        const rePin = /pin/;
+        const reNote = /sticky-note/;
+
+        if (rePin.test(element.id)) {
+            element.classList.add("pin");
+        }
+        if (reNote.test(element.id)) {
+            element.classList.add("sticky-note");
+        }
+    }
+}
 
 gsap.set(".path", { opacity: 0 });
 
