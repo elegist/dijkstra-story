@@ -76,10 +76,13 @@ const intro = () => {
 };
 
 const selectNode = (container, nextTimeline) => {
+    let timelineNodeWiggle = gsap.timeline();
+
     let timeline = gsap.timeline();
+    const abortController = new AbortController();
 
     for (const node of container.children) {
-        const zoomInAnim = () => {
+        const mouseOverHandle = () => {
             node.classList.add("hover");
             document.getElementById("storyPreview").innerText = node.id;
 
@@ -100,7 +103,7 @@ const selectNode = (container, nextTimeline) => {
             );
         };
 
-        const zoomOutAnim = () => {
+        const mouseOutHandle = () => {
             node.classList.remove("hover");
 
             gsap.to("#" + node.id, {
@@ -120,7 +123,7 @@ const selectNode = (container, nextTimeline) => {
             );
         };
 
-        const selectNode = () => {
+        const clickHandler = () => {
             timeline = gsap.timeline({ onComplete: nextTimeline });
             gsap.set("#" + node.children[1].id, { opacity: 1 });
             timeline
@@ -147,36 +150,20 @@ const selectNode = (container, nextTimeline) => {
                     "<"
                 );
 
-            node.removeEventListener("mouseover", zoomInAnim);
-            node.removeEventListener("mouseout", zoomOutAnim);
-
             node.classList.remove("hover");
-
-            selectedStartNode = node.id;
+            abortController.abort();
         };
 
-        node.addEventListener("mouseover", zoomInAnim);
-        node.addEventListener("mouseout", zoomOutAnim);
-        node.addEventListener("click", selectNode);
+        node.addEventListener("click", clickHandler, {
+            signal: abortController.signal,
+        });
+        node.addEventListener("mouseover", mouseOverHandle, {
+            signal: abortController.signal,
+        });
+        node.addEventListener("mouseout", mouseOutHandle, {
+            signal: abortController.signal,
+        });
     }
-};
-
-const selectEndNode = () => {
-    let timeline = gsap.timeline();
-
-    timeline.to(
-        "#graphNetwork",
-        {
-            attr: {
-                viewBox: `${viewBoxWidth / 2} ${viewBoxHeight / 2} ${
-                    viewBoxWidth / 2
-                } ${viewBoxHeight / 2}`,
-            },
-            ease: "expo.out",
-            duration: 1,
-        },
-        "+=1"
-    );
 
     return timeline;
 };

@@ -13,7 +13,19 @@ const allNodeContainers = document.getElementsByClassName("node-container");
 
 for (const nodeContainer of allNodeContainers) {
     for (const node of nodeContainer.children) {
+        let reCheckStartNodes = /start-nodes/;
+        let reCheckEndNodes = /end-nodes/;
+        let reCheckStoryNodes = /story-nodes/;
+
         node.classList.add("node");
+
+        if (reCheckStartNodes.test(nodeContainer.id)) {
+            node.classList.add("start-node");
+        } else if (reCheckEndNodes.test(nodeContainer.id)) {
+            node.classList.add("end-node");
+        } else if (reCheckStoryNodes.test(nodeContainer.id)) {
+            node.classList.add("story-node");
+        }
     }
 }
 
