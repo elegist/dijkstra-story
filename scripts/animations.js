@@ -75,7 +75,7 @@ const intro = () => {
     return timeline;
 };
 
-const selectNode = (container) => {
+const selectNode = (container, nextTimeline) => {
     let timeline = gsap.timeline();
 
     for (const node of container.children) {
@@ -95,6 +95,7 @@ const selectNode = (container) => {
                     "#storyPreview",
                     {
                         scale: 1,
+                        ease: "sine.out",
                         duration: 0.333,
                     },
                     "<"
@@ -116,6 +117,7 @@ const selectNode = (container) => {
                     "#storyPreview",
                     {
                         scale: 0,
+                        ease: "sine.in",
                         duration: 0.333,
                     },
                     "<"
@@ -143,6 +145,7 @@ const selectNode = (container) => {
                     "#storyPreview",
                     {
                         scale: 0,
+                        ease: "sine.in",
                         duration: 0.333,
                     },
                     "<"
@@ -183,27 +186,26 @@ const selectEndNode = () => {
     return timeline;
 };
 
-let timelineToStartNode = gsap.timeline({
-    onComplete: selectNode,
-    onCompleteParams: [startNodeContainer],
-    paused: true,
-});
-timelineToStartNode
-    .add(setExplanationText("Willkommen zur Dijkstra Story"))
-    .add(intro())
-    .add(moveViewport(`0 0 ${viewBoxWidth / 2} ${viewBoxHeight / 2}`))
-    .add(
-        setExplanationText(
-            "Bitte wähle einen Anfang für deine Story. Fahre einfach über die Notizen um ihren Inhalt zu sehen."
-        )
-    );
-timelineToStartNode.play();
-
-const nextTimeline = () => {
+const beginningTimeline = () => {
     let timeline = gsap.timeline({
         onComplete: selectNode,
-        onCompleteParams: [endNodeContainer],
-        paused: true,
+        onCompleteParams: [startNodeContainer, startNodeSelectedTimeline],
+    });
+    timeline
+        .add(setExplanationText("Willkommen zur Dijkstra Story"))
+        .add(intro())
+        .add(moveViewport(`0 0 ${viewBoxWidth / 2} ${viewBoxHeight / 2}`))
+        .add(
+            setExplanationText(
+                "Bitte wähle einen Anfang für deine Story. Fahre einfach über die Notizen um ihren Inhalt zu sehen."
+            )
+        );
+};
+
+const startNodeSelectedTimeline = () => {
+    let timeline = gsap.timeline({
+        onComplete: selectNode,
+        onCompleteParams: [endNodeContainer, endNodeSelectedTimeline],
     });
     timeline
         .add(
@@ -214,6 +216,18 @@ const nextTimeline = () => {
             )
         )
         .add(setExplanationText("Wähle nun ein Ende für deine Story"));
-
-    timeline.play();
 };
+
+const endNodeSelectedTimeline = () => {
+    let timeline = gsap.timeline();
+    timeline
+        .add(moveViewport(`0 0 ${viewBoxWidth} ${viewBoxHeight}`))
+        .add(
+            setExplanationText(
+                "Sehr gut! Lehn dich zurück, während deine Story generiert wird."
+            )
+        );
+};
+
+//TODO: let user start the timeline by clicking a button?
+beginningTimeline();
