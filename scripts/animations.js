@@ -83,45 +83,41 @@ const selectNode = (container, nextTimeline) => {
             node.classList.add("hover");
             document.getElementById("storyPreview").innerText = node.id;
 
-            timeline = gsap.timeline();
-            timeline
-                .to("#" + node.id, {
-                    scale: 1.8,
-                    transformOrigin: "center",
+            gsap.to("#" + node.id, {
+                scale: 1.8,
+                transformOrigin: "center",
+                ease: "sine.out",
+                duration: 0.333,
+            });
+            gsap.to(
+                "#storyPreview",
+                {
+                    scale: 1,
                     ease: "sine.out",
                     duration: 0.333,
-                })
-                .to(
-                    "#storyPreview",
-                    {
-                        scale: 1,
-                        ease: "sine.out",
-                        duration: 0.333,
-                    },
-                    "<"
-                );
+                },
+                "<"
+            );
         };
 
         const zoomOutAnim = () => {
             node.classList.remove("hover");
 
-            timeline = gsap.timeline();
-            timeline
-                .to("#" + node.id, {
-                    scale: 1.0,
-                    transformOrigin: "center",
+            gsap.to("#" + node.id, {
+                scale: 1.0,
+                transformOrigin: "center",
+                ease: "sine.in",
+                duration: 0.333,
+            });
+            gsap.to(
+                "#storyPreview",
+                {
+                    scale: 0,
                     ease: "sine.in",
                     duration: 0.333,
-                })
-                .to(
-                    "#storyPreview",
-                    {
-                        scale: 0,
-                        ease: "sine.in",
-                        duration: 0.333,
-                    },
-                    "<"
-                );
+                },
+                "<"
+            );
         };
 
         const selectNode = () => {
@@ -153,15 +149,14 @@ const selectNode = (container, nextTimeline) => {
 
             node.removeEventListener("mouseover", zoomInAnim);
             node.removeEventListener("mouseout", zoomOutAnim);
+
             node.classList.remove("hover");
 
             selectedStartNode = node.id;
         };
 
         node.addEventListener("mouseover", zoomInAnim);
-
         node.addEventListener("mouseout", zoomOutAnim);
-
         node.addEventListener("click", selectNode);
     }
 };
