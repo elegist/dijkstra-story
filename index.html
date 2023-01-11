@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- favicon -->
-    <link rel="shortcut icon" href=""> <!--TODO-->
+    <link rel="shortcut icon" href="./resources/imgs/SVG/logo.svg">
     <link rel="icon" type="image/png" href="" sizes="32x32"> <!--TODO-->
     <link rel="icon" type="image/png" href="" sizes="96x96"> <!--TODO-->
     <link rel="apple-touch-icon" sizes="180x180" href=""> <!--TODO-->
@@ -34,10 +34,10 @@
                 <img id="mainLogo" src="./resources/imgs/SVG/logo.svg">
             </a>
             <!--Navbar Collapse Btn-->
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav" aria-controls="nav">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav" aria-controls="navbar">
                 <div class="navbar-toggler-icon"></div>
             </button>
-            <div class="collapse navbar-collapse" id="nav">
+            <div class="collapse navbar-collapse" id="navbar">
                 <ul class="navbar-nav">
                     <li class="nav-item" aria-current="page">
                         <a href="#intro" class="nav-link">Einleitung</a>
@@ -58,16 +58,13 @@
     </nav>
 
     <!-- main content -->
-    <!-- spacer -->
 
-    <section id="infoHeading" class="p-5 text-center text-sm-start">
-        <div class="container">
+    <section id="intro" class="p-5 text-center text-sm-start align-items-center">
+        <div class="container border-bottom">
             <div class="d-lg-flex align-items-center justify-content-between">
                 <div>
-                    <h1>Eine Einführung in die Welt des 
-                        <span class="text-warning">
-                            Dijkstra Algorithmus
-                        </span>
+                    <h1 id="mainHeading"> 
+                        Dijkstra Algorithmus
                     </h1>
                     <p class="lead my-4">
                         Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At
@@ -79,7 +76,94 @@
                         zur Anwendung
                     </button>     
                 </div>
-                <img id="intro" class="img-fluid w-50 d-none d-sm-block" src="./resources/imgs/SVG/logo.svg" alt="dijkstra graph without annotations">
+                <img id="introImg" class="img-fluid w-50 d-sm-block" src="./resources/imgs/SVG/logo.svg" alt="dijkstra graph without annotations">
+            </div>
+        </div>
+    </section>
+
+    <section id="infoBoxes" class="p-5">
+        <div class="container">
+            <div class="row text-center g-3 py-3">
+                <div class="col-md">
+                    <div class="infoBox card bg-boxes text-dark">
+                        <div class="card-body text-center">
+                            <div class="h1 mb-3">
+                                <span class="bi bi-person-square"></span>
+                            </div>
+                            <h3 class="card-title mb-3">Funktionsweise</h3>
+                            <p class="card-text">
+                                
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md">
+                    <div class="infoBox card bg-boxes text-dark">
+                        <div class="card-body text-center">
+                            <div class="h1 mb-3">
+                                <span class="bi bi-person-square"></span>
+                            </div>
+                            <h3 class="card-title mb-3">Ablauf</h3>
+                            <p class="card-text">
+                                
+                            </p>
+                        </div>
+                    </div>  
+                </div>
+                <div class="col-md">
+                    <div class="infoBox card bg-boxes text-dark">
+                        <div class="card-body text-center">
+                            <div class="h1 mb-3">
+                                <span class="bi bi-person-square"></span>
+                            </div>
+                            <h3 class="card-title mb-3">Vertiefung</h3>
+                            <p class="card-text">
+                                
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row text-center g-3 py-3">
+                <div class="col-md">
+                    <div class="infoBox card bg-boxes text-dark">
+                        <div class="card-body text-center">
+                            <div class="h1 mb-3">
+                                <span class="bi bi-person-square"></span>
+                            </div>
+                            <h3 class="card-title mb-3">Funktionsweise</h3>
+                            <p class="card-text">
+                                
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md">
+                    <div class="infoBox card bg-boxes text-dark">
+                        <div class="card-body text-center">
+                            <div class="h1 mb-3">
+                                <span class="bi bi-person-square"></span>
+                            </div>
+                            <h3 class="card-title mb-3">Ablauf</h3>
+                            <p class="card-text">
+                                
+                            </p>
+                        </div>
+                    </div>  
+                </div>
+                <div class="col-md">
+                    <div class="infoBox card bg-boxes text-dark">
+                        <div class="card-body text-center">
+                            <div class="h1 mb-3">
+                                <span class="bi bi-person-square"></span>
+                            </div>
+                            <h3 class="card-title mb-3">Vertiefung</h3>
+                            <p class="card-text">
+                                
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -104,94 +188,7 @@
             </div>
         </div>
     </section>
-
-    <section id="infoBoxes" class="p-5">
-        <div class="container">
-            <div class="row text-center g-3 py-3">
-                <div class="col-md">
-                    <div id="firstBox" class="infoBox card bg-boxes text-dark">
-                        <div class="card-body text-center">
-                            <div class="h1 mb-3">
-                                <span class="bi bi-person-square"></span>
-                            </div>
-                            <h3 class="card-title mb-3">Funktionsweise</h3>
-                            <p class="card-text">
-                                
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md">
-                    <div class="infoBox card bg-boxes text-dark">
-                        <div class="card-body text-center">
-                            <div class="h1 mb-3">
-                                <span class="bi bi-person-square"></span>
-                            </div>
-                            <h3 class="card-title mb-3">Ablauf</h3>
-                            <p class="card-text">
-                                
-                            </p>
-                        </div>
-                    </div>  
-                </div>
-                <div class="col-md">
-                    <div class="infoBox card bg-boxes text-dark">
-                        <div class="card-body text-center">
-                            <div class="h1 mb-3">
-                                <span class="bi bi-person-square"></span>
-                            </div>
-                            <h3 class="card-title mb-3">Vertiefung</h3>
-                            <p class="card-text">
-                                
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row text-center g-3 py-3">
-                <div class="col-md">
-                    <div class="infoBox card bg-boxes text-dark">
-                        <div class="card-body text-center">
-                            <div class="h1 mb-3">
-                                <span class="bi bi-person-square"></span>
-                            </div>
-                            <h3 class="card-title mb-3">Funktionsweise</h3>
-                            <p class="card-text">
-                                
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md">
-                    <div class="infoBox card bg-boxes text-dark">
-                        <div class="card-body text-center">
-                            <div class="h1 mb-3">
-                                <span class="bi bi-person-square"></span>
-                            </div>
-                            <h3 class="card-title mb-3">Ablauf</h3>
-                            <p class="card-text">
-                                
-                            </p>
-                        </div>
-                    </div>  
-                </div>
-                <div class="col-md">
-                    <div class="infoBox card bg-boxes text-dark">
-                        <div class="card-body text-center">
-                            <div class="h1 mb-3">
-                                <span class="bi bi-person-square"></span>
-                            </div>
-                            <h3 class="card-title mb-3">Vertiefung</h3>
-                            <p class="card-text">
-                                
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
+    
     <section id="moreInfo2" class="p-5 bg-dark text-light">
         <div class="container">
             <div class="row align-items-center justify-content-between">
@@ -213,7 +210,6 @@
         </div>
     </section>
 
-    <!-- spacer -->
     <footer class="p-5 bg-custom text-dark text-center position-relative">
         <container>
             <p>Projektarbeit für den Studiengang Medieninformatik an der THM Friedberg. Erstellt von Julius Wissemann und Robin Patzak.</p>

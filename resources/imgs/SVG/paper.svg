@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 181.29 173.18">
+  <defs>
+    <style>
+      .cls-1 {
+        isolation: isolate;
+      }
+
+      .cls-2 {
+        fill: url(#linear-gradient);
+      }
+
+      .cls-3 {
+        fill: url(#linear-gradient-2);
+      }
+
+      .cls-4 {
+        mix-blend-mode: screen;
+        fill: url(#linear-gradient-3);
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="170.77" y1="176.91" x2="-50.41" y2="-68.14" gradientUnits="userSpaceOnUse">
+      <stop offset="0.01" stop-color="#f2f2f2"/>
+      <stop offset="0.18" stop-color="#f8f8f8"/>
+      <stop offset="0.54" stop-color="#f2f2f2"/>
+      <stop offset="1" stop-color="#d6d6d6"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="173.98" y1="-1.82" x2="182.87" y2="61.59" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#d6d6d6"/>
+      <stop offset="0.24" stop-color="#f2f2f2"/>
+      <stop offset="0.82" stop-color="#f8f8f8"/>
+      <stop offset="0.99" stop-color="#f2f2f2"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-3" x1="90.67" y1="170.09" x2="90.64" y2="171.07" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#d6d6d6"/>
+      <stop offset="0.46" stop-color="#f2f2f2"/>
+      <stop offset="0.82" stop-color="#f8f8f8"/>
+      <stop offset="0.99" stop-color="#f2f2f2"/>
+    </linearGradient>
+  </defs>
+  <title>paper</title>
+  <g class="cls-1">
+    <g id="Ebene_2" data-name="Ebene 2">
+      <g id="OBJECTS">
+        <g id="Paper">
+          <path class="cls-2" d="M179.37,5.41S59.41.15,8,0C8,0,1.77,114.36,0,168.74l181.29,4.44S175.64,70.33,179.37,5.41Z"/>
+          <path class="cls-3" d="M179.34,5.41c-.91,16.17-1.25,34.67-1.25,53.33,0-18.68.35-37.18,1.28-53.33Z"/>
+          <path class="cls-4" d="M181.28,172.91v-.17L0,168.44c0,.1,0,.2,0,.3l181.29,4.44v-.27Z"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

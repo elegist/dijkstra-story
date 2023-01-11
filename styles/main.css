@@ -28,6 +28,7 @@ body {
   background-color: var(--white)
 }
 
+
 .btn-custom {
   background-color: var(--dark_red);
   border-color: var(--light_orange);
@@ -38,9 +39,16 @@ body {
   border-color: var(--light_orange);
 }
 
+#mainHeading{
+  font-weight: bold;
+}
+
+.border-bottom{
+  border-color: black;
+}
+
 .bg-boxes {
   background-color: var(--dark_orange);
-  color: var
 }
 
 .navbar {
@@ -50,8 +58,8 @@ body {
 }
 
 #mainLogo{
-  width: 48px;
-  height: 48px;
+  width: 64px;
+  height: 64px;
 }
 
 #portrait{

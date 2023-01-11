@@ -1,22 +1,24 @@
 let infoBoxes = $(".infoBox");
-var textItem = gsap.utils.toArray(".card-body");
+//var textItem = gsap.utils.toArray(".card-body");
 
 gsap.from(infoBoxes, {
     scrollTrigger: {
         trigger: "#infoBoxes",
         toggleActions: "restart none none none"
     },
-    y: 100,
+    y: 50,
     autoAlpha: 0,
     stagger: 0.2
 });
 
 
-/* Info Text. Only Possible if run on a server */
+
+
+/* Info Text. Run on server for it to work 
 var infoTextObj;
 function initText() {
   $.ajax({
-    url: "../resources/strings/strings.json"
+    url: "./resources/strings/strings.json"
   }).done(function(data) {
     infoTextObj = data;
   });
@@ -33,7 +35,7 @@ $(document).ready(function() {
     addInfoText(infoTextObj);
   });
 
-
+*/
 
 
 
