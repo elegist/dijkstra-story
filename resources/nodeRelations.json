@@ -1,0 +1,54 @@
+[
+    {
+        "id": "helper-point",
+        "neighbors": [
+            {
+                "id": "helper-point_2",
+                "weight": 2
+            },
+            {
+                "id": "helper-point_3",
+                "weight": 3
+            }
+        ]
+    },
+    {
+        "id": "helper-point_2",
+        "neighbors": [
+            {
+                "id": "helper-point",
+                "weight": 2
+            },
+            {
+                "id": "helper-point_3",
+                "weight": 4
+            },
+            {
+                "id": "helper-point_4",
+                "weight": 5
+            }
+        ]
+    },
+    {
+        "id": "helper-point_3",
+        "neighbors":[
+            {
+                "id": "helper-point",
+                "weight": 3
+            },
+            {
+                "id": "helper-point_2",
+                "weight": 4
+            }
+        ]
+    },
+    {
+        "id": "helper-point_4",
+        "neighbors":[
+            {
+                "id": "helper-point_2",
+                "weight": 5
+            }
+        ]
+    }
+]

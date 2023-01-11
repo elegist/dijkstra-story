@@ -125,9 +125,9 @@ const selectNode = (container, nextTimeline) => {
 
         const clickHandler = () => {
             timeline = gsap.timeline({ onComplete: nextTimeline });
-            gsap.set("#" + node.children[1].id, { opacity: 1 });
+            gsap.set("#" + node.children[2].id, { opacity: 1 });
             timeline
-                .from("#" + node.children[1].id, {
+                .from("#" + node.children[2].id, {
                     opacity: 0,
                     y: -20,
                     scale: 1.4,

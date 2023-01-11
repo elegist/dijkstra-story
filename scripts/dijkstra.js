@@ -1,4 +1,7 @@
 import PriorityQueue from "./priorityQueue.js";
+import nodeRelations from "../resources/nodeRelations.json" assert { type: "json" };
+
+console.clear();
 
 let graph = {
     A: { B: 2, C: 3 },
@@ -15,10 +18,48 @@ let graph2 = {
     E: { B: 2, C: 5, D: 1 },
 };
 
+let network = document.getElementById("GraphNetwork");
+
+let testGraph = new Map();
+
+nodeRelations.forEach((relation) => {
+    let neighborMap = new Map();
+    relation.neighbors.forEach((neighbor) => {
+        neighborMap.set(neighbor.id, neighbor.weight);
+        testGraph.set(relation.id, neighborMap);
+    });
+});
+
+testGraph.forEach((neighbors, node) => {
+    neighbors.forEach((weight, neighbor) => {
+        let startNodePosX = document.getElementById(node).getAttribute("cx");
+        let startNodePosY = document.getElementById(node).getAttribute("cy");
+
+        let endNodePosX = document.getElementById(neighbor).getAttribute("cx");
+        let endNodePosY = document.getElementById(neighbor).getAttribute("cy");
+
+        let dPath = `M ${startNodePosX} ${startNodePosY} L ${endNodePosX} ${endNodePosY}`;
+        let dStroke = "red";
+        let dStrokeWidth = "3";
+        let dFill = "none";
+
+        const path = document.createElementNS(
+            "http://www.w3.org/2000/svg",
+            "path"
+        );
+        path.setAttribute("d", dPath);
+        path.setAttribute("stroke", dStroke);
+        path.setAttribute("stroke-width", dStrokeWidth);
+        path.setAttribute("fill", dFill);
+
+        network.appendChild(path);
+    });
+});
+
 /**
  * Implementation of the dijkstra algorithm. Finds the shortest path between two points
  *
- * @param {Object} graph Represents the network made out of nodes. Graph should include all of the edge informations. Format: {Point: {Point: Cost, (...)}, (...)}.
+ * @param {Map} graph Represents the network made out of nodes. Graph should include all of the edge informations. Format: {Point: {Point: Cost, (...)}, (...)}.
  * @param {String} start Starting point of the algorithm.
  * @param {String} end Ending point of the algorithm.
  */
@@ -28,10 +69,10 @@ const findShortestPath = (graph, start, end) => {
     let queue = [];
     let distances = new Map();
 
-    for (let node in graph) {
-        distances.set(node, Infinity);
-        queue.push(node);
-    }
+    graph.forEach((value, key) => {
+        distances.set(key, Infinity);
+        queue.push(key);
+    });
 
     distances.set(start, 0);
 
@@ -64,21 +105,21 @@ const findShortestPath = (graph, start, end) => {
             return value !== currentNode;
         });
 
-        currentNeighbors = graph[currentNode];
+        currentNeighbors = graph.get(currentNode);
 
-        for (let neighbor in currentNeighbors) {
+        currentNeighbors.forEach((weight, neighbor) => {
             if (queue.includes(neighbor)) {
                 if (distances.get(neighbor) === Infinity) {
-                    distances.set(neighbor, currentNeighbors[neighbor]);
+                    distances.set(neighbor, weight);
                 } else {
                     distances.set(
                         neighbor,
-                        distances.get(neighbor) + currentNeighbors[neighbor]
+                        distances.get(neighbor) + weight
                     );
                 }
             }
-        }
+        });
     }
 };
 
-console.log(findShortestPath(graph2, "B", "A"));
+console.log(findShortestPath(testGraph, "helper-point", "helper-point_4"));
