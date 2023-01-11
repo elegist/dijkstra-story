@@ -9,9 +9,8 @@
 <g id="Ebene">
 	<g id="inner">
 		
-			<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="10.6054" y1="737.2526" x2="54.2754" y2="780.9226" gradientTransform="matrix(10 0 0 -10 0 8000)">
-			<stop  offset="0" style="stop-color:#00127F"/>
-			<stop  offset="1" style="stop-color:#FF6896"/>
+			<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="10.6054" y1="737.2526" x2="54.2754" y2="780.9226">
+			<stop  offset="0" style="stop-color:#ffffff"/>
 		</linearGradient>
 		<path class="st0" d="M581.8,425.5h-4.6L377.7,108.9c9.3-11.8,14.4-26.4,14.4-41.4c0.2-37.3-29.9-67.7-67.1-67.9
 			s-67.7,29.9-67.9,67.1c-0.1,14.7,4.6,29,13.4,40.7L70,425.7h-2.8c-37.3,0-67.5,30.3-67.5,67.5c0,37.3,30.3,67.5,67.5,67.5

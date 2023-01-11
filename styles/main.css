@@ -3,46 +3,58 @@
   --thm_grey: rgb(74, 92, 102);
   --text_color_light: rgb(0, 0, 0); /* change */
   --text_color_dark: rgb(255, 255, 255); /* change */
+
+  --light_green: #cad3a9;
+  --white: #f6f1e4;
+  --light-orange: #f4db97;
+  --dark_orange: #f0c85f;
+  --dark_red: #e66100;
+  --light_red: #ea8f6d;
+  --blue: #485979;
 }
 
-html{
-  scroll-behavior: smooth;
+@font-face {
+  font-family: Zeit;
+  src: url("../resources/fonts/Zeit-Light.otf") format("opentype");
 }
 
 body {
-    margin: 0;
-    font-family:Arial, Helvetica, sans-serif; 
-    max-width: 100%;
-    overflow-x: hidden;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  font-family: Zeit, Arial, Helvetica, sans-serif; 
+  max-width: 100%;
+  overflow-x: hidden;
+  background-color: var(--white)
 }
-  
+
+.btn-custom {
+  background-color: var(--dark_red);
+  border-color: var(--light_orange);
+}
+
+.btn-custom:hover {
+  background-color: var(--light_red);
+  border-color: var(--light_orange);
+}
+
+.bg-boxes {
+  background-color: var(--dark_orange);
+  color: var
+}
+
 .navbar {
   margin-bottom: 20px;
   text-transform: uppercase;
+  font-size: 1.6rem;
 }
 
 #mainLogo{
-  width: 80px;
-  height:80px;
+  width: 48px;
+  height: 48px;
 }
 
 #portrait{
   border-radius: 50%;
 }
 
-/* footer{
-  width: 100%;
-  height: 100px;
-  display: flex;
-  justify-content: space-evenly;
-  flex-wrap: wrap;
-  color: white;
-  background: grey; 
-}
-
-footer p{
-display: flex;
-text-align: center;
-align-items: center;
-margin: 0
-} */
