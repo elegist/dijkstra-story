@@ -3,21 +3,6 @@ import nodeRelations from "../resources/nodeRelations.json" assert { type: "json
 
 console.clear();
 
-let graph = {
-    A: { B: 2, C: 3 },
-    B: { A: 2, C: 4, D: 5 },
-    C: { A: 3, B: 4 },
-    D: { B: 5 },
-};
-
-let graph2 = {
-    A: { B: 6, D: 1 },
-    B: { A: 6, C: 5, D: 2, E: 2 },
-    C: { B: 5, E: 5 },
-    D: { A: 1, B: 2, E: 1 },
-    E: { B: 2, C: 5, D: 1 },
-};
-
 let network = document.getElementById("GraphNetwork");
 
 let testGraph = new Map();
@@ -40,7 +25,7 @@ testGraph.forEach((neighbors, node) => {
 
         let dPath = `M ${startNodePosX} ${startNodePosY} L ${endNodePosX} ${endNodePosY}`;
         let dStroke = "red";
-        let dStrokeWidth = "3";
+        let dStrokeWidth = "1";
         let dFill = "none";
 
         const path = document.createElementNS(
@@ -122,4 +107,6 @@ const findShortestPath = (graph, start, end) => {
     }
 };
 
-console.log(findShortestPath(testGraph, "helper-point", "helper-point_4"));
+// console.log(findShortestPath(testGraph, "node-position-00", "node-position-17"));
+
+export default findShortestPath;

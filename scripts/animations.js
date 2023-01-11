@@ -211,5 +211,11 @@ const endNodeSelectedTimeline = () => {
         );
 };
 
+const pathVisualization = () => {
+    let timeline = gsap.timeline();
+
+
+}
+
 //TODO: let user start the timeline by clicking a button?
 beginningTimeline();

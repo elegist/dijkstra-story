@@ -1,53 +1,351 @@
 [
     {
-        "id": "helper-point",
+        "id": "node-position-00",
+        "title": "title-00",
+        "story": "story-00",
         "neighbors": [
             {
-                "id": "helper-point_2",
-                "weight": 2
+                "id": "node-position-01",
+                "weight": 7
             },
             {
-                "id": "helper-point_3",
+                "id": "node-position-02",
+                "weight": 8
+            },
+            {
+                "id": "node-position-07",
                 "weight": 3
+            },
+            {
+                "id": "node-position-14",
+                "weight": 6
             }
         ]
     },
     {
-        "id": "helper-point_2",
+        "id": "node-position-01",
+        "title": "title-01",
+        "story": "story-01",
         "neighbors": [
             {
-                "id": "helper-point",
+                "id": "node-position-00",
+                "weight": 7
+            },
+            {
+                "id": "node-position-04",
+                "weight": 7
+            },
+            {
+                "id": "node-position-05",
+                "weight": 2
+            }
+        ]
+    },
+    {
+        "id": "node-position-02",
+        "title": "title-02",
+        "story": "story-02",
+        "neighbors": [
+            {
+                "id": "node-position-00",
+                "weight": 8
+            },
+            {
+                "id": "node-position-06",
+                "weight": 7
+            }
+        ]
+    },
+    {
+        "id": "node-position-03",
+        "title": "title-03",
+        "story": "story-03",
+        "neighbors": [
+            {
+                "id": "node-position-06",
+                "weight": 6
+            },
+            {
+                "id": "node-position-17",
+                "weight": 7
+            }
+        ]
+    },
+    {
+        "id": "node-position-04",
+        "title": "title-04",
+        "story": "story-04",
+        "neighbors": [
+            {
+                "id": "node-position-01",
+                "weight": 7
+            },
+            {
+                "id": "node-position-05",
+                "weight": 5
+            },
+            {
+                "id": "node-position-08",
+                "weight": 2
+            }
+        ]
+    },
+    {
+        "id": "node-position-05",
+        "title": "title-05",
+        "story": "story-05",
+        "neighbors": [
+            {
+                "id": "node-position-01",
                 "weight": 2
             },
             {
-                "id": "helper-point_3",
-                "weight": 4
+                "id": "node-position-04",
+                "weight": 5
             },
             {
-                "id": "helper-point_4",
+                "id": "node-position-08",
+                "weight": 3
+            },
+            {
+                "id": "node-position-09",
+                "weight": 7
+            }
+        ]
+    },
+    {
+        "id": "node-position-06",
+        "title": "title-06",
+        "story": "story-06",
+        "neighbors": [
+            {
+                "id": "node-position-02",
+                "weight": 2
+            },
+            {
+                "id": "node-position-03",
+                "weight": 6
+            },
+            {
+                "id": "node-position-09",
                 "weight": 5
             }
         ]
     },
     {
-        "id": "helper-point_3",
-        "neighbors":[
+        "id": "node-position-07",
+        "title": "title-07",
+        "story": "story-07",
+        "neighbors": [
             {
-                "id": "helper-point",
+                "id": "node-position-00",
                 "weight": 3
             },
             {
-                "id": "helper-point_2",
-                "weight": 4
+                "id": "node-position-08",
+                "weight": 9
+            },
+            {
+                "id": "node-position-11",
+                "weight": 6
             }
         ]
     },
     {
-        "id": "helper-point_4",
-        "neighbors":[
+        "id": "node-position-08",
+        "title": "title-08",
+        "story": "story-08",
+        "neighbors": [
             {
-                "id": "helper-point_2",
+                "id": "node-position-04",
+                "weight": 2
+            },
+            {
+                "id": "node-position-05",
+                "weight": 3
+            },
+            {
+                "id": "node-position-07",
+                "weight": 9
+            },
+            {
+                "id": "node-position-09",
                 "weight": 5
+            },
+            {
+                "id": "node-position-12",
+                "weight": 6
+            }
+        ]
+    },
+    {
+        "id": "node-position-09",
+        "title": "title-09",
+        "story": "story-09",
+        "neighbors": [
+            {
+                "id": "node-position-05",
+                "weight": 7
+            },
+            {
+                "id": "node-position-06",
+                "weight": 5
+            },
+            {
+                "id": "node-position-08",
+                "weight": 5
+            },
+            {
+                "id": "node-position-13",
+                "weight": 2
+            }
+        ]
+    },
+    {
+        "id": "node-position-10",
+        "title": "title-10",
+        "story": "story-10",
+        "neighbors": [
+            {
+                "id": "node-position-17",
+                "weight": 9
+            }
+        ]
+    },
+    {
+        "id": "node-position-11",
+        "title": "title-11",
+        "story": "story-11",
+        "neighbors": [
+            {
+                "id": "node-position-07",
+                "weight": 6
+            },
+            {
+                "id": "node-position-12",
+                "weight": 8
+            },
+            {
+                "id": "node-position-14",
+                "weight": 7
+            },
+            {
+                "id": "node-position-15",
+                "weight": 7
+            }
+        ]
+    },
+    {
+        "id": "node-position-12",
+        "title": "title-12",
+        "story": "story-12",
+        "neighbors": [
+            {
+                "id": "node-position-08",
+                "weight": 6
+            },
+            {
+                "id": "node-position-11",
+                "weight": 8
+            },
+            {
+                "id": "node-position-15",
+                "weight": 5
+            },
+            {
+                "id": "node-position-16",
+                "weight": 8
+            }
+        ]
+    },
+    {
+        "id": "node-position-13",
+        "title": "title-13",
+        "story": "story-13",
+        "neighbors": [
+            {
+                "id": "node-position-09",
+                "weight": 2
+            },
+            {
+                "id": "node-position-17",
+                "weight": 9
+            }
+        ]
+    },
+    {
+        "id": "node-position-14",
+        "title": "title-14",
+        "story": "story-14",
+        "neighbors": [
+            {
+                "id": "node-position-00",
+                "weight": 6
+            },
+            {
+                "id": "node-position-11",
+                "weight": 7
+            },
+            {
+                "id": "node-position-15",
+                "weight": 5
+            }
+        ]
+    },
+    {
+        "id": "node-position-15",
+        "title": "title-15",
+        "story": "story-15",
+        "neighbors": [
+            {
+                "id": "node-position-11",
+                "weight": 7
+            },
+            {
+                "id": "node-position-12",
+                "weight": 5
+            },
+            {
+                "id": "node-position-14",
+                "weight": 5
+            },
+            {
+                "id": "node-position-16",
+                "weight": 5
+            }
+        ]
+    },
+    {
+        "id": "node-position-16",
+        "title": "title-16",
+        "story": "story-16",
+        "neighbors": [
+            {
+                "id": "node-position-12",
+                "weight": 8
+            },
+            {
+                "id": "node-position-15",
+                "weight": 5
+            }
+        ]
+    },
+    {
+        "id": "node-position-17",
+        "title": "title-17",
+        "story": "story-17",
+        "neighbors": [
+            {
+                "id": "node-position-03",
+                "weight": 7
+            },
+            {
+                "id": "node-position-10",
+                "weight": 9
+            },
+            {
+                "id": "node-position-13",
+                "weight": 9
             }
         ]
     }
