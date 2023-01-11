@@ -36,6 +36,8 @@ testGraph.forEach((neighbors, node) => {
         path.setAttribute("stroke", dStroke);
         path.setAttribute("stroke-width", dStrokeWidth);
         path.setAttribute("fill", dFill);
+        path.setAttribute("data-from", document.getElementById(node).id);
+        path.setAttribute("data-to", document.getElementById(neighbor).id);
 
         network.appendChild(path);
     });
@@ -52,10 +54,12 @@ const findShortestPath = (graph, start, end) => {
     //FIXME: If two edges have the same weight, the algorithm does not always pick the real shortest path, and does not go back to check so.
     let path = [];
     let queue = [];
+    let prev = new Map();
     let distances = new Map();
 
     graph.forEach((value, key) => {
         distances.set(key, Infinity);
+        prev.set(key, null);
         queue.push(key);
     });
 
@@ -81,7 +85,15 @@ const findShortestPath = (graph, start, end) => {
 
         if (currentNode === end) {
             path.push(currentNode);
-            return path;
+            let result = [];
+
+            while(prev.get(currentNode) != null) {
+                result.push(currentNode);
+                currentNode = prev.get(currentNode);
+            }
+            result.push(start);
+
+            return result.reverse();
         }
 
         path.push(currentNode);
@@ -94,19 +106,15 @@ const findShortestPath = (graph, start, end) => {
 
         currentNeighbors.forEach((weight, neighbor) => {
             if (queue.includes(neighbor)) {
-                if (distances.get(neighbor) === Infinity) {
-                    distances.set(neighbor, weight);
-                } else {
-                    distances.set(
-                        neighbor,
-                        distances.get(neighbor) + weight
-                    );
+                if (distances.get(currentNode) + weight < distances.get(neighbor)) {
+                    distances.set(neighbor, distances.get(currentNode) + weight);
+                    prev.set(neighbor, currentNode)
                 }
             }
         });
     }
 };
 
-// console.log(findShortestPath(testGraph, "node-position-00", "node-position-17"));
+console.log(findShortestPath(testGraph, "node-position-00", "node-position-17"));
 
-export default findShortestPath;
+//export default findShortestPath;
