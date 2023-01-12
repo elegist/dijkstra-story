@@ -5,17 +5,17 @@ console.clear();
 
 let network = document.getElementById("GraphNetwork");
 
-let testGraph = new Map();
+let graph = new Map();
 
 nodeRelations.forEach((relation) => {
     let neighborMap = new Map();
     relation.neighbors.forEach((neighbor) => {
         neighborMap.set(neighbor.id, neighbor.weight);
-        testGraph.set(relation.id, neighborMap);
+        graph.set(relation.id, neighborMap);
     });
 });
 
-testGraph.forEach((neighbors, node) => {
+graph.forEach((neighbors, node) => {
     neighbors.forEach((weight, neighbor) => {
         let startNodePosX = document.getElementById(node).getAttribute("cx");
         let startNodePosY = document.getElementById(node).getAttribute("cy");
@@ -32,10 +32,11 @@ testGraph.forEach((neighbors, node) => {
             "http://www.w3.org/2000/svg",
             "path"
         );
+        path.classList.add("path-between-nodes");
         path.setAttribute("d", dPath);
-        path.setAttribute("stroke", dStroke);
-        path.setAttribute("stroke-width", dStrokeWidth);
-        path.setAttribute("fill", dFill);
+        // path.setAttribute("stroke", dStroke);
+        // path.setAttribute("stroke-width", dStrokeWidth);
+        // path.setAttribute("fill", dFill);
         path.setAttribute("data-from", document.getElementById(node).id);
         path.setAttribute("data-to", document.getElementById(neighbor).id);
 
@@ -115,6 +116,4 @@ const findShortestPath = (graph, start, end) => {
     }
 };
 
-console.log(findShortestPath(testGraph, "node-position-00", "node-position-17"));
-
-//export default findShortestPath;
+export {graph, findShortestPath};

@@ -13,6 +13,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/TextPlugin.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/MotionPathPlugin.min.js"></script>
     <title>Dijkstra</title>
     <link rel="stylesheet" href="/styles/dijkstra.css" />
 </head>
@@ -25,7 +26,8 @@
         <p class="text-center fs-4 explanation-text" id="explanationText"></p>
         <div class="row d-flex justify-content-center">
             <div class="algorithm-container col-6 mx-2">
-                <svg class="img-fluid" id="graphNetwork" width="1000" height="800" viewBox="0 0 1000 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg class="img-fluid" id="graphNetwork" width="1000" height="800" viewBox="0 0 1000 800" fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
                     <g id="GraphNetwork">
                         <rect width="1000" height="800" fill="#F9F0E5" />
                         <g id="nodes">
@@ -675,6 +677,28 @@
                             </g>
                         </g>
                     </g>
+                    <g id="pencil">
+                        <rect width="100" height="100" fill="none" />
+                        <path
+                            d="M79.0389 8.52571L52.5099 35.0547L57.3181 42.7962L65.0596 47.6044L91.5886 21.0754L79.0389 8.52571Z"
+                            fill="#E9F4FC" />
+                        <path
+                            d="M79.0389 8.52571L52.5099 35.0547L52.9739 38.452L56.3713 38.9161L82.9003 12.3871L79.0389 8.52571Z"
+                            fill="#C9E3F7" />
+                        <path
+                            d="M87.7271 17.2139L61.1981 43.7429L61.6622 47.1403L65.0596 47.6044L91.5886 21.0754L87.7271 17.2139Z"
+                            fill="#78B9EB" />
+                        <path d="M52.5099 35.0547L50 50.1143L65.0596 47.6044L52.5099 35.0547Z" fill="#FFEFD9" />
+                        <path d="M50 50.1143L65.0596 47.6044L58.7848 41.3295" fill="#FFD6A0" />
+                        <path d="M93.0363 19.6271L80.4866 7.07733L77.5905 9.97341L90.1402 22.5231L93.0363 19.6271Z"
+                            fill="#FFC170" />
+                        <path d="M93.0363 19.6271L86.7614 13.3522L83.8653 16.2483L90.1402 22.5231L93.0363 19.6271Z"
+                            fill="#FF9811" />
+                        <path
+                            d="M93.0363 19.6271L93.5193 19.1447C96.9793 15.6847 96.9793 10.0549 93.5193 6.59497C90.0594 3.13501 84.4296 3.13501 80.9696 6.59497L80.4866 7.07733L93.0363 19.6271Z"
+                            fill="#FFD6A0" />
+                        <path d="M51.2634 42.5336L50 50.1143L57.5807 48.8509L51.2634 42.5336Z" fill="#3C5D76" />
+                    </g>
                 </svg>
 
             </div>
@@ -813,7 +837,7 @@
     </div>
 
     <script src="/scripts/graphSvgPreparation.js"></script>
-    <!-- <script src="/scripts/animations.js"></script> -->
+    <script src="/scripts/animations.js" type="module"></script>
     <script src="/scripts/dijkstra.js" type="module"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
