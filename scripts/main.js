@@ -5,14 +5,14 @@ gsap.from(infoBoxes, {
     scrollTrigger: {
         trigger: "#infoBoxes",
         toggleActions: "restart none none none",
-        start: "top"
+        start: "top 20%"
     },
     y: 50,
     autoAlpha: 0,
     stagger: 0.2,
     onComplete: function() {
       gsap.from(cardIcons, {
-        scale: 0.9,
+        scale: 0.5,
         repeat: -1,
         yoyo: true
       })
