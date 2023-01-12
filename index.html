@@ -25,31 +25,28 @@
     <title>Dijkstra</title>
 </head>
 
-<body>
+<body">
     <!-- navbar -->
-    <nav class="navbar navbar-expand-xl navbar-dark bg-dark py-3" aria-label="navbar">
+    <nav class="navbar navbar-expand-xl navbar-light bg-custom fixed-top py-3" aria-label="#navbar">
         <div class="container">
             <!--LOGO-->
             <a href="#" class="navbar-brand">
                 <img id="mainLogo" src="./resources/imgs/SVG/logo.svg">
             </a>
             <!--Navbar Collapse Btn-->
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav" aria-controls="navbar">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar">
                 <div class="navbar-toggler-icon"></div>
             </button>
             <div class="collapse navbar-collapse" id="navbar">
                 <ul class="navbar-nav">
-                    <li class="nav-item" aria-current="page">
-                        <a href="#intro" class="nav-link">Einleitung</a>
+                    <li class="nav-item">
+                        <a href="#infoBoxes" class="nav-link">Algorithmus</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#description" class="nav-link">Algorithmus</a>
+                        <a href="#creator" class="nav-link">Schöpfer</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#inDepth" class="nav-link">Vertiefung</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#summary" class="nav-link">Zusammenfassung</a>
+                        <a href="#example" class="nav-link">Beispiel</a>
                     </li>
 
                 </ul> 
@@ -58,10 +55,10 @@
     </nav>
 
     <!-- main content -->
-
-    <section id="intro" class="p-5 text-center text-sm-start align-items-center">
-        <div class="container border-bottom">
-            <div class="d-lg-flex align-items-center justify-content-between">
+    <div id="wrapper">
+    <section id="intro" class="p-5 text-center text-sm-start">
+        <div class="container">
+            <div class="d-sm-flex">
                 <div>
                     <h1 id="mainHeading"> 
                         Dijkstra Algorithmus
@@ -70,105 +67,112 @@
                         Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At
                     </p>
                     <p class="my-1">
-                        Brauchst du keine Einführung? Dann springe direkt in die Anwendung!
+                        Klicke hier um den Algorithmus auszuprobieren!
                     </p>
-                    <button id="goToApp" class="btn btn-custom btn-lg my-1">
-                        zur Anwendung
-                    </button>     
+                    <a href="/dijkstra.html" target="_blank" class="btn btn-custom btn-lg my-1 " role="button">
+                        zur Anwendung <i class="bi bi-box-arrow-right"></i>
+                    </a>    
                 </div>
-                <img id="introImg" class="img-fluid w-50 d-sm-block" src="./resources/imgs/SVG/logo.svg" alt="dijkstra graph without annotations">
+                <img id="introImg" class="img-fluid w-50 d-none d-sm-block" src="./resources/imgs/SVG/logo.svg" alt="dijkstra graph without annotations">
             </div>
         </div>
     </section>
 
-    <section id="infoBoxes" class="p-5">
+    <section id="infoBoxes" class="p-5 border-top">
         <div class="container">
+
             <div class="row text-center g-3 py-3">
                 <div class="col-md">
                     <div class="infoBox card bg-boxes text-dark">
                         <div class="card-body text-center">
-                            <div class="h1 mb-3">
-                                <span class="bi bi-person-square"></span>
+                            <div class="h1 cardIcon mb-3">
+                                <i class="bi bi-patch-question"></i>
                             </div>
-                            <h3 class="card-title mb-3">Funktionsweise</h3>
-                            <p class="card-text">
-                                
-                            </p>
+                            <h3 class="card-title mb-3">Das Problem</h3>
                         </div>
                     </div>
                 </div>
-                <div class="col-md">
-                    <div class="infoBox card bg-boxes text-dark">
-                        <div class="card-body text-center">
-                            <div class="h1 mb-3">
-                                <span class="bi bi-person-square"></span>
-                            </div>
-                            <h3 class="card-title mb-3">Ablauf</h3>
-                            <p class="card-text">
-                                
+                <div class="col-md-9">
+                    <div class="infoBox">
+                        <div class="text-center">
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt ducimus tempore mollitia veritatis beatae repudiandae! Voluptatum, expedita voluptatem, placeat nulla exercitationem sit dolore vel commodi aspernatur ratione odit aliquam. Quisquam modi reiciendis fugiat eligendi nobis. Facere voluptatibus rem quas ab, doloremque necessitatibus ex dolores magnam dolorem pariatur molestias nulla accusantium possimus in quia? Reprehenderit omnis molestias animi, corrupti id commodi dolorem soluta sit minus earum voluptatum, voluptate dignissimos nesciunt. Aperiam in nam ex quia optio sapiente assumenda dignissimos est reprehenderit aliquam temporibus dolor soluta asperiores iusto consectetur, corrupti saepe vel. Nostrum illum eos consectetur ex, culpa dolorem commodi veritatis quisquam sed, iusto blanditiis impedit, voluptas laborum! Aliquid tempora, nulla architecto alias illum repudiandae animi placeat nam, cum accusantium doloribus dolore ipsam numquam quo facere consequuntur.
                             </p>
                         </div>
                     </div>  
                 </div>
-                <div class="col-md">
-                    <div class="infoBox card bg-boxes text-dark">
-                        <div class="card-body text-center">
-                            <div class="h1 mb-3">
-                                <span class="bi bi-person-square"></span>
-                            </div>
-                            <h3 class="card-title mb-3">Vertiefung</h3>
-                            <p class="card-text">
-                                
-                            </p>
-                        </div>
-                    </div>
-                </div>
             </div>
+
             <div class="row text-center g-3 py-3">
                 <div class="col-md">
                     <div class="infoBox card bg-boxes text-dark">
                         <div class="card-body text-center">
-                            <div class="h1 mb-3">
-                                <span class="bi bi-person-square"></span>
+                            <div class="h1 cardIcon mb-3">
+                                <i class="bi bi-check2"></i>
                             </div>
-                            <h3 class="card-title mb-3">Funktionsweise</h3>
-                            <p class="card-text">
-                                
-                            </p>
+                            <h3 class="card-title mb-3">Die Lösung</h3>
                         </div>
                     </div>
                 </div>
-                <div class="col-md">
-                    <div class="infoBox card bg-boxes text-dark">
-                        <div class="card-body text-center">
-                            <div class="h1 mb-3">
-                                <span class="bi bi-person-square"></span>
-                            </div>
-                            <h3 class="card-title mb-3">Ablauf</h3>
-                            <p class="card-text">
-                                
+                <div class="col-md-9">
+                    <div class="infoBox text-dark">
+                        <div class="text-center">
+                            <p>
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem libero, nam sit ipsum culpa rem.
                             </p>
                         </div>
                     </div>  
                 </div>
+            </div>
+
+            <div class="row text-center g-3 py-3">
                 <div class="col-md">
                     <div class="infoBox card bg-boxes text-dark">
                         <div class="card-body text-center">
-                            <div class="h1 mb-3">
-                                <span class="bi bi-person-square"></span>
+                            <div class="h1 cardIcon mb-3">
+                                <i class="bi bi-gear"></i>
                             </div>
-                            <h3 class="card-title mb-3">Vertiefung</h3>
-                            <p class="card-text">
-                                
-                            </p>
+                            <h3 class="card-title mb-3">Funktionsweise</h3>
                         </div>
                     </div>
                 </div>
+                <div class="col-md-9">
+                    <div class="infoBox text-dark">
+                        <div class="text-center">
+                            <p>
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem libero, nam sit ipsum culpa rem.
+                            </p>
+                        </div>
+                    </div>  
+                </div>
             </div>
+
+            <div class="row text-center g-3 py-3">
+                <div class="col-md">
+                    <div class="infoBox card bg-boxes text-dark">
+                        <div class="card-body text-center">
+                            <div class="h1 cardIcon mb-3">
+                                <i class="bi bi-info-circle"></i>
+                            </div>
+                            <h3 class="card-title mb-3">Zusammenfassung</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="infoBox text-dark">
+                        <div class="text-center">
+                            <p>
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem libero, nam sit ipsum culpa rem.
+                            </p>
+                        </div>
+                    </div>  
+                </div>
+            </div>
+
         </div>
     </section>
 
-    <section id="moreInfo" class="p-5">
+    <section id="creator" class="p-5 border-top">
         <div class="container">
             <div class="row align-items-center justify-content-between">
                 <div class="col-md">
@@ -189,7 +193,7 @@
         </div>
     </section>
     
-    <section id="moreInfo2" class="p-5 bg-dark text-light">
+    <section id="example" class="p-5 bg-dark text-light">
         <div class="container">
             <div class="row align-items-center justify-content-between">
                 <div class="col-md p-5">
@@ -209,14 +213,17 @@
             </div>
         </div>
     </section>
+</div>
 
     <footer class="p-5 bg-custom text-dark text-center position-relative">
-        <container>
+        <div class="container">
             <p>Projektarbeit für den Studiengang Medieninformatik an der THM Friedberg. Erstellt von Julius Wissemann und Robin Patzak.</p>
-            <a href="#" class="position-absolute bottom-0 end-0 p-5">
+
+            <button type="button" class="btn btn-lg position-absolute bottom-0 end-0 p-5" id="btn-to-top">
                 <span class="bi bi-arrow-up-circle h1"></span>
-            </a>
-        </container>
+            </button>
+
+        </div>
     </footer>
 
     <!-- scripts -->

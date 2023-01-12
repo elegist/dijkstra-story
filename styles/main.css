@@ -1,9 +1,4 @@
 :root {
-  --thm_green: rgb(128, 186, 36);
-  --thm_grey: rgb(74, 92, 102);
-  --text_color_light: rgb(0, 0, 0); /* change */
-  --text_color_dark: rgb(255, 255, 255); /* change */
-
   --light_green: #cad3a9;
   --white: #f6f1e4;
   --light-orange: #f4db97;
@@ -18,16 +13,19 @@
   src: url("../resources/fonts/Zeit-Light.otf") format("opentype");
 }
 
+
 body {
-  width: 100vw;
-  height: 100vh;
   margin: 0;
-  font-family: Zeit, Arial, Helvetica, sans-serif; 
+  font-family: Arial, Helvetica, sans-serif;
   max-width: 100%;
   overflow-x: hidden;
   background-color: var(--white)
 }
 
+/* buttons */
+.bg-custom{
+  background-color: var(--light-orange)
+}
 
 .btn-custom {
   background-color: var(--dark_red);
@@ -39,22 +37,38 @@ body {
   border-color: var(--light_orange);
 }
 
+/* main heading*/
 #mainHeading{
   font-weight: bold;
-}
-
-.border-bottom{
-  border-color: black;
 }
 
 .bg-boxes {
   background-color: var(--dark_orange);
 }
 
+/* navbar and navlinks*/
 .navbar {
-  margin-bottom: 20px;
   text-transform: uppercase;
   font-size: 1.6rem;
+}
+
+.nav-link {
+  position: relative;
+}
+
+.nav-link::after{
+  content:'';
+  opacity: 0;
+  transition: all 0.2;
+  height: 2px;
+  width: 100%;
+  background-color:black;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+.nav-link:hover::after{
+  opacity: 1;
 }
 
 #mainLogo{
