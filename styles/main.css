@@ -16,6 +16,8 @@
 
 body {
   margin: 0;
+  width: 100vw;
+  height: 100vh;
   font-family: Arial, Helvetica, sans-serif;
   max-width: 100%;
   overflow-x: hidden;

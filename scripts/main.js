@@ -4,17 +4,17 @@ let cardIcons = $(".cardIcon");
 gsap.from(infoBoxes, {
     scrollTrigger: {
         trigger: "#infoBoxes",
-        toggleActions: "restart none none none",
-        start: "top 20%"
+        toggleActions: "play pause resume none",
     },
     y: 50,
     autoAlpha: 0,
     stagger: 0.2,
+    duration: 1,
     onComplete: function() {
       gsap.from(cardIcons, {
         scale: 0.5,
-        repeat: -1,
-        yoyo: true
+        repeat: 2,
+        yoyo: true,
       })
     }
 });
