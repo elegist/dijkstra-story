@@ -1,115 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <!-- Bootstrap -->
-        <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
-            rel="stylesheet"
-            integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
-            crossorigin="anonymous"
-        />
-        <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
-            crossorigin="anonymous"
-        ></script>
-        <link
-            rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css"
-        />
-        <!-- Custom styles -->
-        <link rel="stylesheet" href="/styles/main.css" />
-        <title>Dijkstra Story</title>
-    </head>
 
-    <body>
-        <div class="container">
-            <nav class="navbar navbar-expand-lg bg-custom-light">
-                <div class="container-fluid">
-                    <a href="#" class="navbar-brand">
-                        <img src="/resources/icons/logo.svg" alt="Logo" />
-                        <span class="d-none d-lg-inline text-color-dark"
-                            >Dijkstra Story</span
-                        >
-                    </a>
-                    <button
-                        class="navbar-toggler"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#navbarLinks"
-                        aria-controls="navbarLinks"
-                        aria-expanded="false"
-                        aria-label="Toggle navigation"
-                    >
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="navbarLinks">
-                        <ul class="navbar-nav">
-                            <li class="nav-item py-2">
-                                <a
-                                    href="#"
-                                    aria-current="page"
-                                    class="nav-link active"
-                                    data-bs-toggle="collapse"
-                                    data-bs-target="#navbarLinks"
-                                    >Der Algorithmus</a
-                                >
-                            </li>
-                            <li class="nav-item py-2">
-                                <a
-                                    href="#"
-                                    aria-current="page"
-                                    class="nav-link"
-                                    data-bs-toggle="collapse"
-                                    data-bs-target="#navbarLinks"
-                                    >Der Schöpfer</a
-                                >
-                            </li>
-                            <li class="nav-item py-2">
-                                <a
-                                    href="#"
-                                    aria-current="page"
-                                    class="nav-link"
-                                    data-bs-toggle="collapse"
-                                    data-bs-target="#navbarLinks"
-                                    >Ein Beispiel</a
-                                >
-                            </li>
-                        </ul>
-                    </div>
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css" />
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="/styles/main.css" />
+    <title>Dijkstra Story</title>
+</head>
+
+<body>
+    <div class="container">
+        <nav class="navbar sticky-top navbar-expand-lg bg-custom-light">
+            <div class="container-fluid">
+                <a href="#" class="navbar-brand">
+                    <img src="/resources/icons/logo.svg" alt="Logo" />
+                    <span class="d-none d-lg-inline text-color-dark">Dijkstra Story</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarLinks"
+                    aria-controls="navbarLinks" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarLinks">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item py-2">
+                            <a href="#algorithmInfo" aria-current="page" class="nav-link active">Der Algorithmus
+                            </a>
+                        </li>
+                        <li class="nav-item py-2">
+                            <a href="#" aria-current="page" class="nav-link">Der Schöpfer
+                            </a>
+                        </li>
+                        <li class="nav-item py-2">
+                            <a href="#" aria-current="page" class="nav-link">Ein Beispiel
+                            </a>
+                        </li>
+                    </ul>
                 </div>
-            </nav>
+            </div>
+        </nav>
 
-            <section class="hero container-fluid text-center bg-custom-light">
-                <h1 class="fw-bold">Dijkstra Story</h1>
-                <img
-                    src="/resources/imgs/SVG/hero-logo.svg"
-                    alt=""
-                    class="img-fluid"
-                />
-                <div class="lead mx-auto">
+        <section class="hero container-fluid text-center bg-custom-light">
+            <h1 class="fw-bold">Dijkstra Story</h1>
+            <div class="row text-center">
+                <img src="/resources/imgs/SVG/hero-logo.svg" alt="" class="img-fluid col-lg-5" />
+                <div class="lead mx-auto col-lg-7 m-auto">
                     <p>
                         Der Dijkstra Algorithmus ist einer der wichtigsten
                         Wegfindungsalgorithmen. Doch was passiert, wenn der
                         Dijkstra versucht eine Geschichte zu generieren?
                     </p>
                     <div class="d-grid gap-2">
-                        <a
-                            class="btn btn-info btn-lg px-4"
-                            href="/dijkstra.html"
-                        >
+                        <a class="btn btn-info btn-lg px-4" href="/dijkstra.html">
                             Generiere Deine Story!
                         </a>
                     </div>
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <section class="algorithm-info container-fluid text-center bg-custom-light">
-                
-            </section>
-        </div>
-    </body>
+        <section class="algorithm-info container-fluid text-center bg-custom-light">
+            <h1 class="fw-bold">Der Algorithmus</h1>
+            <div class="algorithm-card-container">
+                <div class="algorithm-card">
+                    <h1 class="algorithm-card-title">Problemstellung</h1>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab pariatur error corporis quasi
+                        nesciunt
+                        non, sapiente adipisci dolores fugiat vero odio quo doloribus repudiandae molestias nostrum at.
+                        Dolores, facilis maxime.</p>
+                </div>
+                <div class="algorithm-card">
+                    <h1 class="algorithm-card-title">Lösung</h1>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti perferendis quam quis quos
+                        fuga
+                        facere, culpa ratione architecto consequuntur quo, qui suscipit repudiandae quasi quod ducimus
+                        eligendi quia sunt nesciunt quae quisquam recusandae? Sit corrupti vero aliquam facilis,
+                        adipisci
+                        repudiandae.</p>
+                </div>
+                <div class="algorithm-card">
+                    <h1 class="algorithm-card-title">Funktionsweise</h1>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. In, quas veniam perferendis recusandae
+                        deserunt accusantium eum voluptas ea suscipit distinctio, culpa amet totam debitis quaerat?</p>
+                </div>
+                <div class="algorithm-card">
+                    <h1 class="algorithm-card-title">Zusammenfassung</h1>
+                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptas, odio. Quibusdam cum explicabo
+                        adipisci commodi animi, officiis ab aspernatur delectus molestias culpa obcaecati laborum totam
+                        eligendi et dignissimos facere minus repellat assumenda.</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+
+        </section>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/Flip.min.js"></script>
+    <script src="/scripts/main.js"></script>
+</body>
+
 </html>

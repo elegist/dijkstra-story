@@ -1,62 +1,33 @@
-let infoBoxes = $(".infoBox");
-let cardIcons = $(".cardIcon");
 
-gsap.from(infoBoxes, {
-    scrollTrigger: {
-        trigger: "#infoBoxes",
-        toggleActions: "play pause resume none",
-    },
-    y: 50,
-    autoAlpha: 0,
-    stagger: 0.2,
-    duration: 1,
-    onComplete: function() {
-      gsap.from(cardIcons, {
-        scale: 0.5,
-        repeat: 2,
-        yoyo: true,
-      })
-    }
+
+// cards
+
+const algorithmCards = document.querySelectorAll(".algorithm-card");
+console.log(algorithmCards);
+
+algorithmCards.forEach((card, index) => {
+    card.addEventListener("click", () => {
+        const state = Flip.getState(algorithmCards);
+
+        const isCardActive = card.classList.contains("active");
+
+        algorithmCards.forEach((otherCard, otherIndex) => {
+            otherCard.classList.remove("active");
+            otherCard.classList.remove("inactive");
+
+            if (!isCardActive && index !== otherIndex) {
+                otherCard.classList.add("inactive");
+            }
+        });
+
+        if (!isCardActive) {
+            card.classList.add("active");
+        }
+
+        Flip.from(state, {
+            duration: 0.5,
+            ease: "expo.inOut",
+            absolute: true,
+        });
+    });
 });
-
-/* extra padding for body so navbar won't overlap with content */
-navbar_height = $(".navbar").outerHeight(true);
-$("body").css("padding-top", navbar_height)
-
-/* offset for clicking nav-links */
-$("html").css("scroll-padding-top", navbar_height)
-
-/* back to top btn */
-$("#btn-to-top").click( function(){
-  window.scrollTo(0, 0);
-});
-
-/* Info Text. Run on server for it to work 
-var infoTextObj;
-function initText() {
-  $.ajax({
-    url: "./resources/strings/strings.json"
-  }).done(function(data) {
-    infoTextObj = data;
-  });
-}
-
-function addInfoText(text) {
-    $(textItem).html(text[1]);
-    console.log(text[1])
-}  
-
-$(document).ready(function() {
-    initText();
-    addInfoText(infoTextObj);
-  });
-
-*/
-
-
-
-
-
-
-
-

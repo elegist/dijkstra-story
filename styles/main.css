@@ -179,5 +179,51 @@ p {
 /* sections */
 
 section {
-  min-height: 90vh;
+  min-height: 50vh;
+  padding-top: 1.5rem;
+}
+
+.algorithm-card-container {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 3rem;
+}
+
+.algorithm-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 10rem;
+  border-radius: 1rem;
+  cursor: pointer;
+  background: var(--color-secondary-200);
+  grid-column: span 3;
+  padding: 5rem;
+  box-shadow: 0.2rem 0.2rem 0rem var(--color-dark);
+  border: 0.1rem solid var(--color-dark);
+}
+
+.algorithm-card > .algorithm-card-title {
+  transition: 0.2s;
+}
+
+.algorithm-card > p {
+  display: none;
+}
+.algorithm-card.active > p {
+  display: block;
+  overflow: hidden;
+}
+.algorithm-card.active {
+  grid-column: span 6;
+  grid-row: 1;
+  order: 0;
+  height: auto;
+}
+.algorithm-card.inactive {
+  grid-column: span 2;
+}
+.algorithm-card.inactive > .algorithm-card-title {
+  font-size: 1.5rem;
 }
