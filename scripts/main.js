@@ -1,9 +1,6 @@
-
-
 // cards
 
 const algorithmCards = document.querySelectorAll(".algorithm-card");
-console.log(algorithmCards);
 
 algorithmCards.forEach((card, index) => {
     card.addEventListener("click", () => {
