@@ -1,84 +1,73 @@
-:root {
-  --light_green: #cad3a9;
-  --white: #f6f1e4;
-  --light-orange: #f4db97;
-  --dark_orange: #f0c85f;
-  --dark_red: #e66100;
-  --light_red: #ea8f6d;
-  --blue: #485979;
-}
-
 @font-face {
   font-family: Zeit;
   src: url("../resources/fonts/Zeit-Light.otf") format("opentype");
 }
 
+:root {
+  --color-primary-400: hsl(73, 32%, 75%);
+  --color-primary-200: hsl(73, 32%, 85%);
+  --color-secondary-400: hsl(220, 10%, 43%);
+  --color-secondary-200: hsl(220, 10%, 63%);
+  --color-success-400: hsl(82, 24%, 41%);
+  --color-success-200: hsl(82, 24%, 61%);
+  --color-warning-400: hsl(38, 100%, 48%);
+  --color-warning-200: hsl(38, 100%, 68%);
+  --color-danger-400: hsl(13, 87%, 56%);
+  --color-danger-200: hsl(13, 87%, 76%);
+  --color-info-400: hsl(34, 100%, 81%);
+  --color-info-200: hsl(34, 100%, 91%);
+  --color-light: hsl(31, 94%, 93%);
+  --color-dark: hsl(216, 9%, 21%); 
+
+  --font-family-primary: Zeit;
+  --font-family-heading: var(--font-family-primary);
+  --font-family-body: var(--font-family-primary);
+}
+
+html {
+  scroll-behavior: smooth;
+}
 
 body {
-  margin: 0;
-  width: 100vw;
-  height: 100vh;
-  font-family: Arial, Helvetica, sans-serif;
-  max-width: 100%;
-  overflow-x: hidden;
-  background-color: var(--white)
+  background: var(--color-primary-400);
 }
 
-/* buttons */
-.bg-custom{
-  background-color: var(--light-orange)
+/* backgrounds */
+
+.bg-custom-primary {
+  background: var(--color-primary-400);
+}
+.bg-custom-secondary {
+  background: var(--color-secondary-400);
+}
+.bg-custom-success {
+  background: var(--color-success-400);
+}
+.bg-custom-warning {
+  background: var(--color-warning-400);
+}
+.bg-custom-danger {
+  background: var(--color-danger-400);
+}
+.bg-custom-info {
+  background: var(--color-info-400);
+}
+.bg-custom-light {
+  background: var(--color-light);
+}
+.bg-custom-dark {
+  background: var(--color-dark);
+}
+.bg-custom-dark * {
+  color: white;
 }
 
-.btn-custom {
-  background-color: var(--dark_red);
-  border-color: var(--light_orange);
-}
+/* navbar */
 
-.btn-custom:hover {
-  background-color: var(--light_red);
-  border-color: var(--light_orange);
-}
-
-/* main heading*/
-#mainHeading{
-  font-weight: bold;
-}
-
-.bg-boxes {
-  background-color: var(--dark_orange);
-}
-
-/* navbar and navlinks*/
 .navbar {
-  text-transform: uppercase;
-  font-size: 1.6rem;
+  font-family: var(--font-family-heading);
 }
 
-.nav-link {
-  position: relative;
-}
-
-.nav-link::after{
-  content:'';
-  opacity: 0;
-  transition: all 0.2;
-  height: 2px;
-  width: 100%;
-  background-color:black;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-}
-.nav-link:hover::after{
-  opacity: 1;
-}
-
-#mainLogo{
+.navbar-brand > img {
   width: 64px;
-  height: 64px;
 }
-
-#portrait{
-  border-radius: 50%;
-}
-
