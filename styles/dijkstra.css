@@ -1,9 +1,9 @@
 body {
+    
     background-color: #cad3a9;
 }
 
-.algorithm-container {
-    max-width: fit-content;
+#algorithm-container {
     background-color: #f9f0e5;
     box-shadow: 0 0.25em 0.25em rgba(0, 0, 0, 0.33);
 }
@@ -24,4 +24,20 @@ body {
     text-align: center;
     width: 15rem;
     scale: 0;
+}
+
+/* Graph and Nodes */
+.node {
+    fill: #fff;
+    stroke: #000;
+    stroke-width: 1.5px;
+}
+.link {
+    stroke: #000;
+    stroke-width: 1.5px;
+}
+
+.shortest-path {
+    stroke: #ff0000;
+    stroke-width: 2px;
 }
