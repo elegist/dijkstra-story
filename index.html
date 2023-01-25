@@ -1,149 +1,203 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous" />
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
-        crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css"
+    />
     <!-- Custom styles -->
     <link rel="stylesheet" href="/styles/main.css" />
     <title>Dijkstra Story</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <nav class="navbar sticky-top navbar-expand-lg bg-dark shadow">
-        <div class="container">
-            <a href="#" class="navbar-brand">
-                <img src="/resources/icons/logo.svg" alt="Logo" class="brand-logo"/>
-                <span class="d-none d-lg-inline text-color-dark">Dijkstra Story</span>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarLinks"
-                aria-controls="navbarLinks" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarLinks">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item py-2">
-                        <a href="#algorithmInfo" aria-current="page" class="nav-link active">Der Algorithmus
-                        </a>
-                    </li>
-                    <li class="nav-item py-2">
-                        <a href="#" aria-current="page" class="nav-link">Der Schöpfer
-                        </a>
-                    </li>
-                    <li class="nav-item py-2">
-                        <a href="#" aria-current="page" class="nav-link">Ein Beispiel
-                        </a>
-                    </li>
-                </ul>
-            </div>
+      <div class="container">
+        <a href="#" class="navbar-brand">
+          <img src="/resources/icons/logo.svg" alt="Logo" class="brand-logo" />
+          <span class="d-none d-lg-inline">Dijkstra Story</span>
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarLinks"
+          aria-controls="navbarLinks"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarLinks">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item py-2">
+              <a
+                href="#algorithmInfo"
+                aria-current="page"
+                class="nav-link active"
+                >Der Algorithmus
+              </a>
+            </li>
+            <li class="nav-item py-2">
+              <a href="#" aria-current="page" class="nav-link">Der Schöpfer </a>
+            </li>
+            <li class="nav-item py-2">
+              <a href="#" aria-current="page" class="nav-link">Ein Beispiel </a>
+            </li>
+          </ul>
         </div>
+      </div>
     </nav>
 
     <section class="hero container-fluid text-center bg-light-accent pb-4">
-        <div class="container">
-            <h1 class="fw-bold pb-5">Dijkstra Story</h1>
-            <div class="row text-center">
-                <img src="/resources/imgs/SVG/hero-logo.svg" alt="" class="img-fluid col-lg-5" />
-                <div class="lead mx-auto col-lg-7 m-auto">
-                    <p>
-                        Der Dijkstra Algorithmus ist einer der wichtigsten
-                        Wegfindungsalgorithmen. Doch was passiert, wenn der
-                        Dijkstra versucht eine Geschichte zu generieren?
-                    </p>
-                    <div class="d-grid gap-2">
-                        <a class="btn btn-primary btn-lg px-4" href="/dijkstra.html" target="_blank">
-                            Generiere Deine Story!
-                        </a>
-                    </div>
-                </div>
+      <div class="container">
+        <h1 class="fw-bold pb-5 text-color-dark">Dijkstra Story</h1>
+        <div class="row text-center">
+          <img
+            src="/resources/imgs/SVG/hero-logo.svg"
+            alt=""
+            class="img-fluid col-lg-5"
+          />
+          <div class="lead mx-auto col-lg-7 m-auto">
+            <p class="text-color-dark">
+              Der Dijkstra Algorithmus ist einer der wichtigsten
+              Wegfindungsalgorithmen. Doch was passiert, wenn der Dijkstra
+              versucht eine Geschichte zu generieren?
+            </p>
+            <div class="d-grid gap-2">
+              <a
+                class="btn btn-primary btn-lg px-4"
+                href="/dijkstra.html"
+                target="_blank"
+              >
+                Generiere Deine Story!
+              </a>
             </div>
+          </div>
         </div>
+      </div>
     </section>
 
     <div class="container bg-light">
-        <section class="algorithm-info container-fluid text-center">
-            <h1 class="fw-bold pb-5">Der Algorithmus</h1>
-            <div class="algorithm-card-container">
-                <div class="algorithm-card bg-dark-accent">
-                    <h1 class="algorithm-card-title">Problemstellung</h1>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab pariatur error corporis quasi
-                        nesciunt
-                        non, sapiente adipisci dolores fugiat vero odio quo doloribus repudiandae molestias nostrum at.
-                        Dolores, facilis maxime.</p>
-                </div>
-                <div class="algorithm-card bg-dark-accent">
-                    <h1 class="algorithm-card-title">Lösung</h1>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti perferendis quam quis quos
-                        fuga
-                        facere, culpa ratione architecto consequuntur quo, qui suscipit repudiandae quasi quod ducimus
-                        eligendi quia sunt nesciunt quae quisquam recusandae? Sit corrupti vero aliquam facilis,
-                        adipisci
-                        repudiandae.</p>
-                </div>
-                <div class="algorithm-card bg-dark-accent">
-                    <h1 class="algorithm-card-title">Funktionsweise</h1>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. In, quas veniam perferendis recusandae
-                        deserunt accusantium eum voluptas ea suscipit distinctio, culpa amet totam debitis quaerat?</p>
-                </div>
-                <div class="algorithm-card bg-dark-accent">
-                    <h1 class="algorithm-card-title">Zusammenfassung</h1>
-                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptas, odio. Quibusdam cum explicabo
-                        adipisci commodi animi, officiis ab aspernatur delectus molestias culpa obcaecati laborum totam
-                        eligendi et dignissimos facere minus repellat assumenda.</p>
-                </div>
-            </div>
-        </section>
+      <section class="algorithm-info container-fluid text-center">
+        <h1 class="fw-bold pb-5">Der Algorithmus</h1>
+        <div class="algorithm-card-container">
+          <button
+            class="algorithm-card bg-dark-accent"
+            tabindex="0"
+            aria-label="Problemstellung"
+          >
+            <h1 class="algorithm-card-title">Problemstellung</h1>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab
+              pariatur error corporis quasi nesciunt non, sapiente adipisci
+              dolores fugiat vero odio quo doloribus repudiandae molestias
+              nostrum at. Dolores, facilis maxime.
+            </p>
+          </button>
+          <button
+            class="algorithm-card bg-dark-accent"
+            tabindex="0"
+            aria-label="Lösung"
+          >
+            <h1 class="algorithm-card-title">Lösung</h1>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti
+              perferendis quam quis quos fuga facere, culpa ratione architecto
+              consequuntur quo, qui suscipit repudiandae quasi quod ducimus
+              eligendi quia sunt nesciunt quae quisquam recusandae? Sit corrupti
+              vero aliquam facilis, adipisci repudiandae.
+            </p>
+          </button>
+          <button
+            class="algorithm-card bg-dark-accent"
+            tabindex="0"
+            aria-label="Funktionsweise"
+          >
+            <h1 class="algorithm-card-title">Funktionsweise</h1>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. In, quas
+              veniam perferendis recusandae deserunt accusantium eum voluptas ea
+              suscipit distinctio, culpa amet totam debitis quaerat?
+            </p>
+          </button>
+          <button
+            class="algorithm-card bg-dark-accent"
+            tabindex="0"
+            aria-label="Zusammenfassung"
+          >
+            <h1 class="algorithm-card-title">Zusammenfassung</h1>
+            <p>
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+              Voluptas, odio. Quibusdam cum explicabo adipisci commodi animi,
+              officiis ab aspernatur delectus molestias culpa obcaecati laborum
+              totam eligendi et dignissimos facere minus repellat assumenda.
+            </p>
+          </button>
+        </div>
+      </section>
 
-        <section class="dijkstra-info container-fluid text-center pb-3">
-            <h1 class="fw-bold pb-5">Der Schöpfer</h1>
-            <div class="row m-auto">
-                <img src="/resources/imgs/450px-Edsger_Wybe_Dijkstra.jpg" class="img-fluid dijkstra-img m-auto col-lg-7"></img>
-                <div class="col-lg-5 m-auto">
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque eum recusandae corporis ipsam
-                        repellendus maxime expedita dolor! Harum at labore, ipsum natus vero pariatur laudantium? Sed
-                        ea, ipsum magni nemo iste, tempore, omnis quidem excepturi deserunt perspiciatis numquam. Omnis,
-                        ullam. Quidem architecto sit quod quam, officia consectetur ex officiis pariatur itaque laborum
-                        ullam, asperiores molestias earum et vero corrupti amet at provident. Dolorem illo quaerat
-                        architecto nostrum aut ea reiciendis.</p>
-                </div>
-            </div>
-        </section>
+      <section class="dijkstra-info container-fluid text-center pb-3">
+        <h1 class="fw-bold pb-5">Der Schöpfer</h1>
+        <div class="row m-auto">
+          <img
+            src="/resources/imgs/450px-Edsger_Wybe_Dijkstra.jpg"
+            class="img-fluid dijkstra-img m-auto col-lg-7"
+            alt="Edsger Dijkstra"
+          />
+          <div class="col-lg-5 m-auto">
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque eum
+              recusandae corporis ipsam repellendus maxime expedita dolor! Harum
+              at labore, ipsum natus vero pariatur laudantium? Sed ea, ipsum
+              magni nemo iste, tempore, omnis quidem excepturi deserunt
+              perspiciatis numquam. Omnis, ullam. Quidem architecto sit quod
+              quam, officia consectetur ex officiis pariatur itaque laborum
+              ullam, asperiores molestias earum et vero corrupti amet at
+              provident. Dolorem illo quaerat architecto nostrum aut ea
+              reiciendis.
+            </p>
+          </div>
+        </div>
+      </section>
     </div>
 
     <footer class="py-3 bg-dark">
-        <div class="container d-flex flex-wrap justify-content-between align-items-center">
-            <p class="col-md-4 mb-0 text-muted">&copy; 2022-2023 Robin Patzak & Julius Wissemann</p>
-            <a href="#" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
-                <img src="/resources/icons/logo.svg" alt="Logo" class="brand-logo"/>
-            </a>
-            <ul class="nav col-md-4 justify-content-end">
-                <li class="nav-item py-2">
-                    <a href="#algorithmInfo" class="nav-link text-muted">Der Algorithmus
-                    </a>
-                </li>
-                <li class="nav-item py-2">
-                    <a href="#" class="nav-link text-muted">Der Schöpfer
-                    </a>
-                </li>
-                <li class="nav-item py-2">
-                    <a href="#" class="nav-link text-muted">Ein Beispiel
-                    </a>
-                </li>
-            </ul>
-        </div>
+      <div
+        class="container d-flex flex-wrap justify-content-between align-items-center"
+      >
+        <p class="col-md-4 mb-0 text-muted">
+          &copy; 2022-2023 Robin Patzak & Julius Wissemann
+        </p>
+        <a
+          href="#"
+          class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none"
+        >
+          <img src="/resources/icons/logo.svg" alt="Logo" class="brand-logo" />
+        </a>
+        <p class="nav col-md-4 justify-content-end">
+          Entstanden als Studienprojekt
+        </p>
+      </div>
     </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/Flip.min.js"></script>
     <script src="/scripts/main.js"></script>
-</body>
-
+  </body>
 </html>
