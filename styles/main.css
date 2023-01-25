@@ -79,6 +79,9 @@ body {
   background: linear-gradient(
     var(--color-light-accent),
     var(--color-light-accent),
+    var(--color-light-accent),
+    var(--color-light-accent),
+    var(--color-light-accent),
     transparent
   );
 }
