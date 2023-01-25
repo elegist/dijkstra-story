@@ -22,6 +22,8 @@ tlHero
     "-=0.3"
   );
 
+// algorithm info section
+
 gsap.to(".algorithm-card", {
   scrollTrigger: {
     trigger: ".algorithm-card",
@@ -33,6 +35,8 @@ gsap.to(".algorithm-card", {
   stagger: 0.1,
 });
 
+// dijkstra info section
+
 gsap.to(".dijkstra-info", {
   scrollTrigger: {
     trigger: ".dijkstra-info",
@@ -43,6 +47,8 @@ gsap.to(".dijkstra-info", {
   opacity: 1,
   y: 0,
 });
+
+// pros and cons section
 
 gsap.from(".list-group-item", {
   scrollTrigger: {
