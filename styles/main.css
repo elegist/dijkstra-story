@@ -205,6 +205,20 @@ p {
   font-family: var(--font-family-heading);
 }
 
+.hero {
+  /* Hiding the hero for aninmation initially */
+  clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0%, 100%);
+  opacity: 0;
+  transform: translateY(100px);
+}
+
+.dijkstra-info {
+  /* Hiding the section for aninmation initially */
+  clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0%, 100%);
+  opacity: 0;
+  transform: translateY(100px);
+}
+
 .brand-logo {
   width: 64px;
 }
@@ -227,6 +241,10 @@ section {
   width: 90%;
   margin: 1rem;
   padding: 2rem;
+
+  /* hiding card initially for animations */
+  clip-path: polygon(0 0, 0 0, 0 100%, 0 100%);
+  opacity: 0;
 }
 
 .algorithm-card:last-child {
@@ -244,6 +262,7 @@ section {
 
 .algorithm-card.active > p {
   display: block;
+  width: 65ch;
   overflow: hidden;
 }
 
