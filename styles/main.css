@@ -37,10 +37,6 @@
   --breakpoint-xxl: 1400px;
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
 body {
   background: var(--color-light);
 }

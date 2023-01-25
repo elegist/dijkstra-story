@@ -91,3 +91,20 @@ algorithmCards.forEach((card, index) => {
     });
   };
 });
+
+// scroll to's
+
+let navLinks = document.querySelectorAll(".nav-link");
+
+navLinks.forEach((link, index) => {
+  link.addEventListener("click", () => {
+    gsap.to(window, {
+      duration: 0.7,
+      scrollTo: {
+        y: "#section" + (index + 1),
+        offsetY: 180,
+        ease: "power4.inOut",
+      },
+    });
+  });
+});
