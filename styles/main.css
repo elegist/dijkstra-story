@@ -262,7 +262,6 @@ section {
 
 .algorithm-card.active > p {
   display: block;
-  width: 65ch;
   overflow: hidden;
 }
 
@@ -303,6 +302,12 @@ section {
     grid-row: 1;
     order: 0;
     height: auto;
+  }
+
+  .algorithm-card.active > p {
+    display: block;
+    width: 65ch;
+    overflow: hidden;
   }
 
   .algorithm-card.inactive {
