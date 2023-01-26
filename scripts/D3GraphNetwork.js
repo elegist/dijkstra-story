@@ -1,30 +1,42 @@
+import { timeline } from "./animations.js";
 // Graph data
 let graph = {
     "nodes": [
-        { "id": "A", "text": "I was in the middle of a dense jungle, trying to find a way out", "startNode": "false" },
+        { "id": "A", "text": "I was in the middle of a dense jungle, trying to find a way out"},
         { "id": "B", "text": "Suddenly, a giant pink elephant appeared out of nowhere and offered to guide me out", "startNode": "true" },
-        { "id": "C", "text": "As we walked, the elephant told me stories of its adventures in space" },
-        { "id": "D", "text": "I couldn't believe what I was hearing, but I didn't want to question it and spoil the moment" },
+        { "id": "C", "text": "As we walked, the elephant told me stories of its adventures in space", "startNode": "true"},
+        { "id": "D", "text": "I couldn't believe what I was hearing, but I didn't want to question it and spoil the moment", "startNode": "true"},
         { "id": "E", "text": "We reached the edge of the jungle and the elephant bid me farewell and flew off into space" },
         { "id": "F", "text": "I was left standing there, wondering if it had all been a dream" },
-        { "id": "G", "text": "I decided to continue my journey and came across a group of talking cacti" },
-        { "id": "H", "text": "They invited me to join their cactus society and learn the secrets of time travel" },
+        { "id": "G", "text": "I decided to continue my journey and came across a group of talking cacti", "endNode": "true"},
+        { "id": "H", "text": "They invited me to join their cactus society and learn the secrets of time travel", "endNode": "true"},
         { "id": "I", "text": "I couldn't resist and joined them on their journey through time", "endNode": "true" },
     ],
     "links": [
         { "source": "A", "target": "B", "weight": 1 },
         { "source": "B", "target": "A", "weight": 1 },
         { "source": "A", "target": "C", "weight": 2 },
+        { "source": "C", "target": "A", "weight": 2 },
         { "source": "B", "target": "D", "weight": 3 },
+        { "source": "D", "target": "B", "weight": 3 },
         { "source": "C", "target": "D", "weight": 4 },
+        { "source": "D", "target": "C", "weight": 4 },
         { "source": "C", "target": "E", "weight": 2 },
+        { "source": "E", "target": "C", "weight": 2 },
         { "source": "D", "target": "E", "weight": 1 },
+        { "source": "E", "target": "D", "weight": 1 },
         { "source": "E", "target": "F", "weight": 3 },
+        { "source": "F", "target": "E", "weight": 3 },
         { "source": "F", "target": "G", "weight": 2 },
+        { "source": "G", "target": "F", "weight": 2 },
         { "source": "G", "target": "H", "weight": 4 },
+        { "source": "H", "target": "G", "weight": 4 },
         { "source": "H", "target": "I", "weight": 5 },
+        { "source": "I", "target": "H", "weight": 5 },
         { "source": "F", "target": "I", "weight": 1 },
+        { "source": "I", "target": "F", "weight": 1 },
         { "source": "I", "target": "C", "weight": 6 },
+        { "source": "C", "target": "I", "weight": 6 },
     ]
 };
 
@@ -71,20 +83,19 @@ let node = svg.append("g")
 d3.selectAll(".node")
     .filter(function (d) { return d.startNode === "true" })
     .classed("start-node", true)
-    .classed("node", false)
+//.classed("node", false)
 
 d3.selectAll(".node")
     .filter(function (d) { return d.endNode === "true" })
     .classed("end-node", true)
-    .classed("node", false)
+//.classed("node", false)
 
-svg.on("mouseover", function (d){
-    zoomToArea(d3.select(".start-node"))
-});
+// svg.on("mouseover", function (d){
+//     zoomToArea(d3.select(".start-node"))
+// });
 
-node.on("mouseover", function (d) {
+node.on("mouseover", function () {
     let selectedNode = d3.select(this).datum();
-    console.log(d.x, d.y)
     displayTooltipText(selectedNode)
 });
 
@@ -93,21 +104,27 @@ node.on("mouseout", function () {
     hideTooltipText(selectedNode)
 });
 
+let startNode;
 d3.selectAll(".start-node")
-    .on("click", function (d) {
-        console.log("StartSelection")
-        d3.select(this).on("click", null)
+    .on("click", function () {
+        console.log("startNode")
+        startNode = d3.select(this).datum()
+        d3.selectAll(".start-node").on("click", null)
         endSelection()
+        timeline.play()
     })
 
+let endNode;
 function endSelection() {
     d3.selectAll(".end-node")
-        .on("click", function (d) {
-            console.log("EndingSelection")
-            d3.select(this).on("click", null)
+        .on("click", function () {
+            console.log("endNode")
+            endNode = d3.select(this).datum()
+            d3.selectAll(".end-node").on("click", null)
+            let result = dijkstra(graph, startNode.id, endNode.id)
+            convertPath(result)
         })
 }
-
 
 // Function to update the node and link positions on each tick of the force layout (multiple ticks per second)
 function ticked() {
@@ -116,7 +133,7 @@ function ticked() {
         .attr("x2", function (d) { return d.target.x; })
         .attr("y2", function (d) { return d.target.y; });
 
-        
+
     node.attr("cx", function (d) { return d.x; })
         .attr("cy", function (d) { return d.y; });
     // node.attr("transform", function(d) {
@@ -137,14 +154,11 @@ function zoomed(event) {
     link.attr("transform", event.transform);
 }
 
-function zoomToArea(node){
-    var x = node.attr("cx")
-    console.log(x)
-    var y = node.attr("cy")
-    console.log(y)
-    zoom.translateTo(svgZoom, x, y)
-}
-
+// function zoomToArea(node) {
+//     var x = node.attr("cx")
+//     var y = node.attr("cy")
+//     zoom.translateTo(svgZoom, x, y)
+// }
 
 // function to display the text of a node
 function displayTooltipText(selectedNode) {
@@ -158,7 +172,6 @@ function displayTooltipText(selectedNode) {
     textDiv.append("p")
         .text(selectedNode.text);
 }
-
 
 // function to display the text of a node
 function hideTooltipText(selectedNode) {
@@ -274,19 +287,23 @@ class PriorityQueue {
     }
 }
 
-let startNodeId = "A";
-let endNodeId = "I";
-let result = dijkstra(graph, startNodeId, endNodeId);
-console.log(result)
+// let startNodeId = "A";
+// let endNodeId = "I";
+// let result = dijkstra(graph, startNodeId, endNodeId);
+// console.log(result)
 
-let nodesInPath = []
-for (let i = 0; i < result.path.length; i++) {
-    let nodetmp = graph.nodes.filter(function (d) {
-        return d.id === result.path[i];
-    });
-    nodesInPath.push(nodetmp[0]);
-    displayNodeText(nodetmp[0])
+function convertPath(result) {
+    let nodesInPath = []
+    for (let i = 0; i < result.path.length; i++) {
+        let nodetmp = graph.nodes.filter(function (d) {
+            return d.id === result.path[i];
+        });
+        nodesInPath.push(nodetmp[0]);
+        displayNodeText(nodetmp[0])
+    }
 }
+
+
 
 
 

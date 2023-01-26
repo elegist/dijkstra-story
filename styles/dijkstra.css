@@ -5,6 +5,7 @@ body {
 #algorithm-container {
     background-color: #f9f0e5;
     box-shadow: 0 0.25em 0.25em rgba(0, 0, 0, 0.33);
+    position: relative;
 }
 
 #result-container {
@@ -15,6 +16,10 @@ body {
 
 .hover {
     cursor: pointer;
+}
+
+#explanation-text{
+    position: absolute;
 }
 
 .story-preview-hide {
@@ -32,7 +37,6 @@ body {
     width: 15rem;
     scale: 1;
 }
-
 
 #textBox{
     background-color: #fed9ff;
