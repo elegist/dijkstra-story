@@ -247,8 +247,9 @@ section {
   margin-bottom: 0;
 }
 
-.algorithm-card > p {
+.algorithm-card > :not(.algorithm-card-title) {
   display: none;
+  text-align: left;
 }
 
 .algorithm-card > .algorithm-card-title {
@@ -256,7 +257,7 @@ section {
   transition: 0.2s;
 }
 
-.algorithm-card.active > p {
+.algorithm-card.active > :not(.algorithm-card-title) {
   display: block;
   overflow: hidden;
 }

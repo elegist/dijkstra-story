@@ -113,10 +113,14 @@
           >
             <h1 class="algorithm-card-title">Problemstellung</h1>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab
-              pariatur error corporis quasi nesciunt non, sapiente adipisci
-              dolores fugiat vero odio quo doloribus repudiandae molestias
-              nostrum at. Dolores, facilis maxime.
+              Dir ist ein Netzwerk an verschiedenen Knoten bekannt, und zwischen
+              all diesen Knoten bestehen Verbindungen dargestellt durch eine
+              <span class="fst-italic">Adjazenzmatrix</span>. <br />
+              Diese Verbindungen zwischen den Knoten haben alle eine bestimmte
+              nicht-negativwertige Gewichtung, die die Distanz verdeutlicht. Du
+              möchtest nun herausfinden, über welche Verbindungen man wohl den
+              kürzesten Weg - oder anders gesagt, den Weg mit der geringsten
+              Gewichtung - nehmen könnte.
             </p>
           </button>
           <button
@@ -126,11 +130,10 @@
           >
             <h1 class="algorithm-card-title">Lösung</h1>
             <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti
-              perferendis quam quis quos fuga facere, culpa ratione architecto
-              consequuntur quo, qui suscipit repudiandae quasi quod ducimus
-              eligendi quia sunt nesciunt quae quisquam recusandae? Sit corrupti
-              vero aliquam facilis, adipisci repudiandae.
+              Der Dijkstra Algorithmus prüft alle Verbindungen mit den
+              entsprechenden Gewichtungen zu benachbarten Knoten. Dabei werden
+              Gewichtungen entsprechend aufaddiert, um zu gewährleisten, dass
+              der Weg kostenmäßig auch wirklich der kürzeste Weg ist.
             </p>
           </button>
           <button
@@ -139,10 +142,44 @@
             aria-label="Funktionsweise"
           >
             <h1 class="algorithm-card-title">Funktionsweise</h1>
+            <p>Der Algorithmus kann in folgende Schritte aufgeteilt werden:</p>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. In, quas
-              veniam perferendis recusandae deserunt accusantium eum voluptas ea
-              suscipit distinctio, culpa amet totam debitis quaerat?
+              1. Der Startknoten des Graphen bekommt in einer Tabelle den Wert 0
+              zugewiesen, da die Entfernung vom Startknoten zu sich selbst 0
+              ist. Alle übrigen Knoten bekommen übergangsweise einen Wert von
+              Unendlich zugewiesen, da wir zum momentanen Zeitpunkt noch nicht
+              sagen können, wie weit diese entfernt sind. Mit jedem Schritt im
+              Algorithmus, werden diese Abstände nun Schritt für Schritt
+              aktualisiert.
+            </p>
+            <p>
+              2. Bevor wir nun Nachbarn untersuchen, legen wir noch eine Liste
+              mit Vorgängerknoten an, damit wir rückverfolgen können, welcher
+              Weg der Kürzeste ist. In diesem Schritt ist der Vorgängerknoten
+              der Startknoten selbst und alle anderen Knoten bekommen den Wert
+              "null", also unbekannt.
+            </p>
+            <p>
+              3. Der untersuchte Knoten wird in eine Warteschlange eingefügt,
+              aus welchem nun der Knoten mit den geringsten Kosten betrachtet
+              wird. Da bisher nur der Startknoten in der Warteschlange ist, ist
+              dieser der zu betrachtende Knoten.
+            </p>
+            <p>
+              4. Wir schauen uns nun die Distanzen zu jedem benachbarten Knoten
+              an. Die neuen Wegkosten berechnen sich aus dem momentanen Wert des
+              untersuchten Knotens plus den Wert der Kante, der zu dem Nachbarn
+              führt. Die Nachbarn werden nun in die Warteschlange aufgenommen.
+            </p>
+            <p>
+              5. Aus der Warteschlange nehmen wir uns erneut den Knoten mit den
+              geringsten Kosten und betrachten wieder dessen Nachbarn
+            </p>
+            <p>
+              6. Definieren wir dem Algorithmus einen Zielknoten, so überprüfen
+              wir bei jedem Nachbarn, ob dieser schon der gewollte Zielknoten
+              ist und terminieren den Algorithmus in diesem Fall. Wir haben
+              hiermit den kürzesten Weg herausgefunden.
             </p>
           </button>
           <button
@@ -152,10 +189,13 @@
           >
             <h1 class="algorithm-card-title">Zusammenfassung</h1>
             <p>
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-              Voluptas, odio. Quibusdam cum explicabo adipisci commodi animi,
-              officiis ab aspernatur delectus molestias culpa obcaecati laborum
-              totam eligendi et dignissimos facere minus repellat assumenda.
+              Durch den Dijkstra Algorithmus ist eine effiziente Methode
+              gegeben, den kürzesten Weg in einem beliebigen Graph aus Knoten zu
+              finden. Wir betrachten jeden Knoten, aktualisieren die Kosten um
+              zu diesem zu gelangen, schauen die Nachbarn an und wiederholen
+              diesen Schritt für jeden Nachbarn iterativ. <br />
+              Eingesetzt wird der Dijkstra in Bereichen wie Navigation, Routing
+              und Netzwerk Design.
             </p>
           </button>
         </div>

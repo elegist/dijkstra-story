@@ -108,3 +108,5 @@ navLinks.forEach((link, index) => {
     });
   });
 });
+
+// algorithm explanations
