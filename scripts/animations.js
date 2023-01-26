@@ -1,16 +1,15 @@
 import { graph, findShortestPath } from "./dijkstra.js";
-import nodeContents from "../resources/nodeContents.json" assert { type: "json" };
 
-console.clear();
+//console.clear();
 
 gsap.set(".pin", { opacity: 0 });
-gsap.set(".path-between-nodes", { opacity: 0 });
+gsap.set(".links", { opacity: 0 });
 gsap.set("#pencil", { opacity: 0 });
 
 const viewBoxWidth = 1000;
 const viewBoxHeight = 800;
 
-const startNodeContainer = document.getElementById("start-nodes");
+const startNodeContainer = document.getElementsByClassName("start-nodes");
 const endNodeContainer = document.getElementById("end-nodes");
 
 let selectedStartNode, selectedEndNode;
@@ -282,13 +281,13 @@ const endNodeSelectedTimeline = () => {
 };
 
 const pathVisualization = (start, end) => {
-    gsap.set(".path-between-nodes", { opacity: 1 });
+    gsap.set(".links", { opacity: 1 });
     gsap.set("#pencil", { opacity: 1 });
 
     let timeline = gsap.timeline();
 
     let visitedNodes = findShortestPath(graph, start, end);
-    const allPaths = document.querySelectorAll(".path-between-nodes");
+    const allPaths = document.querySelectorAll(".links");
 
     let path = [];
 
@@ -315,7 +314,7 @@ const pathVisualization = (start, end) => {
     });
 
     timeline
-        .from(".path-between-nodes", { opacity: 0 })
+        .from(".links", { opacity: 0 })
         .from("#pencil", { opacity: 0 })
         .add(algorithmViewportAnimation(path, nodesPosX, nodesPosY))
         .add(algorithmPencilAnimation(path), "<+=4")

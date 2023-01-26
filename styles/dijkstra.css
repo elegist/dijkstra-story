@@ -1,5 +1,4 @@
 body {
-    
     background-color: #cad3a9;
 }
 
@@ -8,8 +7,8 @@ body {
     box-shadow: 0 0.25em 0.25em rgba(0, 0, 0, 0.33);
 }
 
-.result-container {
-    max-width: fit-content;
+#result-container {
+    height: 80vh;
     background-color: #f9f0e5;
     box-shadow: 0 0.25em 0.25em rgba(0, 0, 0, 0.33);
 }
@@ -18,7 +17,7 @@ body {
     cursor: pointer;
 }
 
-.story-preview {
+.story-preview-hide {
     position: absolute;
     background: #ffd6a0;
     text-align: center;
@@ -26,9 +25,38 @@ body {
     scale: 0;
 }
 
+.story-preview-show {
+    position: absolute;
+    background: #ffd6a0;
+    text-align: center;
+    width: 15rem;
+    scale: 1;
+}
+
+
+#textBox{
+    background-color: #fed9ff;
+    overflow-x: hidden;
+    overflow-y:scroll;
+    text-align: center;
+    padding: 20px;
+}
+
 /* Graph and Nodes */
 .node {
     fill: #fff;
+    stroke: #000;
+    stroke-width: 1.5px;
+}
+
+.start-node {
+    fill: #ff0000;
+    stroke: #000;
+    stroke-width: 1.5px;
+}
+
+.end-node {
+    fill: #00ff00;
     stroke: #000;
     stroke-width: 1.5px;
 }

@@ -22,7 +22,7 @@ gsap.from(infoBoxes, {
 /* extra padding for body so navbar won't overlap with content */
 navbar_height = $(".navbar").outerHeight(true);
 $("body").css("padding-top", navbar_height)
-
+console.log(navbar_height)
 /* offset for clicking nav-links */
 $("html").css("scroll-padding-top", navbar_height)
 

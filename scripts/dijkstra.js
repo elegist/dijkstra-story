@@ -1,7 +1,7 @@
-import PriorityQueue from "./priorityQueue.js";
-import nodeRelations from "../resources/nodeRelations.json" assert { type: "json" };
+//import PriorityQueue from "./priorityQueue.js";
+//import nodeRelations from "../resources/nodeRelations.json" assert { type: "json" };
 
-console.clear();
+//console.clear();
 
 let network = document.getElementById("GraphNetwork");
 
