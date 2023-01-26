@@ -17,7 +17,7 @@
   --color-info-500: hsl(165, 7%, 11%);
   --color-info-700: hsl(165, 7%, 1%);
 
-  --color-light: hsl(43, 34%, 88%);
+  --color-light: hsl(43, 34%, 80%);
   --color-light-accent: hsl(98, 14%, 64%);
   --color-main: hsl(41, 36%, 53%);
   --color-dark-accent: hsl(17, 22%, 41%);
@@ -73,6 +73,26 @@ body {
 
 .bg-dark * {
   color: var(--color-neutral-200) !important;
+}
+
+.bg-fade-bottom {
+  background: linear-gradient(
+    var(--color-light-accent),
+    var(--color-light-accent),
+    var(--color-light-accent),
+    var(--color-light-accent),
+    var(--color-light-accent),
+    transparent
+  );
+}
+
+.bg-fade-top-bottom {
+  background: linear-gradient(
+    transparent,
+    var(--color-light-accent),
+    var(--color-light-accent),
+    transparent
+  );
 }
 
 /* texts */
