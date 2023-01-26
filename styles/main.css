@@ -247,17 +247,17 @@ section {
   margin-bottom: 0;
 }
 
-.algorithm-card > :not(.algorithm-card-title) {
+.algorithm-card> :not(.algorithm-card-title) {
   display: none;
   text-align: left;
 }
 
-.algorithm-card > .algorithm-card-title {
+.algorithm-card>.algorithm-card-title {
   font-size: 1.2rem;
   transition: 0.2s;
 }
 
-.algorithm-card.active > :not(.algorithm-card-title) {
+.algorithm-card.active> :not(.algorithm-card-title) {
   display: block;
   overflow: hidden;
 }
@@ -267,8 +267,13 @@ section {
   border-radius: 2rem;
 }
 
-.dijkstra-info > .row {
+.dijkstra-info>.row {
   width: 75%;
+}
+
+.about-dijkstra {
+  width: 50ch;
+  text-align: justify;
 }
 
 @media screen and (min-width: 992px) {
@@ -290,7 +295,7 @@ section {
     margin: 0;
   }
 
-  .algorithm-card > .algorithm-card-title {
+  .algorithm-card>.algorithm-card-title {
     font-size: 2rem;
   }
 
@@ -301,7 +306,7 @@ section {
     height: auto;
   }
 
-  .algorithm-card.active > p {
+  .algorithm-card.active>p {
     display: block;
     width: 65ch;
     overflow: hidden;
@@ -311,7 +316,7 @@ section {
     grid-column: span 2;
   }
 
-  .algorithm-card.inactive > .algorithm-card-title {
+  .algorithm-card.inactive>.algorithm-card-title {
     font-size: 1.5rem;
   }
 
@@ -321,7 +326,7 @@ section {
 }
 
 @media screen and (min-width: 1400px) {
-  .dijkstra-info > .row {
+  .dijkstra-info>.row {
     width: 100%;
   }
 }
