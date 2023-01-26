@@ -1,236 +1,388 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!-- Bootstrap -->
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+            crossorigin="anonymous"
+        />
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+            crossorigin="anonymous"
+        ></script>
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css"
+        />
+        <!-- Custom styles -->
+        <link rel="stylesheet" href="/styles/main.css" />
+        <title>Dijkstra Story</title>
+    </head>
 
-<head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous" />
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
-        crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css" />
-    <!-- Custom styles -->
-    <link rel="stylesheet" href="/styles/main.css" />
-    <title>Dijkstra Story</title>
-</head>
-
-<body>
-    <nav class="navbar sticky-top navbar-expand-lg bg-dark shadow">
-        <div class="container">
-            <a href="#" class="navbar-brand">
-                <img src="/resources/icons/logo.svg" alt="Logo" class="brand-logo" />
-                <span class="d-none d-lg-inline">Dijkstra Story</span>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarLinks"
-                aria-controls="navbarLinks" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarLinks">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item py-2">
-                        <a href="#" aria-current="page" class="nav-link">Home </a>
-                    </li>
-                    <li class="nav-item py-2">
-                        <a href="#" aria-current="page" class="nav-link active">Der Algorithmus
-                        </a>
-                    </li>
-                    <li class="nav-item py-2">
-                        <a href="#" aria-current="page" class="nav-link">Der Schöpfer </a>
-                    </li>
-                    <li class="nav-item py-2">
-                        <a href="#" aria-current="page" class="nav-link">Vor- & Nachteile
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-
-    <section id="section1" class="hero container-fluid text-center bg-light-accent pb-4">
-        <div class="container">
-            <h1 class="fw-bold pb-5 text-color-dark">Dijkstra Story</h1>
-            <div class="row text-center">
-                <img src="/resources/imgs/SVG/hero-logo.svg" alt="" class="img-fluid col-lg-5" />
-                <div class="lead mx-auto col-lg-7 m-auto">
-                    <p class="text-color-dark">
-                        Der Dijkstra Algorithmus ist einer der wichtigsten
-                        Wegfindungsalgorithmen. Doch was passiert, wenn der Dijkstra
-                        versucht eine Geschichte zu generieren?
-                    </p>
-                    <div class="d-grid">
-                        <a id="appLink" class="btn btn-primary btn-lg px-4" href="/dijkstra.html" target="_blank">
-                            <i class="bi bi-box-arrow-up-right"></i> Probiere es aus!
-                        </a>
-                    </div>
+    <body>
+        <nav id="navbar" class="navbar sticky-top navbar-expand-lg bg-dark shadow">
+            <div class="container">
+                <a href="#" class="navbar-brand">
+                    <img
+                        src="/resources/icons/logo.svg"
+                        alt="Logo"
+                        class="brand-logo"
+                    />
+                    <span class="d-none d-lg-inline">Dijkstra Story</span>
+                </a>
+                <button
+                    class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarLinks"
+                    aria-controls="navbarLinks"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+                >
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarLinks">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item py-2">
+                            <a
+                                href="#"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#navbarLinks"
+                                aria-current="page"
+                                class="nav-link"
+                                >Home
+                            </a>
+                        </li>
+                        <li class="nav-item py-2">
+                            <a
+                                href="#"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#navbarLinks"
+                                aria-current="page"
+                                class="nav-link active"
+                                >Der Algorithmus
+                            </a>
+                        </li>
+                        <li class="nav-item py-2">
+                            <a
+                                href="#"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#navbarLinks"
+                                aria-current="page"
+                                class="nav-link"
+                                >Der Schöpfer
+                            </a>
+                        </li>
+                        <li class="nav-item py-2">
+                            <a
+                                href="#"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#navbarLinks"
+                                aria-current="page"
+                                class="nav-link"
+                                >Vor- & Nachteile
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
-        </div>
-    </section>
+        </nav>
 
-    <section id="section2" class="algorithm-info container-fluid py-3 text-center">
-        <div class="container">
-            <h1 class="fw-bold pb-5">Der Algorithmus</h1>
-            <div class="algorithm-card-container">
-                <button class="algorithm-card bg-dark-accent" tabindex="0" aria-label="Problemstellung">
-                    <h1 class="algorithm-card-title"><i class="bi bi-question-lg"></i> Problemstellung</h1>
-                    <p>
-                        Dir ist ein Netzwerk an verschiedenen Knoten bekannt, und zwischen
-                        all diesen Knoten bestehen Verbindungen dargestellt durch eine
-                        <span class="fst-italic">Adjazenzmatrix</span>. <br />
-                        Diese Verbindungen zwischen den Knoten haben alle eine bestimmte
-                        nicht-negativwertige Gewichtung, die die Distanz verdeutlicht. Du
-                        möchtest nun herausfinden, über welche Verbindungen man wohl den
-                        kürzesten Weg - oder anders gesagt, den Weg mit der geringsten
-                        Gewichtung - nehmen könnte.
-                    </p>
-                </button>
-                <button class="algorithm-card bg-dark-accent" tabindex="0" aria-label="Lösung">
-                    <h1 class="algorithm-card-title"><i class="bi bi-lightbulb"></i> Lösung</h1>
-                    <p>
-                        Der Dijkstra Algorithmus prüft alle Verbindungen mit den
-                        entsprechenden Gewichtungen zu benachbarten Knoten. Dabei werden
-                        Gewichtungen entsprechend aufaddiert, um zu gewährleisten, dass
-                        der Weg kostenmäßig auch wirklich der kürzeste Weg ist.
-                    </p>
-                </button>
-                <button class="algorithm-card bg-dark-accent" tabindex="0" aria-label="Funktionsweise">
-                    <h1 class="algorithm-card-title"><i class="bi bi-gear"></i> Funktionsweise</h1>
-                    <p>Der Algorithmus kann in folgende Schritte aufgeteilt werden:</p>
-                    <p>
-                        1. Der Startknoten des Graphen bekommt in einer Tabelle den Wert 0
-                        zugewiesen, da die Entfernung vom Startknoten zu sich selbst 0
-                        ist. Alle übrigen Knoten bekommen übergangsweise einen Wert von
-                        Unendlich zugewiesen, da wir zum momentanen Zeitpunkt noch nicht
-                        sagen können, wie weit diese entfernt sind. Mit jedem Schritt im
-                        Algorithmus, werden diese Abstände nun Schritt für Schritt
-                        aktualisiert.
-                    </p>
-                    <p>
-                        2. Bevor wir nun Nachbarn untersuchen, legen wir noch eine Liste
-                        mit Vorgängerknoten an, damit wir rückverfolgen können, welcher
-                        Weg der Kürzeste ist. In diesem Schritt ist der Vorgängerknoten
-                        der Startknoten selbst und alle anderen Knoten bekommen den Wert
-                        "null", also unbekannt.
-                    </p>
-                    <p>
-                        3. Der untersuchte Knoten wird in eine Warteschlange eingefügt,
-                        aus welchem nun der Knoten mit den geringsten Kosten betrachtet
-                        wird. Da bisher nur der Startknoten in der Warteschlange ist, ist
-                        dieser der zu betrachtende Knoten.
-                    </p>
-                    <p>
-                        4. Wir schauen uns nun die Distanzen zu jedem benachbarten Knoten
-                        an. Die neuen Wegkosten berechnen sich aus dem momentanen Wert des
-                        untersuchten Knotens plus den Wert der Kante, der zu dem Nachbarn
-                        führt. Die Nachbarn werden nun in die Warteschlange aufgenommen.
-                    </p>
-                    <p>
-                        5. Aus der Warteschlange nehmen wir uns erneut den Knoten mit den
-                        geringsten Kosten und betrachten wieder dessen Nachbarn
-                    </p>
-                    <p>
-                        6. Definieren wir dem Algorithmus einen Zielknoten, so überprüfen
-                        wir bei jedem Nachbarn, ob dieser schon der gewollte Zielknoten
-                        ist und terminieren den Algorithmus in diesem Fall. Wir haben
-                        hiermit den kürzesten Weg herausgefunden.
-                    </p>
-                </button>
-                <button class="algorithm-card bg-dark-accent" tabindex="0" aria-label="Zusammenfassung">
-                    <h1 class="algorithm-card-title"><i class="bi bi-card-checklist"></i> Zusammenfassung</h1>
-                    <p>
-                        Durch den Dijkstra Algorithmus ist eine effiziente Methode
-                        gegeben, den kürzesten Weg in einem beliebigen Graph aus Knoten zu
-                        finden. Wir betrachten jeden Knoten, aktualisieren die Kosten um
-                        zu diesem zu gelangen, schauen die Nachbarn an und wiederholen
-                        diesen Schritt für jeden Nachbarn iterativ. <br />
-                        Eingesetzt wird der Dijkstra in Bereichen wie Navigation, Routing
-                        und Netzwerk Design.
-                    </p>
-                </button>
-            </div>
-        </div>
-    </section>
-
-    <section id="section3" class="dijkstra-info container-fluid text-center bg-light-accent">
-        <div class="container">
-            <h1 class="fw-bold pb-5 text-color-dark">Der Schöpfer</h1>
-            <div class="row m-auto">
-                <img src="/resources/imgs/450px-Edsger_Wybe_Dijkstra.jpg"
-                    class="img-fluid dijkstra-img m-auto col-lg-7 pb-3" alt="Edsger Dijkstra" />
-                <div class="col-lg-5 m-auto">
-                    <p class="text-color-dark about-dijkstra">
-                        Edsger Dijkstra wurde am 11. Mai 1930 in Rotterdam geboren. Er studierte Mathematik und
-                        theoretische Physik an der Universität Leiden. Erst durch Zuspruch von seinem Betreuer am
-                        "Mathematisch Centrum" in Amsterdam wechselte er in das Programmierfeld. Dijkstra wird als
-                        erster Programmierer Niederlandes bezeichnet. Im Zuge seiner Doktorarbeit entwickelte er einen
-                        Digital-Computer genannt Electrologica X1. Später wurde Dijkstra Mathematikprofessor an der
-                        Technischen Hochschule Eindhoven. <br> Dijkstra ist hauptsächlich für die Entwicklung des
-                        namengebenden Dijkstra-Algorithmus bekannt, hat aber unter anderem auch den Bankieralgorithmus
-                        entwickelt, welcher Deadlocks vermeiden soll. Außerdem veröffentlichte er eine wissenschaftliche
-                        Abhandlung mit dem Titel "Go To Statement Considered Harmful", in welchem er über den
-                        GoTo-Befehl schreibt und begründet, warum dieser nicht genutzt werden sollte. Dijkstra führte
-                        den Begriff der strukturierten Programmierung in die Informatik ein. <br> Dijkstra starb am 6.
-                        August 2002 in Nuenen in einem Alter von 71 Jahren.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="section4" class="pros-cons container-fluid text-center pb-3">
-        <div class="container text-center">
-            <h1 class="fw-bold pb-5 text-color-dark">Vor- und Nachteile</h1>
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="list-group py-2">
-                        <div class="list-group-item list-group-item-success">
-                            Vorteile
+        <section
+            id="section1"
+            class="hero container-fluid text-center bg-light-accent pb-4"
+        >
+            <div class="container">
+                <h1 class="fw-bold pb-5 text-color-dark">Dijkstra Story</h1>
+                <div class="row text-center">
+                    <img
+                        src="/resources/imgs/SVG/hero-logo.svg"
+                        alt=""
+                        class="img-fluid col-lg-5"
+                    />
+                    <div class="lead mx-auto col-lg-7 m-auto">
+                        <p class="text-color-dark">
+                            Der Dijkstra Algorithmus ist einer der wichtigsten
+                            Wegfindungsalgorithmen. Doch was passiert, wenn der
+                            Dijkstra versucht eine Geschichte zu generieren?
+                        </p>
+                        <div class="d-grid">
+                            <a
+                                id="appLink"
+                                class="btn btn-primary btn-lg px-4"
+                                href="/dijkstra.html"
+                                target="_blank"
+                            >
+                                <i class="bi bi-box-arrow-up-right"></i>
+                                Probiere es aus!
+                            </a>
                         </div>
-                        <div class="list-group-item">Findet garantiert den kürzesten Weg</div>
-                        <div class="list-group-item">Geringe Komplexität</div>
-                        <div class="list-group-item">Gut geeignet für Szenario mit mehreren Zielknoten</div>
-                        <div class="list-group-item">Braucht nicht zwingend einen Zielknoten</div>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="list-group py-2">
-                        <div class="list-group-item list-group-item-danger">
-                            Nachteile
-                        </div>
-                        <div class="list-group-item">Existiert kein Pfad zum Zielknoten, wird trotzdem über jeden Knoten iteriert</div>
-                        <div class="list-group-item">Nicht effizient bei großen Graphen</div>
-                        <div class="list-group-item">Greedy Algorithm: Nimmt best-aussehendste Option zuerst</div>
-                        <div class="list-group-item">Kommt nicht mit negativen Gewichtungen klar</div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <footer class="py-3 bg-dark">
-        <div class="container d-flex flex-wrap justify-content-between align-items-center">
-            <p class="col-md-4 mb-0 text-muted">
-                &copy; 2022-2023 Robin Patzak & Julius Wissemann
-            </p>
-            <a href="#"
-                class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
-                <img src="/resources/icons/logo.svg" alt="Logo" class="brand-logo" />
-            </a>
-            <p class="nav col-md-4 justify-content-end">
-                Entstanden als Studienprojekt
-            </p>
-        </div>
-    </footer>
+        <section
+            id="section2"
+            class="algorithm-info container-fluid py-3 text-center"
+        >
+            <div class="container">
+                <h1 class="fw-bold pb-5">Der Algorithmus</h1>
+                <div class="algorithm-card-container">
+                    <button
+                        class="algorithm-card bg-dark-accent"
+                        tabindex="0"
+                        aria-label="Problemstellung"
+                    >
+                        <h1 class="algorithm-card-title">
+                            <i class="bi bi-question-lg"></i> Problemstellung
+                        </h1>
+                        <p>
+                            Dir ist ein Netzwerk an verschiedenen Knoten
+                            bekannt, und zwischen all diesen Knoten bestehen
+                            Verbindungen dargestellt durch eine
+                            <span class="fst-italic">Adjazenzmatrix</span>.
+                            <br />
+                            Diese Verbindungen zwischen den Knoten haben alle
+                            eine bestimmte nicht-negativwertige Gewichtung, die
+                            die Distanz verdeutlicht. Du möchtest nun
+                            herausfinden, über welche Verbindungen man wohl den
+                            kürzesten Weg - oder anders gesagt, den Weg mit der
+                            geringsten Gewichtung - nehmen könnte.
+                        </p>
+                    </button>
+                    <button
+                        class="algorithm-card bg-dark-accent"
+                        tabindex="0"
+                        aria-label="Lösung"
+                    >
+                        <h1 class="algorithm-card-title">
+                            <i class="bi bi-lightbulb"></i> Lösung
+                        </h1>
+                        <p>
+                            Der Dijkstra Algorithmus prüft alle Verbindungen mit
+                            den entsprechenden Gewichtungen zu benachbarten
+                            Knoten. Dabei werden Gewichtungen entsprechend
+                            aufaddiert, um zu gewährleisten, dass der Weg
+                            kostenmäßig auch wirklich der kürzeste Weg ist.
+                        </p>
+                    </button>
+                    <button
+                        class="algorithm-card bg-dark-accent"
+                        tabindex="0"
+                        aria-label="Funktionsweise"
+                    >
+                        <h1 class="algorithm-card-title">
+                            <i class="bi bi-gear"></i> Funktionsweise
+                        </h1>
+                        <p>
+                            Der Algorithmus kann in folgende Schritte aufgeteilt
+                            werden:
+                        </p>
+                        <p>
+                            1. Der Startknoten des Graphen bekommt in einer
+                            Tabelle den Wert 0 zugewiesen, da die Entfernung vom
+                            Startknoten zu sich selbst 0 ist. Alle übrigen
+                            Knoten bekommen übergangsweise einen Wert von
+                            Unendlich zugewiesen, da wir zum momentanen
+                            Zeitpunkt noch nicht sagen können, wie weit diese
+                            entfernt sind. Mit jedem Schritt im Algorithmus,
+                            werden diese Abstände nun Schritt für Schritt
+                            aktualisiert.
+                        </p>
+                        <p>
+                            2. Bevor wir nun Nachbarn untersuchen, legen wir
+                            noch eine Liste mit Vorgängerknoten an, damit wir
+                            rückverfolgen können, welcher Weg der Kürzeste ist.
+                            In diesem Schritt ist der Vorgängerknoten der
+                            Startknoten selbst und alle anderen Knoten bekommen
+                            den Wert "null", also unbekannt.
+                        </p>
+                        <p>
+                            3. Der untersuchte Knoten wird in eine Warteschlange
+                            eingefügt, aus welchem nun der Knoten mit den
+                            geringsten Kosten betrachtet wird. Da bisher nur der
+                            Startknoten in der Warteschlange ist, ist dieser der
+                            zu betrachtende Knoten.
+                        </p>
+                        <p>
+                            4. Wir schauen uns nun die Distanzen zu jedem
+                            benachbarten Knoten an. Die neuen Wegkosten
+                            berechnen sich aus dem momentanen Wert des
+                            untersuchten Knotens plus den Wert der Kante, der zu
+                            dem Nachbarn führt. Die Nachbarn werden nun in die
+                            Warteschlange aufgenommen.
+                        </p>
+                        <p>
+                            5. Aus der Warteschlange nehmen wir uns erneut den
+                            Knoten mit den geringsten Kosten und betrachten
+                            wieder dessen Nachbarn
+                        </p>
+                        <p>
+                            6. Definieren wir dem Algorithmus einen Zielknoten,
+                            so überprüfen wir bei jedem Nachbarn, ob dieser
+                            schon der gewollte Zielknoten ist und terminieren
+                            den Algorithmus in diesem Fall. Wir haben hiermit
+                            den kürzesten Weg herausgefunden.
+                        </p>
+                    </button>
+                    <button
+                        class="algorithm-card bg-dark-accent"
+                        tabindex="0"
+                        aria-label="Zusammenfassung"
+                    >
+                        <h1 class="algorithm-card-title">
+                            <i class="bi bi-card-checklist"></i> Zusammenfassung
+                        </h1>
+                        <p>
+                            Durch den Dijkstra Algorithmus ist eine effiziente
+                            Methode gegeben, den kürzesten Weg in einem
+                            beliebigen Graph aus Knoten zu finden. Wir
+                            betrachten jeden Knoten, aktualisieren die Kosten um
+                            zu diesem zu gelangen, schauen die Nachbarn an und
+                            wiederholen diesen Schritt für jeden Nachbarn
+                            iterativ. <br />
+                            Eingesetzt wird der Dijkstra in Bereichen wie
+                            Navigation, Routing und Netzwerk Design.
+                        </p>
+                    </button>
+                </div>
+            </div>
+        </section>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/Flip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/MotionPathPlugin.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollToPlugin.min.js"></script>
-    <script src="/scripts/main.js"></script>
-</body>
+        <section
+            id="section3"
+            class="dijkstra-info container-fluid text-center bg-light-accent"
+        >
+            <div class="container">
+                <h1 class="fw-bold pb-5 text-color-dark">Der Schöpfer</h1>
+                <div class="row m-auto">
+                    <img
+                        src="/resources/imgs/450px-Edsger_Wybe_Dijkstra.jpg"
+                        class="img-fluid dijkstra-img m-auto col-lg-7 pb-3"
+                        alt="Edsger Dijkstra"
+                    />
+                    <div class="col-lg-5 m-auto">
+                        <p class="text-color-dark about-dijkstra">
+                            Edsger Dijkstra wurde am 11. Mai 1930 in Rotterdam
+                            geboren. Er studierte Mathematik und theoretische
+                            Physik an der Universität Leiden. Erst durch
+                            Zuspruch von seinem Betreuer am "Mathematisch
+                            Centrum" in Amsterdam wechselte er in das
+                            Programmierfeld. Dijkstra wird als erster
+                            Programmierer Niederlandes bezeichnet. Im Zuge
+                            seiner Doktorarbeit entwickelte er einen
+                            Digital-Computer genannt Electrologica X1. Später
+                            wurde Dijkstra Mathematikprofessor an der
+                            Technischen Hochschule Eindhoven. <br />
+                            Dijkstra ist hauptsächlich für die Entwicklung des
+                            namengebenden Dijkstra-Algorithmus bekannt, hat aber
+                            unter anderem auch den Bankieralgorithmus
+                            entwickelt, welcher Deadlocks vermeiden soll.
+                            Außerdem veröffentlichte er eine wissenschaftliche
+                            Abhandlung mit dem Titel "Go To Statement Considered
+                            Harmful", in welchem er über den GoTo-Befehl
+                            schreibt und begründet, warum dieser nicht genutzt
+                            werden sollte. Dijkstra führte den Begriff der
+                            strukturierten Programmierung in die Informatik ein.
+                            <br />
+                            Dijkstra starb am 6. August 2002 in Nuenen in einem
+                            Alter von 71 Jahren.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
+        <section
+            id="section4"
+            class="pros-cons container-fluid text-center pb-3"
+        >
+            <div class="container text-center">
+                <h1 class="fw-bold pb-5 text-color-dark">Vor- und Nachteile</h1>
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="list-group py-2">
+                            <div
+                                class="list-group-item list-group-item-success"
+                            >
+                                Vorteile
+                            </div>
+                            <div class="list-group-item">
+                                Findet garantiert den kürzesten Weg
+                            </div>
+                            <div class="list-group-item">
+                                Geringe Komplexität
+                            </div>
+                            <div class="list-group-item">
+                                Gut geeignet für Szenario mit mehreren
+                                Zielknoten
+                            </div>
+                            <div class="list-group-item">
+                                Braucht nicht zwingend einen Zielknoten
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="list-group py-2">
+                            <div class="list-group-item list-group-item-danger">
+                                Nachteile
+                            </div>
+                            <div class="list-group-item">
+                                Existiert kein Pfad zum Zielknoten, wird
+                                trotzdem über jeden Knoten iteriert
+                            </div>
+                            <div class="list-group-item">
+                                Nicht effizient bei großen Graphen
+                            </div>
+                            <div class="list-group-item">
+                                Greedy Algorithm: Nimmt best-aussehendste Option
+                                zuerst
+                            </div>
+                            <div class="list-group-item">
+                                Kommt nicht mit negativen Gewichtungen klar
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="py-3 bg-dark">
+            <div
+                class="container d-flex flex-wrap justify-content-between align-items-center"
+            >
+                <p class="col-md-4 mb-0 text-muted">
+                    &copy; 2022-2023 Robin Patzak & Julius Wissemann
+                </p>
+                <a
+                    href="#"
+                    class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none"
+                >
+                    <img
+                        src="/resources/icons/logo.svg"
+                        alt="Logo"
+                        class="brand-logo"
+                    />
+                </a>
+                <p class="nav col-md-4 justify-content-end">
+                    Entstanden als Studienprojekt
+                </p>
+            </div>
+        </footer>
+
+        <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/Flip.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/MotionPathPlugin.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollToPlugin.min.js"></script>
+        <script src="/scripts/main.js"></script>
+    </body>
 </html>
