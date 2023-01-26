@@ -272,7 +272,6 @@ section {
 }
 
 .about-dijkstra {
-  width: 50ch;
   text-align: justify;
 }
 
@@ -322,6 +321,10 @@ section {
 
   .dijkstra-img {
     width: 25vw;
+  }
+
+  .about-dijkstra {
+    width: 50ch;
   }
 }
 
