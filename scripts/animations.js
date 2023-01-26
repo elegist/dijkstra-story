@@ -16,23 +16,23 @@ let selectedStartNode, selectedEndNode;
 
 let explanationText = document.getElementById("explanationText");
 
-// const moveViewport = (section, ease = "expo.out", duration = 1) => {
-//     let timeline = gsap.timeline();
+const moveViewport = (section, ease = "expo.out", duration = 1) => {
+    let timeline = gsap.timeline();
 
-//     timeline.to(
-//         "#graphNetwork",
-//         {
-//             attr: {
-//                 viewBox: section,
-//             },
-//             ease: ease,
-//             duration: duration,
-//         },
-//         "+=1"
-//     );
+    timeline.to(
+        "#graphNetwork",
+        {
+            attr: {
+                viewBox: section,
+            },
+            ease: ease,
+            duration: duration,
+        },
+        "+=1"
+    );
 
-//     return timeline;
-// };
+    return timeline;
+};
 
 const setExplanationText = (text) => {
     let timeline = gsap.timeline();
@@ -328,10 +328,7 @@ const setExplanationText = (text) => {
 
 let timeline = gsap.timeline()
 
-timeline.add(setExplanationText("Willkommen zur Dijkstra Story"))
-.add(setExplanationText("Hier kannst du dir eine Geschichte erstellen lassen"))
-.add(setExplanationText("Waehle dazu einen Startknoten"))
+timeline.add(moveViewport("0 0 500 400"));
 
-timeline.pause()
 
 export {timeline}

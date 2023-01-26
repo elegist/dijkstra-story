@@ -1,4 +1,3 @@
-import { timeline } from "./animations.js";
 // Graph data
 let graph = {
     "nodes": [
@@ -50,7 +49,8 @@ let height = "100%";
 let svg = container.append("svg")
     .attr("id", "graphNetwork")
     .attr("width", width)
-    .attr("height", height);
+    .attr("height", height)
+    .attr("viewBox", "0 0 1000 800");
 
 // Initialize the force layout
 let simulation = d3.forceSimulation(graph.nodes)
@@ -94,9 +94,9 @@ d3.selectAll(".node")
 //     zoomToArea(d3.select(".start-node"))
 // });
 
-node.on("mouseover", function () {
+node.on("mouseover", function (e) {
     let selectedNode = d3.select(this).datum();
-    displayTooltipText(selectedNode)
+    displayTooltipText(selectedNode);
 });
 
 node.on("mouseout", function () {
@@ -111,7 +111,6 @@ d3.selectAll(".start-node")
         startNode = d3.select(this).datum()
         d3.selectAll(".start-node").on("click", null)
         endSelection()
-        timeline.play()
     })
 
 let endNode;

@@ -8,18 +8,27 @@ body {
     position: relative;
 }
 
+#explanationText {
+    position: absolute;
+    top: 70%;
+    left: 25%;
+    background: rgb(173, 71, 71);
+    width: 50%;
+    height: 25%;
+    border-radius: 2rem;
+}
+
 #result-container {
-    height: 80vh;
+    height: 70vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
     background-color: #f9f0e5;
     box-shadow: 0 0.25em 0.25em rgba(0, 0, 0, 0.33);
 }
 
 .hover {
     cursor: pointer;
-}
-
-#explanation-text{
-    position: absolute;
 }
 
 .story-preview-hide {
@@ -41,9 +50,15 @@ body {
 #textBox{
     background-color: #fed9ff;
     overflow-x: hidden;
-    overflow-y:scroll;
+    overflow-y: scroll;
     text-align: center;
     padding: 20px;
+
+    scrollbar-width: none;
+}
+
+#textBox::-webkit-scrollbar {
+    display: none;
 }
 
 /* Graph and Nodes */
@@ -73,3 +88,4 @@ body {
     stroke: #ff0000;
     stroke-width: 2px;
 }
+
