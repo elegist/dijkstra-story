@@ -118,15 +118,20 @@ let link = svg
     .attr("class", "link");
 
 //Add the nodes to the SVG
+let template = d3.select("#customNode").html();
+
 let node = svg
     .append("g")
     .attr("id", "nodes")
     .selectAll(".node")
     .data(graph.nodes)
     .enter()
-    .append("circle")
-    .attr("class", "node")
-    .attr("r", 10);
+    .append(function () {
+        var g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+        g.innerHTML = template;
+        return g;
+    })
+    .attr("class", "node");
 
 d3.selectAll(".node")
     .filter(function (d) {
@@ -160,6 +165,10 @@ let startNode;
 d3.selectAll(".start-node").on("click", function () {
     console.log("startNode");
     startNode = d3.select(this).datum();
+    let pin = d3.select(this).select(".pin");
+    gsap.to(pin.node(), {
+        opacity: 1,
+    });
     d3.selectAll(".start-node").on("click", null);
     endSelection();
 });
@@ -169,6 +178,10 @@ function endSelection() {
     d3.selectAll(".end-node").on("click", function () {
         console.log("endNode");
         endNode = d3.select(this).datum();
+        let pin = d3.select(this).select(".pin");
+        gsap.to(pin.node(), {
+            opacity: 1,
+        });
         d3.selectAll(".end-node").on("click", null);
         let result = dijkstra(graph, startNode.id, endNode.id);
         convertPath(result);
@@ -190,14 +203,14 @@ function ticked() {
             return d.target.y;
         });
 
-    node.attr("cx", function (d) {
-        return d.x;
-    }).attr("cy", function (d) {
-        return d.y;
+    // node.attr("cx", function (d) {
+    //     return d.x;
+    // }).attr("cy", function (d) {
+    //     return d.y;
+    // });
+    node.attr("transform", function (d) {
+        return `translate(${d.x - 15}, ${d.y - 30})`;
     });
-    // node.attr("transform", function(d) {
-    //         return "translate(" + d.x + ", " + d.y + ")";
-    //     });
 }
 
 //Zoom in and out inside the svg element
@@ -206,7 +219,7 @@ let zoom = d3.zoom().scaleExtent([-1, 1]).on("zoom", zoomed);
 let svgZoom = d3.select("#algorithm-container").call(zoom);
 
 function zoomed(event) {
-    node.attr("transform", event.transform);
+    // node.attr("transform", event.transform);
     link.attr("transform", event.transform);
 }
 
@@ -233,7 +246,6 @@ function hideTooltipText(selectedNode) {
     // create a new div for the text
     gsap.to("#storyPreview", {
         scale: 0,
-        duration: 0.2,
     });
     let textDiv = d3.select("#storyPreview");
     textDiv.text("");
@@ -404,3 +416,44 @@ function convertPath(result) {
 // simulation.force("charge").initialize(node);
 // simulation.force("center").initialize(node);
 // simulation.force("collide").initialize(node);
+
+// const intro = () => {
+//     let timeline = gsap.timeline();
+
+//     timeline.from(".sticky-note", {
+//         x: -20,
+//         y: 20,
+//         scale: 0.2,
+//         rotation: 30,
+//         transformOrigin: "center",
+//         opacity: 0,
+//         ease: Back.easeOut.config(2),
+//         duration: 0.85,
+//         stagger: {
+//             each: 0.1,
+//             from: "random",
+//             grid: "auto",
+//             ease: "power3.inOut",
+//         },
+//     });
+
+//     return timeline;
+// };
+
+let tlSpawn = gsap.timeline({ paused: true });
+let nodes = d3.selectAll(".node")
+
+tlSpawn.from(nodes.nodes(), {
+    scale: 0.2,
+    opacity: 0,
+    ease: "Back.easeOut.config(2)",
+    duration: 0.85,
+    stagger: {
+        each: 0.1,
+        from: "random",
+        grid: "auto",
+        ease: "power3.inOut",
+    },
+});
+
+tlSpawn.play()
