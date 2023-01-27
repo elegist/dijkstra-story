@@ -263,6 +263,9 @@ function displayTooltipText(selectedNode) {
 // function to display the text of a node
 function hideTooltipText(selectedNode) {
     // create a new div for the text
+    gsap.to("#storyPreview", {
+        scale: 0,
+    });
     let textDiv = d3.select("#storyPreview");
     gsap.to(textDiv.node(), {
         scale: 0,
@@ -478,3 +481,28 @@ tlSpawn.from(nodes.nodes(), {
 });
 
 tlSpawn.play()
+/* Animations */
+
+let tlTypewriter = gsap.timeline({ paused: true });
+let keyboardSwitches = $("#keyboard").children();
+
+console.log(keyboardSwitches);
+
+tlTypewriter.to(keyboardSwitches, {
+    attr: {
+        "fill": "#c0c0cc",
+    },
+    transformOrigin: "center",
+    scale: 0.8,
+    ease: "elastic.inOut(1, 1)",
+    stagger: {
+        grid: "auto",
+        from: "random",
+        amount: 1.5,
+        repeat: -1,
+        yoyo: true,
+    },
+    duration: 0.5,
+});
+
+// tlTypewriter.play();
