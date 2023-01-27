@@ -1,67 +1,115 @@
 // Graph data
 let graph = {
-    "nodes": [
-        { "id": "A", "text": "I was in the middle of a dense jungle, trying to find a way out"},
-        { "id": "B", "text": "Suddenly, a giant pink elephant appeared out of nowhere and offered to guide me out", "startNode": "true" },
-        { "id": "C", "text": "As we walked, the elephant told me stories of its adventures in space", "startNode": "true"},
-        { "id": "D", "text": "I couldn't believe what I was hearing, but I didn't want to question it and spoil the moment", "startNode": "true"},
-        { "id": "E", "text": "We reached the edge of the jungle and the elephant bid me farewell and flew off into space" },
-        { "id": "F", "text": "I was left standing there, wondering if it had all been a dream" },
-        { "id": "G", "text": "I decided to continue my journey and came across a group of talking cacti", "endNode": "true"},
-        { "id": "H", "text": "They invited me to join their cactus society and learn the secrets of time travel", "endNode": "true"},
-        { "id": "I", "text": "I couldn't resist and joined them on their journey through time", "endNode": "true" },
+    nodes: [
+        {
+            id: "A",
+            text: "I was in the middle of a dense jungle, trying to find a way out",
+        },
+        {
+            id: "B",
+            text: "Suddenly, a giant pink elephant appeared out of nowhere and offered to guide me out",
+            startNode: "true",
+        },
+        {
+            id: "C",
+            text: "As we walked, the elephant told me stories of its adventures in space",
+            startNode: "true",
+        },
+        {
+            id: "D",
+            text: "I couldn't believe what I was hearing, but I didn't want to question it and spoil the moment",
+            startNode: "true",
+        },
+        {
+            id: "E",
+            text: "We reached the edge of the jungle and the elephant bid me farewell and flew off into space",
+        },
+        {
+            id: "F",
+            text: "I was left standing there, wondering if it had all been a dream",
+        },
+        {
+            id: "G",
+            text: "I decided to continue my journey and came across a group of talking cacti",
+            endNode: "true",
+        },
+        {
+            id: "H",
+            text: "They invited me to join their cactus society and learn the secrets of time travel",
+            endNode: "true",
+        },
+        {
+            id: "I",
+            text: "I couldn't resist and joined them on their journey through time",
+            endNode: "true",
+        },
     ],
-    "links": [
-        { "source": "A", "target": "B", "weight": 1 },
-        { "source": "B", "target": "A", "weight": 1 },
-        { "source": "A", "target": "C", "weight": 2 },
-        { "source": "C", "target": "A", "weight": 2 },
-        { "source": "B", "target": "D", "weight": 3 },
-        { "source": "D", "target": "B", "weight": 3 },
-        { "source": "C", "target": "D", "weight": 4 },
-        { "source": "D", "target": "C", "weight": 4 },
-        { "source": "C", "target": "E", "weight": 2 },
-        { "source": "E", "target": "C", "weight": 2 },
-        { "source": "D", "target": "E", "weight": 1 },
-        { "source": "E", "target": "D", "weight": 1 },
-        { "source": "E", "target": "F", "weight": 3 },
-        { "source": "F", "target": "E", "weight": 3 },
-        { "source": "F", "target": "G", "weight": 2 },
-        { "source": "G", "target": "F", "weight": 2 },
-        { "source": "G", "target": "H", "weight": 4 },
-        { "source": "H", "target": "G", "weight": 4 },
-        { "source": "H", "target": "I", "weight": 5 },
-        { "source": "I", "target": "H", "weight": 5 },
-        { "source": "F", "target": "I", "weight": 1 },
-        { "source": "I", "target": "F", "weight": 1 },
-        { "source": "I", "target": "C", "weight": 6 },
-        { "source": "C", "target": "I", "weight": 6 },
-    ]
+    links: [
+        { source: "A", target: "B", weight: 1 },
+        { source: "B", target: "A", weight: 1 },
+        { source: "A", target: "C", weight: 2 },
+        { source: "C", target: "A", weight: 2 },
+        { source: "B", target: "D", weight: 3 },
+        { source: "D", target: "B", weight: 3 },
+        { source: "C", target: "D", weight: 4 },
+        { source: "D", target: "C", weight: 4 },
+        { source: "C", target: "E", weight: 2 },
+        { source: "E", target: "C", weight: 2 },
+        { source: "D", target: "E", weight: 1 },
+        { source: "E", target: "D", weight: 1 },
+        { source: "E", target: "F", weight: 3 },
+        { source: "F", target: "E", weight: 3 },
+        { source: "F", target: "G", weight: 2 },
+        { source: "G", target: "F", weight: 2 },
+        { source: "G", target: "H", weight: 4 },
+        { source: "H", target: "G", weight: 4 },
+        { source: "H", target: "I", weight: 5 },
+        { source: "I", target: "H", weight: 5 },
+        { source: "F", target: "I", weight: 1 },
+        { source: "I", target: "F", weight: 1 },
+        { source: "I", target: "C", weight: 6 },
+        { source: "C", target: "I", weight: 6 },
+    ],
 };
 
 //graph.nodes.push({id: "J", text: "test"})
 
 // Set up the SVG canvas
 let container = d3.select("#algorithm-container");
-let width = "100%";
-let height = "100%";
+let width = "1000";
+let height = "800";
 
-let svg = container.append("svg")
+let svg = container
+    .append("svg")
     .attr("id", "graphNetwork")
+    .attr("class", "img-fluid")
     .attr("width", width)
     .attr("height", height)
     .attr("viewBox", "0 0 1000 800");
 
 // Initialize the force layout
-let simulation = d3.forceSimulation(graph.nodes)
-    .force("link", d3.forceLink(graph.links).id(function (d) { return d.id }))
+let simulation = d3
+    .forceSimulation(graph.nodes)
+    .force(
+        "link",
+        d3.forceLink(graph.links).id(function (d) {
+            return d.id;
+        })
+    )
     .force("charge", d3.forceManyBody().strength(0))
-    .force("center", d3.forceCenter(container.node().getBoundingClientRect().width / 2, container.node().getBoundingClientRect().height / 2))
+    .force(
+        "center",
+        d3.forceCenter(
+            container.node().getBoundingClientRect().width / 2,
+            container.node().getBoundingClientRect().height / 2
+        )
+    )
     .force("collide", d3.forceCollide(60).strength(0.1))
-    .on("tick", ticked)
+    .on("tick", ticked);
 
-// Add the links to the SVG   
-let link = svg.append("g")
+// Add the links to the SVG
+let link = svg
+    .append("g")
     .attr("class", "links")
     .selectAll("line")
     .data(graph.links)
@@ -70,24 +118,28 @@ let link = svg.append("g")
     .attr("class", "link");
 
 //Add the nodes to the SVG
-let node = svg.append("g")
+let node = svg
+    .append("g")
     .attr("id", "nodes")
     .selectAll(".node")
     .data(graph.nodes)
     .enter()
     .append("circle")
     .attr("class", "node")
-    .attr("r", 10)
-
+    .attr("r", 10);
 
 d3.selectAll(".node")
-    .filter(function (d) { return d.startNode === "true" })
-    .classed("start-node", true)
+    .filter(function (d) {
+        return d.startNode === "true";
+    })
+    .classed("start-node", true);
 //.classed("node", false)
 
 d3.selectAll(".node")
-    .filter(function (d) { return d.endNode === "true" })
-    .classed("end-node", true)
+    .filter(function (d) {
+        return d.endNode === "true";
+    })
+    .classed("end-node", true);
 //.classed("node", false)
 
 // svg.on("mouseover", function (d){
@@ -101,52 +153,57 @@ node.on("mouseover", function (e) {
 
 node.on("mouseout", function () {
     let selectedNode = d3.select(this).datum();
-    hideTooltipText(selectedNode)
+    hideTooltipText(selectedNode);
 });
 
 let startNode;
-d3.selectAll(".start-node")
-    .on("click", function () {
-        console.log("startNode")
-        startNode = d3.select(this).datum()
-        d3.selectAll(".start-node").on("click", null)
-        endSelection()
-    })
+d3.selectAll(".start-node").on("click", function () {
+    console.log("startNode");
+    startNode = d3.select(this).datum();
+    d3.selectAll(".start-node").on("click", null);
+    endSelection();
+});
 
 let endNode;
 function endSelection() {
-    d3.selectAll(".end-node")
-        .on("click", function () {
-            console.log("endNode")
-            endNode = d3.select(this).datum()
-            d3.selectAll(".end-node").on("click", null)
-            let result = dijkstra(graph, startNode.id, endNode.id)
-            convertPath(result)
-        })
+    d3.selectAll(".end-node").on("click", function () {
+        console.log("endNode");
+        endNode = d3.select(this).datum();
+        d3.selectAll(".end-node").on("click", null);
+        let result = dijkstra(graph, startNode.id, endNode.id);
+        convertPath(result);
+    });
 }
 
 // Function to update the node and link positions on each tick of the force layout (multiple ticks per second)
 function ticked() {
-    link.attr("x1", function (d) { return d.source.x; })
-        .attr("y1", function (d) { return d.source.y; })
-        .attr("x2", function (d) { return d.target.x; })
-        .attr("y2", function (d) { return d.target.y; });
+    link.attr("x1", function (d) {
+        return d.source.x;
+    })
+        .attr("y1", function (d) {
+            return d.source.y;
+        })
+        .attr("x2", function (d) {
+            return d.target.x;
+        })
+        .attr("y2", function (d) {
+            return d.target.y;
+        });
 
-
-    node.attr("cx", function (d) { return d.x; })
-        .attr("cy", function (d) { return d.y; });
+    node.attr("cx", function (d) {
+        return d.x;
+    }).attr("cy", function (d) {
+        return d.y;
+    });
     // node.attr("transform", function(d) {
     //         return "translate(" + d.x + ", " + d.y + ")";
     //     });
 }
 
 //Zoom in and out inside the svg element
-let zoom = d3.zoom()
-    .scaleExtent([-1, 1])
-    .on("zoom", zoomed);
+let zoom = d3.zoom().scaleExtent([-1, 1]).on("zoom", zoomed);
 
-let svgZoom = d3.select("#algorithm-container")
-    .call(zoom);
+let svgZoom = d3.select("#algorithm-container").call(zoom);
 
 function zoomed(event) {
     node.attr("transform", event.transform);
@@ -162,44 +219,53 @@ function zoomed(event) {
 // function to display the text of a node
 function displayTooltipText(selectedNode) {
     // create a new div for the text
-    let textDiv = d3.select("#storyPreview")
-    textDiv.classed("story-preview-hide", false)
-    textDiv.classed("story-preview-show", true)
+    let textDiv = d3.select("#storyPreview");
     // add the title and text of the node to the div
-    textDiv.append("h3")
-        .text(selectedNode.id);
-    textDiv.append("p")
-        .text(selectedNode.text);
+    textDiv.append("h3").text(selectedNode.id);
+    textDiv.append("p").text(selectedNode.text);
+    gsap.to("#storyPreview", {
+        scale: 1,
+    });
 }
 
 // function to display the text of a node
 function hideTooltipText(selectedNode) {
     // create a new div for the text
-    let textDiv = d3.select("#storyPreview")
-    textDiv.classed("story-preview-show", false)
-    textDiv.classed("story-preview-hide", true)
-    textDiv.text("")
+    gsap.to("#storyPreview", {
+        scale: 0,
+        duration: 0.2,
+    });
+    let textDiv = d3.select("#storyPreview");
+    textDiv.text("");
 }
 
 // function to display the text of a node
 function displayNodeText(selectedNode) {
     // create a new div for the text
-    let textDiv = d3.select("#textBox")
+    let textDiv = d3.select("#textBox");
 
     // add the title and text of the node to the div
-    textDiv.append("h3")
-        .text(selectedNode.id);
-    textDiv.append("p")
-        .text(selectedNode.text);
+    textDiv.append("h3").text(selectedNode.id);
+    textDiv.append("p").text(selectedNode.text);
 
     // scroll the container down to show the new text
-    d3.select("#textBox").node().scrollBottom = d3.select("#textBox").node().scrollHeight;
+    d3.select("#textBox").node().scrollBottom = d3
+        .select("#textBox")
+        .node().scrollHeight;
 }
 
 window.addEventListener("resize", () =>
-    simulation.force("center", d3.forceCenter(container.node().getBoundingClientRect().width / 2, container.node().getBoundingClientRect().height / 2))
+    simulation
+        .force(
+            "center",
+            d3.forceCenter(
+                container.node().getBoundingClientRect().width / 2,
+                container.node().getBoundingClientRect().height / 2
+            )
+        )
         .alphaTarget(0) // re-heat the simulation
-        .restart());
+        .restart()
+);
 
 function dijkstra(graph, startNodeId, endNodeId) {
     // Initialize letiables
@@ -222,10 +288,15 @@ function dijkstra(graph, startNodeId, endNodeId) {
         let currentNodeId = unvisitedNodes.dequeue();
 
         // Stop if we've reached the end node
-        if (currentNodeId === endNodeId) { break; }
+        if (currentNodeId === endNodeId) {
+            break;
+        }
 
         // Update the distance of each neighbor
-        graph.links.filter(function (d) { return d.source.id === currentNodeId; })
+        graph.links
+            .filter(function (d) {
+                return d.source.id === currentNodeId;
+            })
             .forEach(function (link) {
                 let neighborId = link.target.id;
                 let newDistance = distance[currentNodeId] + link.weight;
@@ -246,8 +317,8 @@ function dijkstra(graph, startNodeId, endNodeId) {
     }
 
     return {
-        "path": path,
-        "distance": distance[endNodeId]
+        path: path,
+        distance: distance[endNodeId],
     };
 }
 
@@ -292,19 +363,15 @@ class PriorityQueue {
 // console.log(result)
 
 function convertPath(result) {
-    let nodesInPath = []
+    let nodesInPath = [];
     for (let i = 0; i < result.path.length; i++) {
         let nodetmp = graph.nodes.filter(function (d) {
             return d.id === result.path[i];
         });
         nodesInPath.push(nodetmp[0]);
-        displayNodeText(nodetmp[0])
+        displayNodeText(nodetmp[0]);
     }
 }
-
-
-
-
 
 // result.path.forEach()
 
@@ -321,8 +388,6 @@ function convertPath(result) {
 // simulation.nodes(result.path);
 // simulation.alpha(1).restart();
 
-
-
 // // Highlight the shortest path on the graph
 // let shortestPathLinks = result.path.map(function (d, i) {
 //     return i < result.path.length - 1 ? { "source": d, "target": result.path[i + 1] } : null;
@@ -333,7 +398,6 @@ function convertPath(result) {
 
 // node.data(result.path)
 //     .attr("class", "node shortest-path")
-
 
 // simulation.nodes(result.path)
 // simulation.force("link").initialize(graph.links)

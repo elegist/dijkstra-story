@@ -2,36 +2,27 @@ body {
     background-color: #cad3a9;
 }
 
-#algorithm-container {
+.algorithm-container {
+    max-width: fit-content;
     background-color: #f9f0e5;
     box-shadow: 0 0.25em 0.25em rgba(0, 0, 0, 0.33);
-    position: relative;
 }
 
-#explanationText {
-    position: absolute;
-    top: 70%;
-    left: 25%;
-    background: rgb(173, 71, 71);
-    width: 50%;
-    height: 25%;
-    border-radius: 2rem;
-}
+.result-container {
+    max-width: fit-content;
+    background-color: #f9f0e5;
+    box-shadow: 0 0.25em 0.25em rgba(0, 0, 0, 0.33);
 
-#result-container {
-    height: 70vh;
     display: flex;
     flex-direction: column;
     justify-content: end;
-    background-color: #f9f0e5;
-    box-shadow: 0 0.25em 0.25em rgba(0, 0, 0, 0.33);
 }
 
 .hover {
     cursor: pointer;
 }
 
-.story-preview-hide {
+.story-preview {
     position: absolute;
     background: #ffd6a0;
     text-align: center;
@@ -39,27 +30,6 @@ body {
     scale: 0;
 }
 
-.story-preview-show {
-    position: absolute;
-    background: #ffd6a0;
-    text-align: center;
-    width: 15rem;
-    scale: 1;
-}
-
-#textBox{
-    background-color: #fed9ff;
-    overflow-x: hidden;
-    overflow-y: scroll;
-    text-align: center;
-    padding: 20px;
-
-    scrollbar-width: none;
-}
-
-#textBox::-webkit-scrollbar {
-    display: none;
-}
 
 /* Graph and Nodes */
 .node {
