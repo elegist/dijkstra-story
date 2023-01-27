@@ -233,7 +233,6 @@ function hideTooltipText(selectedNode) {
     // create a new div for the text
     gsap.to("#storyPreview", {
         scale: 0,
-        duration: 0.2,
     });
     let textDiv = d3.select("#storyPreview");
     textDiv.text("");
@@ -404,3 +403,29 @@ function convertPath(result) {
 // simulation.force("charge").initialize(node);
 // simulation.force("center").initialize(node);
 // simulation.force("collide").initialize(node);
+
+/* Animations */
+
+let tlTypewriter = gsap.timeline({ paused: true });
+let keyboardSwitches = $("#keyboard").children();
+
+console.log(keyboardSwitches);
+
+tlTypewriter.to(keyboardSwitches, {
+    attr: {
+        "fill": "#c0c0cc",
+    },
+    transformOrigin: "center",
+    scale: 0.8,
+    ease: "elastic.inOut(1, 1)",
+    stagger: {
+        grid: "auto",
+        from: "random",
+        amount: 1.5,
+        repeat: -1,
+        yoyo: true,
+    },
+    duration: 0.5,
+});
+
+// tlTypewriter.play();
