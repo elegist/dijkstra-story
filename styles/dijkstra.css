@@ -37,6 +37,7 @@ body {
     width: 400px;
     overflow-x: hidden;
     overflow-y: scroll;
+    scroll-behavior: smooth;
     text-align: center;
     padding: 20px;
 
@@ -46,7 +47,6 @@ body {
 #textBox::-webkit-scrollbar {
     display: none;
 }
-
 
 /* Graph and Nodes */
 /* .node {

@@ -185,6 +185,7 @@ function endSelection() {
         d3.selectAll(".end-node").on("click", null);
         let result = dijkstra(graph, startNode.id, endNode.id);
         convertPath(result);
+        tlTypewriter.play();
     });
 }
 
@@ -214,14 +215,15 @@ function ticked() {
 }
 
 /**
- * Zooming and panning inside the svg 
+ * Zooming and panning inside the svg
  */
 
-var specificNode = node.filter(function(d, i) {
+var specificNode = node.filter(function (d, i) {
     return d.startNode === "true";
 });
 
-var zoom = d3.zoom()
+var zoom = d3
+    .zoom()
     .scaleExtent([1, 10])
     //.translateExtent([[0, 0], [width, height]])
     .on("zoom", zoomed);
@@ -239,12 +241,9 @@ function panToSelection(selection) {
     zoom.translateTo(svg, x, y);
 }
 
-d3.select("#nextBtn").on("click", function () {
-    
-}); 
+d3.select("#nextBtn").on("click", function () {});
 
 //zoom.translateExtent([[-width/2, -height/2], [width, height]])
-
 
 // function to display the text of a node
 function displayTooltipText(selectedNode) {
@@ -253,11 +252,10 @@ function displayTooltipText(selectedNode) {
     // add the title and text of the node to the div
     gsap.to(textDiv.node(), {
         scale: 1,
-        duration: 0.2
+        duration: 0.2,
     });
     textDiv.append("h3").text(selectedNode.id);
     textDiv.append("p").text(selectedNode.text);
-
 }
 
 // function to display the text of a node
@@ -269,11 +267,19 @@ function hideTooltipText(selectedNode) {
     let textDiv = d3.select("#storyPreview");
     gsap.to(textDiv.node(), {
         scale: 0,
-        duration: 0.2
+        duration: 0.2,
     });
     //let textDiv = d3.select("#storyPreview");
     textDiv.text("");
 }
+
+let tlStory = gsap.timeline({
+    defaults: { duration: 1.5 },
+    onComplete: () => {
+        tlTypewriter.restart();
+        tlTypewriter.pause();
+    },
+});
 
 // function to display the text of a node
 function displayNodeText(selectedNode) {
@@ -281,13 +287,25 @@ function displayNodeText(selectedNode) {
     let textDiv = d3.select("#textBox");
 
     // add the title and text of the node to the div
-    textDiv.append("h3").text(selectedNode.id);
-    textDiv.append("p").text(selectedNode.text);
+    textDiv.append("h3").attr("id", `h3-${selectedNode.id}`);
+    textDiv.append("p").attr("id", `p-${selectedNode.id}`);
 
-    // scroll the container down to show the new text
-    d3.select("#textBox").node().scrollBottom = d3
-        .select("#textBox")
-        .node().scrollHeight;
+    let heading = textDiv.select(`#h3-${selectedNode.id}`);
+    let paragraph = textDiv.select(`#p-${selectedNode.id}`);
+
+    tlStory
+        .to(heading.node(), {
+            text: `${selectedNode.id}`,
+        })
+        .to(paragraph.node(), {
+            text: `${selectedNode.text}`,
+
+            onComplete: () => {
+                d3.select("#textBox").node().scrollTop = d3
+                    .select("#textBox")
+                    .node().scrollHeight;
+            },
+        });
 }
 
 window.addEventListener("resize", () =>
@@ -465,7 +483,7 @@ class PriorityQueue {
 // };
 
 let tlSpawn = gsap.timeline({ paused: true });
-let nodes = d3.selectAll(".node")
+let nodes = d3.selectAll(".node");
 
 tlSpawn.from(nodes.nodes(), {
     scale: 0.2,
@@ -480,7 +498,7 @@ tlSpawn.from(nodes.nodes(), {
     },
 });
 
-tlSpawn.play()
+tlSpawn.play();
 /* Animations */
 
 let tlTypewriter = gsap.timeline({ paused: true });
@@ -490,7 +508,7 @@ console.log(keyboardSwitches);
 
 tlTypewriter.to(keyboardSwitches, {
     attr: {
-        "fill": "#c0c0cc",
+        fill: "#c0c0cc",
     },
     transformOrigin: "center",
     scale: 0.8,
