@@ -243,49 +243,85 @@ d3.selectAll(".node")
         return d.startNode === true;
     })
     .classed("start-node", true);
-//.classed("node", false)
 
 d3.selectAll(".node")
     .filter(function (d) {
         return d.endNode === true;
     })
     .classed("end-node", true);
-//.classed("node", false)
 
-node.on("mouseover", function (e) {
-    let selectedNode = d3.select(this).datum();
-    d3.select("#storyPreview")
+let allStartNodes = d3.selectAll(".start-node");
+let allEndNodes = d3.selectAll(".end-node");
+let allInteractableNodes = d3.selectAll(".start-node, .end-node");
+
+allInteractableNodes.selectAll(".helper-point").on("mouseover", function (e) {
+    let selectedNode = d3.select(this.parentNode).datum();
+
+    let stickyNote = d3.select(this.parentNode).select(".sticky-note").node();
+
+    gsap.to(stickyNote, {
+        scale: 1.8,
+        transformOrigin: "center",
+        ease: "sine.out",
+        duration: 0.333,
+    });
+
+    displayTooltipText(selectedNode);
+    d3.select(`#storyPreview-${selectedNode.id}`)
         .style("left", `${e.layerX + 15}px`)
         .style("top", `${e.layerY + 15}px`);
-    displayTooltipText(selectedNode);
 });
 
-node.on("mouseout", function () {
-    let selectedNode = d3.select(this).datum();
+allInteractableNodes.selectAll(".helper-point").on("mouseout", function () {
+    let selectedNode = d3.select(this.parentNode).datum();
+
+    let stickyNote = d3.select(this.parentNode).select(".sticky-note").node();
+
+    gsap.to(stickyNote, {
+        scale: 1.0,
+        transformOrigin: "center",
+        ease: "sine.in",
+        duration: 0.333,
+    });
+
     hideTooltipText(selectedNode);
 });
 
-let startNode;
-d3.selectAll(".start-node").on("click", function () {
-    startNode = d3.select(this).datum();
+let startNodeSelection;
+allStartNodes.on("click", function () {
+    startNodeSelection = d3.select(this).datum();
     let pin = d3.select(this).select(".pin");
-    gsap.to(pin.node(), {
-        opacity: 1,
+    gsap.set(pin.node(), { opacity: 1 });
+    gsap.from(pin.node(), {
+        opacity: 0,
+        y: -20,
+        scale: 1.4,
+        transformOrigin: "center",
+        ease: "expo.out",
     });
-    d3.selectAll(".start-node").on("click", null);
+    allStartNodes.on("click", null);
     endSelection();
 });
 
-let endNode;
+let endNodeSelection;
 function endSelection() {
-    d3.selectAll(".end-node").on("click", function () {
-        endNode = d3.select(this).datum();
+    allEndNodes.on("click", function () {
+        endNodeSelection = d3.select(this).datum();
         let pin = d3.select(this).select(".pin");
-        gsap.to(pin.node(), {
-            opacity: 1,
+        gsap.set(pin.node(), { opacity: 1 });
+        gsap.from(pin.node(), {
+            opacity: 0,
+            y: -20,
+            scale: 1.4,
+            transformOrigin: "center",
+            ease: "expo.out",
         });
-        d3.selectAll(".end-node").on("click", null);
-        let result = dijkstra(graph, startNode.id, endNode.id);
+        allEndNodes.on("click", null);
+        let result = dijkstra(
+            graph,
+            startNodeSelection.id,
+            endNodeSelection.id
+        );
         convertPath(result);
         tlTypewriter.play();
     });
@@ -299,7 +335,10 @@ function ticked() {
         .attr("y2", (d) => d.target.y);
 
     // nodes.attr("x", (d) => d.x - 35/2).attr("y", (d) => d.y - 51/2);
-    node.attr("transform", (d) => `translate(${d.x - 35 / 2}, ${d.y - 51 / 2})`);
+    node.attr(
+        "transform",
+        (d) => `translate(${d.x - 35 / 2}, ${d.y - 51 / 2})`
+    );
 }
 
 /**
@@ -331,29 +370,41 @@ function panToSelection(selection) {
 
 // function to display the text of a node
 function displayTooltipText(selectedNode) {
-    // create a new div for the text
-    let textDiv = d3.select("#storyPreview");
-    // add the title and text of the node to the div
-    gsap.to(textDiv.node(), {
-        scale: 1,
-        duration: 0.2,
+    let container = d3.select("#algorithm-container");
+
+    let storyPreview = container
+        .append("div")
+        .attr("class", "story-preview fs-5 p-4 shadow-sm")
+        .attr("id", `storyPreview-${selectedNode.id}`);
+
+    gsap.from(storyPreview.node(), {
+        opacity: 0,
+        scale: 1.4,
+        duration: 0.5,
+        ease: Back.easeOut.config(2),
     });
-    textDiv.append("h3").text(selectedNode.id);
-    textDiv.append("p").text(selectedNode.text);
+
+    storyPreview.append("h3").text(selectedNode.id);
+    storyPreview.append("p").text(selectedNode.text);
 }
 
 // function to display the text of a node
 function hideTooltipText(selectedNode) {
-    // create a new div for the text
-    gsap.to("#storyPreview", {
-        scale: 0,
+    let container = d3.select("#algorithm-container");
+
+    let storyPreview = container.select(`#storyPreview-${selectedNode.id}`);
+
+    storyPreview.attr("id", null);
+
+    gsap.to(storyPreview.node(), {
+        opacity: 0,
+        scale: 1.4,
+        duration: 0.25,
+        ease: Back.easeIn.config(2),
+        onComplete: () => {
+            storyPreview.remove();
+        },
     });
-    let textDiv = d3.select("#storyPreview");
-    gsap.to(textDiv.node(), {
-        scale: 0,
-        duration: 0.2,
-    });
-    textDiv.text("");
 }
 
 // function to display the text of a node
@@ -526,7 +577,11 @@ console.log(nodes)
 tlSpawn.from(nodes.nodes(), {
     scale: 0.2,
     opacity: 0,
-    ease: "Back.easeOut.config(2)",
+    transformOrigin: "center",
+    rotation: 30,
+    x: -20,
+    y: 20,
+    ease: Back.easeOut.config(2),
     duration: 0.85,
     stagger: {
         each: 0.1,
