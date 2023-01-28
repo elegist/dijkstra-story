@@ -1,76 +1,200 @@
 // Graph data
 let graph = {
-    nodes: [
-        {
-            id: "A",
-            text: "I was in the middle of a dense jungle, trying to find a way out",
-        },
-        {
-            id: "B",
-            text: "Suddenly, a giant pink elephant appeared out of nowhere and offered to guide me out",
-            startNode: "true",
-        },
-        {
-            id: "C",
-            text: "As we walked, the elephant told me stories of its adventures in space",
-            startNode: "true",
-        },
-        {
-            id: "D",
-            text: "I couldn't believe what I was hearing, but I didn't want to question it and spoil the moment",
-            startNode: "true",
-        },
-        {
-            id: "E",
-            text: "We reached the edge of the jungle and the elephant bid me farewell and flew off into space",
-        },
-        {
-            id: "F",
-            text: "I was left standing there, wondering if it had all been a dream",
-        },
-        {
-            id: "G",
-            text: "I decided to continue my journey and came across a group of talking cacti",
-            endNode: "true",
-        },
-        {
-            id: "H",
-            text: "They invited me to join their cactus society and learn the secrets of time travel",
-            endNode: "true",
-        },
-        {
-            id: "I",
-            text: "I couldn't resist and joined them on their journey through time",
-            endNode: "true",
-        },
-    ],
-    links: [
-        { source: "A", target: "B", weight: 1 },
-        { source: "B", target: "A", weight: 1 },
-        { source: "A", target: "C", weight: 2 },
-        { source: "C", target: "A", weight: 2 },
-        { source: "B", target: "D", weight: 3 },
-        { source: "D", target: "B", weight: 3 },
-        { source: "C", target: "D", weight: 4 },
-        { source: "D", target: "C", weight: 4 },
-        { source: "C", target: "E", weight: 2 },
-        { source: "E", target: "C", weight: 2 },
-        { source: "D", target: "E", weight: 1 },
-        { source: "E", target: "D", weight: 1 },
-        { source: "E", target: "F", weight: 3 },
-        { source: "F", target: "E", weight: 3 },
-        { source: "F", target: "G", weight: 2 },
-        { source: "G", target: "F", weight: 2 },
-        { source: "G", target: "H", weight: 4 },
-        { source: "H", target: "G", weight: 4 },
-        { source: "H", target: "I", weight: 5 },
-        { source: "I", target: "H", weight: 5 },
-        { source: "F", target: "I", weight: 1 },
-        { source: "I", target: "F", weight: 1 },
-        { source: "I", target: "C", weight: 6 },
-        { source: "C", target: "I", weight: 6 },
-    ],
+    nodes: [],
+    links: [],
 };
+
+let storiesTmp = [
+    "Harriet Johnson had always loved old-fashioned Skegness with its knotty, kind kettles. It was a place where she felt calm.",
+    "She was an intuitive, arrogant, brandy drinker with ample abs and blonde arms.",
+    "Her friends saw her as a combative, clean coward.",
+    "Once, she had even rescued an agreeable injured bird from a burning building.",
+    "That's the sort of woman he was.",
+];
+
+let stories = {
+    1: {
+        story: "The Warped Sandwich",
+        text: "Michelle Parker had always loved idyllic Athens with its nasty, naughty nooks.",
+        neighbors: ["2", "9", "13"],
+        startNode: true,
+        endNode: false,
+    },
+    2: {
+        story: "The Warped Sandwich",
+        text: "It was a place where she felt ambivalent.",
+        neighbors: ["3", "7", "17"],
+        startNode: false,
+        endNode: false,
+    },
+    3: {
+        story: "The Warped Sandwich",
+        text: "She was an arrogant, energetic, brandy drinker with fragile fingers and pretty eyelashes.",
+        neighbors: ["4", "11", "18"],
+        startNode: false,
+        endNode: false,
+    },
+    4: {
+        story: "The Warped Sandwich",
+        text: "Her friends saw her as a colorful, chilly coward.",
+        neighbors: ["5", "12", "14"],
+        startNode: false,
+        endNode: false,
+    },
+    5: {
+        story: "The Warped Sandwich",
+        text: "Once, she had even helped an afraid old lady cross the road.",
+        neighbors: ["6", "7", "15"],
+        startNode: false,
+        endNode: false,
+    },
+    6: {
+        story: "The Warped Sandwich",
+        text: "That's the sort of woman he was.",
+        neighbors: [],
+        startNode: false,
+        endNode: true,
+    },
+    7: {
+        story: "Deserted Truro",
+        text: "Phillip Bogtrotter looked at the giant book in his hands and felt cross.",
+        neighbors: ["8", "12"],
+        startNode: true,
+        endNode: false,
+    },
+    8: {
+        story: "Deserted Truro",
+        text: "He walked over to the window and reflected on his grey surroundings.",
+        neighbors: ["9", "15"],
+        startNode: false,
+        endNode: false,
+    },
+    9: {
+        story: "Deserted Truro",
+        text: "He had always loved deserted Truro with its loopy, low lakes.",
+        neighbors: ["10", "16"],
+        startNode: false,
+        endNode: false,
+    },
+    10: {
+        story: "Deserted Truro",
+        text: "It was a place that encouraged his tendency to feel cross.",
+        neighbors: ["11", "14"],
+        startNode: false,
+        endNode: false,
+    },
+    11: {
+        story: "Deserted Truro",
+        text: "Then he saw something in the distance, or rather someone.",
+        neighbors: [],
+        startNode: false,
+        endNode: false,
+    },
+    12: {
+        story: "Deserted Truro",
+        text: "It was the figure of Phillip Gobble.",
+        neighbors: ["17"],
+        startNode: false,
+        endNode: true,
+    },
+    13: {
+        story: "Sinister Doris Nolan",
+        text: "Jack Wu looked at the bendy record in his hands and felt delighted.",
+        neighbors: ["14"],
+        startNode: true,
+        endNode: false,
+    },
+    14: {
+        story: "Sinister Doris Nolan",
+        text: "He walked over to the window and reflected on his picturesque surroundings.",
+        neighbors: ["15"],
+        startNode: false,
+        endNode: false,
+    },
+    15: {
+        story: "Sinister Doris Nolan",
+        text: "He had always loved old-fashioned Glasgow with its quaint, queenlike quarries.",
+        neighbors: ["16"],
+        startNode: false,
+        endNode: false,
+    },
+    16: {
+        story: "Sinister Doris Nolan",
+        text: "It was a place that encouraged his tendency to feel delighted.",
+        neighbors: ["17"],
+        startNode: false,
+        endNode: false,
+    },
+    17: {
+        story: "Sinister Doris Nolan",
+        text: "Then he saw something in the distance, or rather someone.",
+        neighbors: ["18"],
+        startNode: false,
+        endNode: false,
+    },
+    18: {
+        story: "Sinister Doris Nolan",
+        text: "It was the figure of Doris Nolan.",
+        neighbors: [],
+        startNode: false,
+        endNode: true,
+    },
+};
+
+const addNode = (id, text, isStartNode = false, isEndNode = false) => {
+    if (isStartNode) {
+        graph.nodes.push({ id: id, text: text, startNode: isStartNode });
+    }
+    if (isEndNode) {
+        graph.nodes.push({ id: id, text: text, endNode: isEndNode });
+    }
+    if (!isStartNode && !isEndNode) {
+        graph.nodes.push({ id: id, text: text });
+    }
+};
+
+const addLink = (from, to, weight) => {
+    graph.links.push({ source: from, target: to, weight: weight });
+    graph.links.push({ source: to, target: from, weight: weight });
+};
+
+for (const [id, storyInformation] of Object.entries(stories)) {
+    addNode(
+        id,
+        storyInformation.text,
+        storyInformation.startNode,
+        storyInformation.endNode
+    );
+    storyInformation.neighbors.forEach((neighbor) => {
+        let weightMultiplier = 1
+        if (storyInformation.story !== stories[neighbor].story) {
+            weightMultiplier = 2
+        }
+        addLink(id, neighbor, Math.abs(parseInt(neighbor) - parseInt(id)) * weightMultiplier);
+    });
+}
+
+console.log(graph.links);
+// let amountOfStartNodes = 1;
+// let amountofEndNodes = 1;
+
+// stories.forEach((story, index) => {
+//     if (index < amountOfStartNodes) {
+//         addNode(index, story, true, false);
+//     } else if (index >= stories.length - amountofEndNodes) {
+//         addNode(index, story, false, true);
+//     } else {
+//         addNode(index, story);
+//     }
+// });
+
+// addLink(0, 1, 1);
+// addLink(0, 2, 4);
+// addLink(0, 3, 9);
+// addLink(1, 2, 1);
+// addLink(2, 3, 3);
+// addLink(2, 4, 1);
+// addLink(3, 4, 1);
 
 //graph.nodes.push({id: "J", text: "test"})
 
@@ -120,29 +244,39 @@ let link = svg
 //Add the nodes to the SVG
 let template = d3.select("#customNode").html();
 
+// let node = svg
+//     .append("g")
+//     .attr("id", "nodes")
+//     .selectAll(".node")
+//     .data(graph.nodes)
+//     .enter()
+//     .append(function () {
+//         let g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+//         g.innerHTML = template;
+//         return g;
+//     })
+//     .attr("class", "node");
+
 let node = svg
     .append("g")
     .attr("id", "nodes")
     .selectAll(".node")
     .data(graph.nodes)
     .enter()
-    .append(function () {
-        var g = document.createElementNS("http://www.w3.org/2000/svg", "g");
-        g.innerHTML = template;
-        return g;
-    })
+    .append("circle")
+    .attr("r", 15)
     .attr("class", "node");
 
 d3.selectAll(".node")
     .filter(function (d) {
-        return d.startNode === "true";
+        return d.startNode === true;
     })
     .classed("start-node", true);
 //.classed("node", false)
 
 d3.selectAll(".node")
     .filter(function (d) {
-        return d.endNode === "true";
+        return d.endNode === true;
     })
     .classed("end-node", true);
 //.classed("node", false)
@@ -153,6 +287,9 @@ d3.selectAll(".node")
 
 node.on("mouseover", function (e) {
     let selectedNode = d3.select(this).datum();
+    d3.select("#storyPreview")
+        .style("left", `${e.layerX + 5}px`)
+        .style("top", `${e.layerY + 5}px`);
     displayTooltipText(selectedNode);
 });
 
@@ -163,12 +300,11 @@ node.on("mouseout", function () {
 
 let startNode;
 d3.selectAll(".start-node").on("click", function () {
-    console.log("startNode");
     startNode = d3.select(this).datum();
-    let pin = d3.select(this).select(".pin");
-    gsap.to(pin.node(), {
-        opacity: 1,
-    });
+    // let pin = d3.select(this).select(".pin");
+    // gsap.to(pin.node(), {
+    //     opacity: 1,
+    // });
     d3.selectAll(".start-node").on("click", null);
     endSelection();
 });
@@ -176,12 +312,11 @@ d3.selectAll(".start-node").on("click", function () {
 let endNode;
 function endSelection() {
     d3.selectAll(".end-node").on("click", function () {
-        console.log("endNode");
         endNode = d3.select(this).datum();
-        let pin = d3.select(this).select(".pin");
-        gsap.to(pin.node(), {
-            opacity: 1,
-        });
+        // let pin = d3.select(this).select(".pin");
+        // gsap.to(pin.node(), {
+        //     opacity: 1,
+        // });
         d3.selectAll(".end-node").on("click", null);
         let result = dijkstra(graph, startNode.id, endNode.id);
         convertPath(result);
@@ -191,27 +326,12 @@ function endSelection() {
 
 // Function to update the node and link positions on each tick of the force layout (multiple ticks per second)
 function ticked() {
-    link.attr("x1", function (d) {
-        return d.source.x;
-    })
-        .attr("y1", function (d) {
-            return d.source.y;
-        })
-        .attr("x2", function (d) {
-            return d.target.x;
-        })
-        .attr("y2", function (d) {
-            return d.target.y;
-        });
+    link.attr("x1", (d) => d.source.x)
+        .attr("y1", (d) => d.source.y)
+        .attr("x2", (d) => d.target.x)
+        .attr("y2", (d) => d.target.y);
 
-    // node.attr("cx", function (d) {
-    //     return d.x;
-    // }).attr("cy", function (d) {
-    //     return d.y;
-    // });
-    node.attr("transform", function (d) {
-        return `translate(${d.x - 15}, ${d.y - 30})`;
-    });
+    node.attr("cx", (d) => d.x).attr("cy", (d) => d.y);
 }
 
 /**
@@ -503,8 +623,6 @@ tlSpawn.play();
 
 let tlTypewriter = gsap.timeline({ paused: true });
 let keyboardSwitches = $("#keyboard").children();
-
-console.log(keyboardSwitches);
 
 tlTypewriter.to(keyboardSwitches, {
     attr: {
