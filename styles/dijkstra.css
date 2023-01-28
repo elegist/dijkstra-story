@@ -42,12 +42,16 @@ body {
 .dialog-box > p {
     text-align: justify;
     padding: 1rem;
+    pointer-events: none;
 }
 
 .dialog-box > i {
-    align-self: flex-end;
-    padding-right: 1rem;
+    position: absolute;
+    right: 0;
+    bottom: 0;
     padding-bottom: 1rem;
+    padding-right: 1rem;
+    font-size: 1.5rem;
     opacity: 0;
 }
 

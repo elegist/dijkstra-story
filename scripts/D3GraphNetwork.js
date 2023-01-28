@@ -616,7 +616,9 @@ tlTypewriter.to(keyboardSwitches, {
 // tlTypewriter.play();
 
 const waitForUserInput = () => {
+    $(".dialog-box").css("cursor", "pointer");
     $(".dialog-box").on("click", () => {
+        $(".dialog-box").css("cursor", "default");
         tlDialogBox.to(".dialog-box", {
             skewX: -25,
             skewY: -25,
@@ -627,7 +629,7 @@ const waitForUserInput = () => {
     });
 };
 
-let tlDialogBox = gsap.timeline({ onComplete: waitForUserInput });
+let tlDialogBox = gsap.timeline();
 
 tlDialogBox
     .from(".dialog-box", {
@@ -643,11 +645,13 @@ tlDialogBox
     })
     .to(".caret", {
         opacity: 1,
+        onComplete: waitForUserInput,
     });
 
 gsap.to(".caret", {
     transformOrigin: "center",
     scale: 0.75,
+
     repeat: -1,
     ease: "power3.in",
     duration: 1,
