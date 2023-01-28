@@ -280,7 +280,7 @@ let node = svg
         .selectAll(".node")
         .data(graph.nodes)
         .enter()
-        .append("svg")
+        .append("g")
         .attr("class", "node")
         .insert(() => {
             let g = document.createElementNS("http://www.w3.org/2000/svg", "g");
@@ -359,7 +359,8 @@ function ticked() {
         .attr("x2", (d) => d.target.x)
         .attr("y2", (d) => d.target.y);
 
-    nodes.attr("x", (d) => d.x - 35/2).attr("y", (d) => d.y - 51/2);
+    // nodes.attr("x", (d) => d.x - 35/2).attr("y", (d) => d.y - 51/2);
+    node.attr("transform", (d) => `translate(${d.x - 35/2}, ${d.y - 31/2})`);
 }
 
 /**
