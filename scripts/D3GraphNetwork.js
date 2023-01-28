@@ -178,31 +178,6 @@ for (const [id, storyInformation] of Object.entries(stories)) {
     });
 }
 
-console.log(graph.links);
-
-// let amountOfStartNodes = 1;
-// let amountofEndNodes = 1;
-
-// stories.forEach((story, index) => {
-//     if (index < amountOfStartNodes) {
-//         addNode(index, story, true, false);
-//     } else if (index >= stories.length - amountofEndNodes) {
-//         addNode(index, story, false, true);
-//     } else {
-//         addNode(index, story);
-//     }
-// });
-
-// addLink(0, 1, 1);
-// addLink(0, 2, 4);
-// addLink(0, 3, 9);
-// addLink(1, 2, 1);
-// addLink(2, 3, 3);
-// addLink(2, 4, 1);
-// addLink(3, 4, 1);
-
-//graph.nodes.push({id: "J", text: "test"})
-
 // Set up the SVG canvas
 let container = d3.select("#algorithm-container");
 let width = "1000";
@@ -247,53 +222,21 @@ let link = svg
     .attr("class", "link");
 
 //Add the nodes to the SVG
-let template = d3.select("#customNode").html();
-
-// let node = svg
-//     .append("g")
-//     .attr("id", "nodes")
-//     .selectAll(".node")
-//     .data(graph.nodes)
-//     .enter()
-//     .append(function () {
-//         let g = document.createElementNS("http://www.w3.org/2000/svg", "g");
-//         g.innerHTML = template;
-//         return g;
-//     })
-//     .attr("class", "node");
-
 let nodeTemplate = d3.select("#customNode").html();
 
-// let node = svg
-//     .append("g")
-//     .attr("id", "nodes")
-//     .selectAll(".node")
-//     .data(graph.nodes)
-//     .enter()
-//     .append("circle")
-//     .attr("r", 15)
-//     .attr("class", "node");
-
 let node = svg
-        .append("g")
-        .attr("id", "nodes")
-        .selectAll(".node")
-        .data(graph.nodes)
-        .enter()
-        .append("g")
-        .attr("class", "node")
-        .insert(() => {
-            let g = document.createElementNS("http://www.w3.org/2000/svg", "g");
-            g.innerHTML = nodeTemplate;
-            return g;
-        })
-
-/* 
-insert(() => {
-    let g = document.createElementNS("http://www.w3.org/2000/svg", "g");
-    g.innerHTML = nodeTemplate;
-    return g;
-*/
+    .append("g")
+    .attr("id", "nodes")
+    .selectAll(".node")
+    .data(graph.nodes)
+    .enter()
+    .append("g")
+    .attr("class", "node")
+    .insert(() => {
+        let g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+        g.innerHTML = nodeTemplate;
+        return g;
+    })
 
 d3.selectAll(".node")
     .filter(function (d) {
@@ -308,10 +251,6 @@ d3.selectAll(".node")
     })
     .classed("end-node", true);
 //.classed("node", false)
-
-// svg.on("mouseover", function (d){
-//     zoomToArea(d3.select(".start-node"))
-// });
 
 node.on("mouseover", function (e) {
     let selectedNode = d3.select(this).datum();
@@ -329,10 +268,10 @@ node.on("mouseout", function () {
 let startNode;
 d3.selectAll(".start-node").on("click", function () {
     startNode = d3.select(this).datum();
-    // let pin = d3.select(this).select(".pin");
-    // gsap.to(pin.node(), {
-    //     opacity: 1,
-    // });
+    let pin = d3.select(this).select(".pin");
+    gsap.to(pin.node(), {
+        opacity: 1,
+    });
     d3.selectAll(".start-node").on("click", null);
     endSelection();
 });
@@ -341,10 +280,10 @@ let endNode;
 function endSelection() {
     d3.selectAll(".end-node").on("click", function () {
         endNode = d3.select(this).datum();
-        // let pin = d3.select(this).select(".pin");
-        // gsap.to(pin.node(), {
-        //     opacity: 1,
-        // });
+        let pin = d3.select(this).select(".pin");
+        gsap.to(pin.node(), {
+            opacity: 1,
+        });
         d3.selectAll(".end-node").on("click", null);
         let result = dijkstra(graph, startNode.id, endNode.id);
         convertPath(result);
@@ -352,7 +291,7 @@ function endSelection() {
     });
 }
 
-// Function to update the node and link positions on each tick of the force layout (multiple ticks per second)
+// Function to update the node and link positions on each tick of the force layout
 function ticked() {
     link.attr("x1", (d) => d.source.x)
         .attr("y1", (d) => d.source.y)
@@ -360,39 +299,35 @@ function ticked() {
         .attr("y2", (d) => d.target.y);
 
     // nodes.attr("x", (d) => d.x - 35/2).attr("y", (d) => d.y - 51/2);
-    node.attr("transform", (d) => `translate(${d.x - 35/2}, ${d.y - 31/2})`);
+    node.attr("transform", (d) => `translate(${d.x - 35 / 2}, ${d.y - 51 / 2})`);
 }
 
 /**
  * Zooming and panning inside the svg
  */
+function applyZoom() {
+    var zoom = d3
+        .zoom()
+        .scaleExtent([1, 10])
+        //.translateExtent([[0, 0], [width, height]])
+        .on("zoom", zoomed);
+    //
+    svg.call(zoom)
+    function zoomed(event) {
+        nodes.attr("transform", event.transform);
+        link.attr("transform", event.transform);
+    }
+}
 
 var specificNode = node.filter(function (d, i) {
-    return d.startNode === "true";
+    return d.startNode === true;
 });
-
-var zoom = d3
-    .zoom()
-    .scaleExtent([1, 10])
-    //.translateExtent([[0, 0], [width, height]])
-    .on("zoom", zoomed);
-
-svg.call(zoom)
-
-function zoomed(event) {
-    nodes.attr("transform", event.transform);
-    link.attr("transform", event.transform);
-}
 
 function panToSelection(selection) {
     var x = selection.attr("x");
     var y = selection.attr("y");
     zoom.translateTo(svg, x, y);
 }
-
-d3.select("#nextBtn").on("click", function () {});
-
-//zoom.translateExtent([[-width/2, -height/2], [width, height]])
 
 // function to display the text of a node
 function displayTooltipText(selectedNode) {
@@ -418,17 +353,8 @@ function hideTooltipText(selectedNode) {
         scale: 0,
         duration: 0.2,
     });
-    //let textDiv = d3.select("#storyPreview");
     textDiv.text("");
 }
-
-let tlStory = gsap.timeline({
-    defaults: { duration: 1.5 },
-    onComplete: () => {
-        tlTypewriter.restart();
-        tlTypewriter.pause();
-    },
-});
 
 // function to display the text of a node
 function displayNodeText(selectedNode) {
@@ -457,18 +383,19 @@ function displayNodeText(selectedNode) {
         });
 }
 
-window.addEventListener("resize", () =>
-    simulation
-        .force(
-            "center",
-            d3.forceCenter(
-                container.node().getBoundingClientRect().width / 2,
-                container.node().getBoundingClientRect().height / 2
-            )
-        )
-        .alphaTarget(0) // re-heat the simulation
-        .restart()
-);
+//fixed height and width make this obsolete
+// window.addEventListener("resize", () =>
+//     simulation
+//         .force(
+//             "center",
+//             d3.forceCenter(
+//                 width / 2,
+//                 height / 2
+//             )
+//         )
+//         .alphaTarget(0) // re-heat the simulation
+//         .restart()
+// );
 
 function dijkstra(graph, startNodeId, endNodeId) {
     // Initialize letiables
@@ -496,13 +423,15 @@ function dijkstra(graph, startNodeId, endNodeId) {
         }
 
         // Update the distance of each neighbor
-        graph.links
-            .filter(function (d) {
-                return d.source.id === currentNodeId;
-            })
-            .forEach(function (link) {
-                let neighborId = link.target.id;
-                let newDistance = distance[currentNodeId] + link.weight;
+        graph.links.filter(function (d) {
+            return d.source.id === currentNodeId || d.target.id === currentNodeId;
+        })
+            .forEach(function (linkx) {
+
+                let filterLink = link.filter((d) => { return d.id === linkx.id })
+
+                let neighborId = linkx.target.id === currentNodeId ? linkx.source.id : linkx.target.id;
+                let newDistance = distance[currentNodeId] + linkx.weight;
                 if (newDistance < distance[neighborId]) {
                     distance[neighborId] = newDistance;
                     previous[neighborId] = currentNodeId;
@@ -525,14 +454,20 @@ function dijkstra(graph, startNodeId, endNodeId) {
     };
 }
 
+//Take the algorithm result and reapply the graph data to each path element
 function convertPath(result) {
     let nodesInPath = [];
+    result.path.forEach((element) => {
+        nodesInPath.push(node.filter((d) => { return d.id === element }))
+    })
+    console.log(nodesInPath)
+    highlightNode(nodesInPath)
+
     for (let i = 0; i < result.path.length; i++) {
-        let nodetmp = graph.nodes.find(function (d) {
+        let nodeTmp = graph.nodes.find(function (d) {
             return d.id === result.path[i];
         });
-        nodesInPath.push(nodetmp);
-        displayNodeText(nodetmp);
+        displayNodeText(nodeTmp);
     }
 }
 
@@ -571,68 +506,22 @@ class PriorityQueue {
     }
 }
 
-// let startNodeId = "A";
-// let endNodeId = "I";
-// let result = dijkstra(graph, startNodeId, endNodeId);
-// console.log(result)
-
-// result.path.forEach()
-
-// // update the nodes and links
-// node.data(result.path)
-//     .attr("class", "node shortest-path")
-//     .merge()
-
-// link.data(result.path)
-//     .attr("class", "link shortest-path")
-//     .merge()
-
-// keep the forcesimulation on the node
-// simulation.nodes(result.path);
-// simulation.alpha(1).restart();
-
-// // Highlight the shortest path on the graph
-// let shortestPathLinks = result.path.map(function (d, i) {
-//     return i < result.path.length - 1 ? { "source": d, "target": result.path[i + 1] } : null;
-// }).filter(function (d) { return d !== null; });
-
-// let link = svg.selectAll(".link")
-//     .data(shortestPathLinks, function (d) { return d.source + "-" + d.target; });
-
-// node.data(result.path)
-//     .attr("class", "node shortest-path")
-
-// simulation.nodes(result.path)
-// simulation.force("link").initialize(graph.links)
-// simulation.force("charge").initialize(node);
-// simulation.force("center").initialize(node);
-// simulation.force("collide").initialize(node);
-
-// const intro = () => {
-//     let timeline = gsap.timeline();
-
-//     timeline.from(".sticky-note", {
-//         x: -20,
-//         y: 20,
-//         scale: 0.2,
-//         rotation: 30,
-//         transformOrigin: "center",
-//         opacity: 0,
-//         ease: Back.easeOut.config(2),
-//         duration: 0.85,
-//         stagger: {
-//             each: 0.1,
-//             from: "random",
-//             grid: "auto",
-//             ease: "power3.inOut",
-//         },
-//     });
-
-//     return timeline;
-// };
+/******************
+ * 
+ * GSAP ANIMATIONS 
+ * 
+ */
+let tlStory = gsap.timeline({
+    defaults: { duration: 1.5 },
+    onComplete: () => {
+        tlTypewriter.restart();
+        tlTypewriter.pause();
+    },
+});
 
 let tlSpawn = gsap.timeline({ paused: true });
 let nodes = d3.selectAll(".node");
+console.log(nodes)
 
 tlSpawn.from(nodes.nodes(), {
     scale: 0.2,
@@ -645,10 +534,11 @@ tlSpawn.from(nodes.nodes(), {
         grid: "auto",
         ease: "power3.inOut",
     },
+    onComplete: function () {
+        applyZoom()
+    }
 });
-
 tlSpawn.play();
-/* Animations */
 
 let tlTypewriter = gsap.timeline({ paused: true });
 let keyboardSwitches = $("#keyboard").children();
@@ -670,4 +560,21 @@ tlTypewriter.to(keyboardSwitches, {
     duration: 0.5,
 });
 
-// tlTypewriter.play();
+const highlightNode = (nodesInPath) => {
+    const highlightTl = gsap.timeline({paused: true})
+
+    nodesInPath.forEach((element)=>{
+        highlightTl.to(element.node(), {
+            stroke: "red",
+        })
+        .to(element.node(), {
+            scale: 2,
+            repeat: 2,
+            yoyo: true,
+            onComplete: function () {
+                this.play(0)
+            }
+        })
+    })
+    highlightTl.play()
+}
