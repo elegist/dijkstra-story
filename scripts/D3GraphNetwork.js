@@ -671,6 +671,6 @@ const showDialogBox = (dialog, onComplete = null) => {
     });
 };
 
-showDialogBox(
-    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae voluptatem eos ex impedit molestias labore. Libero iure corrupti cum consequuntur?"
-);
+// showDialogBox(
+//     "Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae voluptatem eos ex impedit molestias labore. Libero iure corrupti cum consequuntur?"
+// );
