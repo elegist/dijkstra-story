@@ -615,45 +615,48 @@ tlTypewriter.to(keyboardSwitches, {
 
 // tlTypewriter.play();
 
-const waitForUserInput = () => {
-    $(".dialog-box").css("cursor", "pointer");
-    $(".dialog-box").on("click", () => {
-        $(".dialog-box").css("cursor", "default");
-        tlDialogBox.to(".dialog-box", {
-            skewX: -25,
-            skewY: -25,
-            opacity: 0,
-            delay: 0.1,
-            ease: Back.easeOut.config(2),
+const showDialogBox = (dialog) => {
+    const waitForUserInput = () => {
+        $(".dialog-box").css("cursor", "pointer");
+        $(".dialog-box").on("click", () => {
+            $(".dialog-box").css("cursor", "default");
+            tlDialogBox.to(".dialog-box", {
+                skewX: -25,
+                skewY: -25,
+                opacity: 0,
+                delay: 0.1,
+                ease: Back.easeOut.config(2),
+            });
         });
+    };
+    
+    gsap.set(".dialog-box", { opacity: 1 });
+    let tlDialogBox = gsap.timeline();
+    
+    tlDialogBox
+        .from(".dialog-box", {
+            opacity: 0,
+            skewX: 25,
+            skewY: 25,
+            ease: Back.easeIn.config(2),
+        })
+        .to(".dialog", {
+            text: dialog,
+            duration: 2,
+            delay: 0.5,
+        })
+        .to(".caret", {
+            opacity: 1,
+            onComplete: waitForUserInput,
+        });
+    
+    gsap.to(".caret", {
+        transformOrigin: "center",
+        scale: 0.75,
+    
+        repeat: -1,
+        ease: "power3.in",
+        duration: 1,
+        yoyo: true,
     });
-};
-
-let tlDialogBox = gsap.timeline();
-
-tlDialogBox
-    .from(".dialog-box", {
-        opacity: 0,
-        skewX: 25,
-        skewY: 25,
-        ease: Back.easeIn.config(2),
-    })
-    .to(".dialog", {
-        text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos saepe beatae cum officiis aliquid hic maxime eum ex nemo tempore?",
-        duration: 2,
-        delay: 0.5,
-    })
-    .to(".caret", {
-        opacity: 1,
-        onComplete: waitForUserInput,
-    });
-
-gsap.to(".caret", {
-    transformOrigin: "center",
-    scale: 0.75,
-
-    repeat: -1,
-    ease: "power3.in",
-    duration: 1,
-    yoyo: true,
-});
+}
