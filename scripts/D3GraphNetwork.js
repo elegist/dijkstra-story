@@ -477,12 +477,9 @@ function dijkstra(graph, startNodeId, endNodeId) {
         graph.links.filter(function (d) {
             return d.source.id === currentNodeId || d.target.id === currentNodeId;
         })
-            .forEach(function (linkx) {
-
-                let filterLink = link.filter((d) => { return d.id === linkx.id })
-
-                let neighborId = linkx.target.id === currentNodeId ? linkx.source.id : linkx.target.id;
-                let newDistance = distance[currentNodeId] + linkx.weight;
+            .forEach(function (link) {
+                let neighborId = link.target.id === currentNodeId ? link.source.id : link.target.id;
+                let newDistance = distance[currentNodeId] + link.weight;
                 if (newDistance < distance[neighborId]) {
                     distance[neighborId] = newDistance;
                     previous[neighborId] = currentNodeId;
@@ -513,6 +510,8 @@ function convertPath(result) {
     })
     console.log(nodesInPath)
     highlightNode(nodesInPath)
+
+    highlightLink(result.path)
 
     for (let i = 0; i < result.path.length; i++) {
         let nodeTmp = graph.nodes.find(function (d) {
@@ -572,7 +571,6 @@ let tlStory = gsap.timeline({
 
 let tlSpawn = gsap.timeline({ paused: true });
 let nodes = d3.selectAll(".node");
-console.log(nodes)
 
 tlSpawn.from(nodes.nodes(), {
     scale: 0.2,
@@ -615,14 +613,16 @@ tlTypewriter.to(keyboardSwitches, {
     duration: 0.5,
 });
 
+//Animation for the nodes on the shortest path
 const highlightNode = (nodesInPath) => {
     const highlightTl = gsap.timeline({paused: true})
-
     nodesInPath.forEach((element)=>{
-        highlightTl.to(element.node(), {
+        let animSelection = [element.select(".sticky-note").node(), element.select(".pin").node()]  
+
+        highlightTl.to(animSelection, {
             stroke: "red",
         })
-        .to(element.node(), {
+        .to(animSelection, {
             scale: 2,
             repeat: 2,
             yoyo: true,
@@ -633,3 +633,15 @@ const highlightNode = (nodesInPath) => {
     })
     highlightTl.play()
 }
+
+//Animation for the links on the shortest path
+const highlightLink = (path) => {
+    for (let i = 0; i < path.length-1; i++) {
+        let myLink = link.filter((d) => {
+            return d.source.id === path[i] && d.target.id === path[i+1]
+        })
+        myLink.classed("shortest-path", true)
+    }
+}
+
+
