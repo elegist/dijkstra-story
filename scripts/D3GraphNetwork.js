@@ -252,22 +252,53 @@ d3.selectAll(".node")
     })
     .classed("end-node", true);
 
-node.on("mouseover", function (e) {
-    let selectedNode = d3.select(this).datum();
-    d3.select("#storyPreview")
+//             gsap.to("#" + node.id, {
+//                 scale: 1.8,
+//                 transformOrigin: "center",
+//                 ease: "sine.out",
+//                 duration: 0.333,
+//             });
+
+let allStartNodes = d3.selectAll(".start-node");
+let allEndNodes = d3.selectAll(".end-node");
+let allInteractableNodes = d3.selectAll(".start-node, .end-node")
+
+allInteractableNodes.selectAll(".helper-point").on("mouseover", function (e) {
+    let selectedNode = d3.select(this.parentNode).datum();
+
+    let stickyNote = d3.select(this.parentNode).select(".sticky-note").node();
+
+    gsap.to(stickyNote, {
+        scale: 1.8,
+        transformOrigin: "center",
+        ease: "sine.out",
+        duration: 0.333,
+    });
+
+    displayTooltipText(selectedNode);
+    d3.select(`#storyPreview-${selectedNode.id}`)
         .style("left", `${e.layerX + 15}px`)
         .style("top", `${e.layerY + 15}px`);
-    displayTooltipText(selectedNode);
 });
 
-node.on("mouseout", function () {
-    let selectedNode = d3.select(this).datum();
+allInteractableNodes.selectAll(".helper-point").on("mouseout", function () {
+    let selectedNode = d3.select(this.parentNode).datum();
+
+    let stickyNote = d3.select(this.parentNode).select(".sticky-note").node();
+
+    gsap.to(stickyNote, {
+        scale: 1.0,
+        transformOrigin: "center",
+        ease: "sine.in",
+        duration: 0.333,
+    });
+
     hideTooltipText(selectedNode);
 });
 
-let startNode;
-d3.selectAll(".start-node").on("click", function () {
-    startNode = d3.select(this).datum();
+let startNodeSelection;
+allStartNodes.on("click", function () {
+    startNodeSelection = d3.select(this).datum();
     let pin = d3.select(this).select(".pin");
     gsap.set(pin.node(), { opacity: 1 });
     gsap.from(pin.node(), {
@@ -281,10 +312,10 @@ d3.selectAll(".start-node").on("click", function () {
     endSelection();
 });
 
-let endNode;
+let endNodeSelection;
 function endSelection() {
-    d3.selectAll(".end-node").on("click", function () {
-        endNode = d3.select(this).datum();
+    allEndNodes.on("click", function () {
+        endNodeSelection = d3.select(this).datum();
         let pin = d3.select(this).select(".pin");
         gsap.set(pin.node(), { opacity: 1 });
         gsap.from(pin.node(), {
@@ -294,8 +325,8 @@ function endSelection() {
             transformOrigin: "center",
             ease: "expo.out",
         });
-        d3.selectAll(".end-node").on("click", null);
-        let result = dijkstra(graph, startNode.id, endNode.id);
+        allEndNodes.on("click", null);
+        let result = dijkstra(graph, startNodeSelection.id, endNodeSelection.id);
         convertPath(result);
         tlTypewriter.play();
     });
@@ -348,30 +379,37 @@ d3.select("#nextBtn").on("click", function () {});
 
 // function to display the text of a node
 function displayTooltipText(selectedNode) {
-    // create a new div for the text
-    let textDiv = d3.select("#storyPreview");
-    // add the title and text of the node to the div
-    gsap.to(textDiv.node(), {
+    let container = d3.select("#algorithm-container");
+
+    let storyPreview = container
+        .append("div")
+        .attr("class", "story-preview fs-5 p-4 shadow-sm")
+        .attr("id", `storyPreview-${selectedNode.id}`);
+
+    gsap.to(storyPreview.node(), {
         scale: 1,
-        duration: 0.2,
+        duration: 0.333,
     });
-    textDiv.append("h3").text(selectedNode.id);
-    textDiv.append("p").text(selectedNode.text);
+
+    storyPreview.append("h3").text(selectedNode.id);
+    storyPreview.append("p").text(selectedNode.text);
 }
 
 // function to display the text of a node
 function hideTooltipText(selectedNode) {
-    // create a new div for the text
-    gsap.to("#storyPreview", {
+    let container = d3.select("#algorithm-container");
+
+    let storyPreview = container.select(`#storyPreview-${selectedNode.id}`);
+
+    storyPreview.attr("id", null);
+
+    gsap.to(storyPreview.node(), {
         scale: 0,
+        duration: 0.333,
+        onComplete: () => {
+            storyPreview.remove();
+        },
     });
-    let textDiv = d3.select("#storyPreview");
-    gsap.to(textDiv.node(), {
-        scale: 0,
-        duration: 0.2,
-    });
-    //let textDiv = d3.select("#storyPreview");
-    textDiv.text("");
 }
 
 let tlStory = gsap.timeline({
@@ -544,7 +582,7 @@ tlSpawn.from(nodes.nodes(), {
 });
 
 tlSpawn.play();
-tlSpawn.delay(4);
+tlSpawn.delay(1);
 /* Animations */
 
 let tlTypewriter = gsap.timeline({ paused: true });
