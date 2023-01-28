@@ -225,7 +225,7 @@ let simulation = d3
             return d.id;
         })
     )
-    .force("charge", d3.forceManyBody().strength(0))
+    .force("charge", d3.forceManyBody().strength(-30))
     .force(
         "center",
         d3.forceCenter(
@@ -277,7 +277,7 @@ let nodeTemplate = d3.select("#customNode").html();
 let node = svg
         .append("g")
         .attr("id", "nodes")
-        .selectAll(".nodes")
+        .selectAll(".node")
         .data(graph.nodes)
         .enter()
         .append("svg")
@@ -359,7 +359,7 @@ function ticked() {
         .attr("x2", (d) => d.target.x)
         .attr("y2", (d) => d.target.y);
 
-    nodes.attr("x", (d) => d.x - 15).attr("y", (d) => d.y - 20);
+    nodes.attr("x", (d) => d.x - 35/2).attr("y", (d) => d.y - 51/2);
 }
 
 /**
