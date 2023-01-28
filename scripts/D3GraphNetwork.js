@@ -261,7 +261,7 @@ d3.selectAll(".node")
 
 let allStartNodes = d3.selectAll(".start-node");
 let allEndNodes = d3.selectAll(".end-node");
-let allInteractableNodes = d3.selectAll(".start-node, .end-node")
+let allInteractableNodes = d3.selectAll(".start-node, .end-node");
 
 allInteractableNodes.selectAll(".helper-point").on("mouseover", function (e) {
     let selectedNode = d3.select(this.parentNode).datum();
@@ -308,7 +308,7 @@ allStartNodes.on("click", function () {
         transformOrigin: "center",
         ease: "expo.out",
     });
-    d3.selectAll(".start-node").on("click", null);
+    allStartNodes.on("click", null);
     endSelection();
 });
 
@@ -326,7 +326,11 @@ function endSelection() {
             ease: "expo.out",
         });
         allEndNodes.on("click", null);
-        let result = dijkstra(graph, startNodeSelection.id, endNodeSelection.id);
+        let result = dijkstra(
+            graph,
+            startNodeSelection.id,
+            endNodeSelection.id
+        );
         convertPath(result);
         tlTypewriter.play();
     });
@@ -386,9 +390,11 @@ function displayTooltipText(selectedNode) {
         .attr("class", "story-preview fs-5 p-4 shadow-sm")
         .attr("id", `storyPreview-${selectedNode.id}`);
 
-    gsap.to(storyPreview.node(), {
-        scale: 1,
-        duration: 0.333,
+    gsap.from(storyPreview.node(), {
+        opacity: 0,
+        scale: 1.4,
+        duration: 0.5,
+        ease: Back.easeOut.config(2),
     });
 
     storyPreview.append("h3").text(selectedNode.id);
@@ -404,8 +410,10 @@ function hideTooltipText(selectedNode) {
     storyPreview.attr("id", null);
 
     gsap.to(storyPreview.node(), {
-        scale: 0,
-        duration: 0.333,
+        opacity: 0,
+        scale: 1.4,
+        duration: 0.25,
+        ease: Back.easeIn.config(2),
         onComplete: () => {
             storyPreview.remove();
         },

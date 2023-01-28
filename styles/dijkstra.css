@@ -27,10 +27,15 @@ body {
 
 .story-preview {
     position: absolute;
-    background: #ffd6a0;
+    background: linear-gradient(#ffc170, #ffd6a0);
     text-align: center;
     width: 15rem;
-    scale: 0;
+    border-radius: 5%;
+    pointer-events: none;
+}
+
+.story-preview > p {
+    text-align: justify;
 }
 
 #textBox{
@@ -68,6 +73,11 @@ body {
     stroke: #000;
     stroke-width: 1.5px;
 } */
+
+.start-node,
+.end-node {
+    cursor: pointer;
+}
 
 .start-node > .pin {
     stroke: rgb(71, 71, 201);
