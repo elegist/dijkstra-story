@@ -618,8 +618,10 @@ tlTypewriter.to(keyboardSwitches, {
 const showDialogBox = (dialog) => {
     const waitForUserInput = () => {
         $(".dialog-box").css("cursor", "pointer");
+        $(".dialog-box").css("pointer-events", "all");
         $(".dialog-box").on("click", () => {
             $(".dialog-box").css("cursor", "default");
+            $(".dialog-box").css("pointer-events", "none");
             tlDialogBox.to(".dialog-box", {
                 skewX: -25,
                 skewY: -25,
