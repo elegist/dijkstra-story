@@ -617,18 +617,16 @@ tlTypewriter.to(keyboardSwitches, {
 const highlightNode = (nodesInPath) => {
     const highlightTl = gsap.timeline({paused: true})
     nodesInPath.forEach((element)=>{
-        let animSelection = [element.select(".sticky-note").node(), element.select(".pin").node()]  
+        let animSelection = [element.select(".result-path-node").node()]  
 
-        highlightTl.to(animSelection, {
+        highlightTl.to(animSelection[0], {
             stroke: "red",
         })
-        .to(animSelection, {
-            scale: 2,
-            repeat: 2,
-            yoyo: true,
-            onComplete: function () {
-                this.play(0)
-            }
+        .fromTo(animSelection[0], {
+            scale: 0,
+            transformOrigin: "center"
+        },{
+            scale: 1
         })
     })
     highlightTl.play()
