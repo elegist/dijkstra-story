@@ -643,3 +643,64 @@ const highlightLink = (path) => {
 }
 
 
+// tlTypewriter.play();
+
+/**
+ * Makes a dialog box with a text appear on screen, that the user can click away in order to proceed
+ * 
+ * @param {String} dialog string that will be displayed on the box
+ * @param {Function} onComplete function that will be executed after the box disappears
+ */
+
+const showDialogBox = (dialog, onComplete = null) => {
+    const waitForUserInput = () => {
+        $(".dialog-box").css("cursor", "pointer");
+        $(".dialog-box").css("pointer-events", "all");
+        $(".dialog-box").on("click", () => {
+            $(".dialog-box").css("cursor", "default");
+            $(".dialog-box").css("pointer-events", "none");
+            tlDialogBox.to(".dialog-box", {
+                skewX: -25,
+                skewY: -25,
+                opacity: 0,
+                delay: 0.1,
+                ease: Back.easeOut.config(2),
+                onComplete: onComplete,
+            });
+        });
+    };
+
+    gsap.set(".dialog-box", { opacity: 1 });
+    let tlDialogBox = gsap.timeline();
+
+    tlDialogBox
+        .from(".dialog-box", {
+            opacity: 0,
+            skewX: 25,
+            skewY: 25,
+            ease: Back.easeIn.config(2),
+        })
+        .to(".dialog", {
+            text: dialog,
+            duration: 2,
+            delay: 0.5,
+        })
+        .to(".caret", {
+            opacity: 1,
+            onComplete: waitForUserInput,
+        });
+
+    gsap.to(".caret", {
+        transformOrigin: "center",
+        scale: 0.75,
+
+        repeat: -1,
+        ease: "power3.in",
+        duration: 1,
+        yoyo: true,
+    });
+};
+
+showDialogBox(
+    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae voluptatem eos ex impedit molestias labore. Libero iure corrupti cum consequuntur?"
+);
