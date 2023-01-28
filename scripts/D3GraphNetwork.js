@@ -178,31 +178,6 @@ for (const [id, storyInformation] of Object.entries(stories)) {
     });
 }
 
-console.log(graph.links);
-
-// let amountOfStartNodes = 1;
-// let amountofEndNodes = 1;
-
-// stories.forEach((story, index) => {
-//     if (index < amountOfStartNodes) {
-//         addNode(index, story, true, false);
-//     } else if (index >= stories.length - amountofEndNodes) {
-//         addNode(index, story, false, true);
-//     } else {
-//         addNode(index, story);
-//     }
-// });
-
-// addLink(0, 1, 1);
-// addLink(0, 2, 4);
-// addLink(0, 3, 9);
-// addLink(1, 2, 1);
-// addLink(2, 3, 3);
-// addLink(2, 4, 1);
-// addLink(3, 4, 1);
-
-//graph.nodes.push({id: "J", text: "test"})
-
 // Set up the SVG canvas
 let container = d3.select("#algorithm-container");
 let width = "1000";
@@ -249,69 +224,33 @@ let link = svg
 //Add the nodes to the SVG
 let template = d3.select("#customNode").html();
 
-// let node = svg
-//     .append("g")
-//     .attr("id", "nodes")
-//     .selectAll(".node")
-//     .data(graph.nodes)
-//     .enter()
-//     .append(function () {
-//         let g = document.createElementNS("http://www.w3.org/2000/svg", "g");
-//         g.innerHTML = template;
-//         return g;
-//     })
-//     .attr("class", "node");
-
 let nodeTemplate = d3.select("#customNode").html();
 
-// let node = svg
-//     .append("g")
-//     .attr("id", "nodes")
-//     .selectAll(".node")
-//     .data(graph.nodes)
-//     .enter()
-//     .append("circle")
-//     .attr("r", 15)
-//     .attr("class", "node");
-
 let node = svg
-        .append("g")
-        .attr("id", "nodes")
-        .selectAll(".node")
-        .data(graph.nodes)
-        .enter()
-        .append("g")
-        .attr("class", "node")
-        .insert(() => {
-            let g = document.createElementNS("http://www.w3.org/2000/svg", "g");
-            g.innerHTML = nodeTemplate;
-            return g;
-        })
-
-/* 
-insert(() => {
-    let g = document.createElementNS("http://www.w3.org/2000/svg", "g");
-    g.innerHTML = nodeTemplate;
-    return g;
-*/
+    .append("g")
+    .attr("id", "nodes")
+    .selectAll(".node")
+    .data(graph.nodes)
+    .enter()
+    .append("g")
+    .attr("class", "node")
+    .insert(() => {
+        let g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+        g.innerHTML = nodeTemplate;
+        return g;
+    });
 
 d3.selectAll(".node")
     .filter(function (d) {
         return d.startNode === true;
     })
     .classed("start-node", true);
-//.classed("node", false)
 
 d3.selectAll(".node")
     .filter(function (d) {
         return d.endNode === true;
     })
     .classed("end-node", true);
-//.classed("node", false)
-
-// svg.on("mouseover", function (d){
-//     zoomToArea(d3.select(".start-node"))
-// });
 
 node.on("mouseover", function (e) {
     let selectedNode = d3.select(this).datum();
@@ -329,10 +268,15 @@ node.on("mouseout", function () {
 let startNode;
 d3.selectAll(".start-node").on("click", function () {
     startNode = d3.select(this).datum();
-    // let pin = d3.select(this).select(".pin");
-    // gsap.to(pin.node(), {
-    //     opacity: 1,
-    // });
+    let pin = d3.select(this).select(".pin");
+    gsap.set(pin.node(), { opacity: 1 });
+    gsap.from(pin.node(), {
+        opacity: 0,
+        y: -20,
+        scale: 1.4,
+        transformOrigin: "center",
+        ease: "expo.out",
+    });
     d3.selectAll(".start-node").on("click", null);
     endSelection();
 });
@@ -341,10 +285,15 @@ let endNode;
 function endSelection() {
     d3.selectAll(".end-node").on("click", function () {
         endNode = d3.select(this).datum();
-        // let pin = d3.select(this).select(".pin");
-        // gsap.to(pin.node(), {
-        //     opacity: 1,
-        // });
+        let pin = d3.select(this).select(".pin");
+        gsap.set(pin.node(), { opacity: 1 });
+        gsap.from(pin.node(), {
+            opacity: 0,
+            y: -20,
+            scale: 1.4,
+            transformOrigin: "center",
+            ease: "expo.out",
+        });
         d3.selectAll(".end-node").on("click", null);
         let result = dijkstra(graph, startNode.id, endNode.id);
         convertPath(result);
@@ -360,7 +309,10 @@ function ticked() {
         .attr("y2", (d) => d.target.y);
 
     // nodes.attr("x", (d) => d.x - 35/2).attr("y", (d) => d.y - 51/2);
-    node.attr("transform", (d) => `translate(${d.x - 35/2}, ${d.y - 31/2})`);
+    node.attr(
+        "transform",
+        (d) => `translate(${d.x - 35 / 2}, ${d.y - 51 / 2})`
+    );
 }
 
 /**
@@ -377,7 +329,7 @@ var zoom = d3
     //.translateExtent([[0, 0], [width, height]])
     .on("zoom", zoomed);
 
-svg.call(zoom)
+svg.call(zoom);
 
 function zoomed(event) {
     nodes.attr("transform", event.transform);
@@ -571,73 +523,17 @@ class PriorityQueue {
     }
 }
 
-// let startNodeId = "A";
-// let endNodeId = "I";
-// let result = dijkstra(graph, startNodeId, endNodeId);
-// console.log(result)
-
-// result.path.forEach()
-
-// // update the nodes and links
-// node.data(result.path)
-//     .attr("class", "node shortest-path")
-//     .merge()
-
-// link.data(result.path)
-//     .attr("class", "link shortest-path")
-//     .merge()
-
-// keep the forcesimulation on the node
-// simulation.nodes(result.path);
-// simulation.alpha(1).restart();
-
-// // Highlight the shortest path on the graph
-// let shortestPathLinks = result.path.map(function (d, i) {
-//     return i < result.path.length - 1 ? { "source": d, "target": result.path[i + 1] } : null;
-// }).filter(function (d) { return d !== null; });
-
-// let link = svg.selectAll(".link")
-//     .data(shortestPathLinks, function (d) { return d.source + "-" + d.target; });
-
-// node.data(result.path)
-//     .attr("class", "node shortest-path")
-
-// simulation.nodes(result.path)
-// simulation.force("link").initialize(graph.links)
-// simulation.force("charge").initialize(node);
-// simulation.force("center").initialize(node);
-// simulation.force("collide").initialize(node);
-
-// const intro = () => {
-//     let timeline = gsap.timeline();
-
-//     timeline.from(".sticky-note", {
-//         x: -20,
-//         y: 20,
-//         scale: 0.2,
-//         rotation: 30,
-//         transformOrigin: "center",
-//         opacity: 0,
-//         ease: Back.easeOut.config(2),
-//         duration: 0.85,
-//         stagger: {
-//             each: 0.1,
-//             from: "random",
-//             grid: "auto",
-//             ease: "power3.inOut",
-//         },
-//     });
-
-//     return timeline;
-// };
-
 let tlSpawn = gsap.timeline({ paused: true });
 let nodes = d3.selectAll(".node");
 
 tlSpawn.from(nodes.nodes(), {
     scale: 0.2,
     opacity: 0,
-    ease: "Back.easeOut.config(2)",
+    transformOrigin: "center",
+    rotation: 30,
+    x: -20,
+    y: 20,
+    ease: Back.easeOut.config(2),
     duration: 0.85,
     stagger: {
         each: 0.1,
@@ -648,6 +544,7 @@ tlSpawn.from(nodes.nodes(), {
 });
 
 tlSpawn.play();
+tlSpawn.delay(4);
 /* Animations */
 
 let tlTypewriter = gsap.timeline({ paused: true });
