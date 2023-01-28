@@ -614,3 +614,42 @@ tlTypewriter.to(keyboardSwitches, {
 });
 
 // tlTypewriter.play();
+
+const waitForUserInput = () => {
+    $(".dialog-box").on("click", () => {
+        tlDialogBox.to(".dialog-box", {
+            skewX: -25,
+            skewY: -25,
+            opacity: 0,
+            delay: 0.1,
+            ease: Back.easeOut.config(2),
+        });
+    });
+};
+
+let tlDialogBox = gsap.timeline({ onComplete: waitForUserInput });
+
+tlDialogBox
+    .from(".dialog-box", {
+        opacity: 0,
+        skewX: 25,
+        skewY: 25,
+        ease: Back.easeIn.config(2),
+    })
+    .to(".dialog", {
+        text: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eos saepe beatae cum officiis aliquid hic maxime eum ex nemo tempore?",
+        duration: 2,
+        delay: 0.5,
+    })
+    .to(".caret", {
+        opacity: 1,
+    });
+
+gsap.to(".caret", {
+    transformOrigin: "center",
+    scale: 0.75,
+    repeat: -1,
+    ease: "power3.in",
+    duration: 1,
+    yoyo: true,
+});

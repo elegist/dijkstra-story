@@ -21,6 +21,36 @@ body {
     justify-content: end;
 }
 
+.dialog-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    width: 50%;
+    height: 33.333%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: hsla(0, 0%, 100%, 0.25);
+    border: 1px solid black;
+    border-radius: 15px;
+    box-shadow: 0 0.25em 0.25em rgba(0, 0, 0, 0.33);
+    backdrop-filter: blur(10px);
+}
+
+.dialog-box > p {
+    text-align: justify;
+    padding: 1rem;
+}
+
+.dialog-box > i {
+    align-self: flex-end;
+    padding-right: 1rem;
+    padding-bottom: 1rem;
+    opacity: 0;
+}
+
 .hover {
     cursor: pointer;
 }
