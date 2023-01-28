@@ -30,7 +30,7 @@ let stories = {
     3: {
         story: "The Warped Sandwich",
         text: "She was an arrogant, energetic, brandy drinker with fragile fingers and pretty eyelashes.",
-        neighbors: ["4", "11", "18"],
+        neighbors: ["4", "11", "16"],
         startNode: false,
         endNode: false,
     },
@@ -166,15 +166,20 @@ for (const [id, storyInformation] of Object.entries(stories)) {
         storyInformation.endNode
     );
     storyInformation.neighbors.forEach((neighbor) => {
-        let weightMultiplier = 1
+        let weightMultiplier = 1;
         if (storyInformation.story !== stories[neighbor].story) {
-            weightMultiplier = 2
+            weightMultiplier = 2;
         }
-        addLink(id, neighbor, Math.abs(parseInt(neighbor) - parseInt(id)) * weightMultiplier);
+        addLink(
+            id,
+            neighbor,
+            Math.abs(parseInt(neighbor) - parseInt(id)) * weightMultiplier
+        );
     });
 }
 
 console.log(graph.links);
+
 // let amountOfStartNodes = 1;
 // let amountofEndNodes = 1;
 
@@ -209,7 +214,7 @@ let svg = container
     .attr("class", "img-fluid")
     .attr("width", width)
     .attr("height", height)
-    .attr("viewBox", "0 0 1000 800");
+    .attr("viewBox", `0 0 ${width} ${height}`);
 
 // Initialize the force layout
 let simulation = d3
@@ -257,15 +262,38 @@ let template = d3.select("#customNode").html();
 //     })
 //     .attr("class", "node");
 
+let nodeTemplate = d3.select("#customNode").html();
+
+// let node = svg
+//     .append("g")
+//     .attr("id", "nodes")
+//     .selectAll(".node")
+//     .data(graph.nodes)
+//     .enter()
+//     .append("circle")
+//     .attr("r", 15)
+//     .attr("class", "node");
+
 let node = svg
-    .append("g")
-    .attr("id", "nodes")
-    .selectAll(".node")
-    .data(graph.nodes)
-    .enter()
-    .append("circle")
-    .attr("r", 15)
-    .attr("class", "node");
+        .append("g")
+        .attr("id", "nodes")
+        .selectAll(".nodes")
+        .data(graph.nodes)
+        .enter()
+        .append("svg")
+        .attr("class", "node")
+        .insert(() => {
+            let g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+            g.innerHTML = nodeTemplate;
+            return g;
+        })
+
+/* 
+insert(() => {
+    let g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+    g.innerHTML = nodeTemplate;
+    return g;
+*/
 
 d3.selectAll(".node")
     .filter(function (d) {
@@ -288,8 +316,8 @@ d3.selectAll(".node")
 node.on("mouseover", function (e) {
     let selectedNode = d3.select(this).datum();
     d3.select("#storyPreview")
-        .style("left", `${e.layerX + 5}px`)
-        .style("top", `${e.layerY + 5}px`);
+        .style("left", `${e.layerX + 15}px`)
+        .style("top", `${e.layerY + 15}px`);
     displayTooltipText(selectedNode);
 });
 
@@ -331,7 +359,7 @@ function ticked() {
         .attr("x2", (d) => d.target.x)
         .attr("y2", (d) => d.target.y);
 
-    node.attr("cx", (d) => d.x).attr("cy", (d) => d.y);
+    nodes.attr("x", (d) => d.x - 15).attr("y", (d) => d.y - 20);
 }
 
 /**
@@ -348,10 +376,10 @@ var zoom = d3
     //.translateExtent([[0, 0], [width, height]])
     .on("zoom", zoomed);
 
-//svg.call(zoom)
+svg.call(zoom)
 
 function zoomed(event) {
-    // node.attr("transform", event.transform);
+    nodes.attr("transform", event.transform);
     link.attr("transform", event.transform);
 }
 

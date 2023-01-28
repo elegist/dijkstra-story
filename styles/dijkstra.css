@@ -27,7 +27,6 @@ body {
 
 .story-preview {
     position: absolute;
-    left: 461px;
     background: #ffd6a0;
     text-align: center;
     width: 15rem;
@@ -35,8 +34,8 @@ body {
 }
 
 #textBox{
-    background-color: #fed9ff;
-    max-height: 400px;
+    /*background-color: #fed9ff;*/
+    max-height: 440px;
     width: 400px;
     overflow-x: hidden;
     overflow-y: scroll;
@@ -52,7 +51,7 @@ body {
 }
 
 /* Graph and Nodes */
-.node {
+/* .node {
     fill: #fff;
     stroke: #000;
     stroke-width: 1.5px;
@@ -68,7 +67,7 @@ body {
     fill: #00ff00;
     stroke: #000;
     stroke-width: 1.5px;
-}
+} */
 
 .start-node > .pin {
     stroke: rgb(71, 71, 201);
