@@ -228,7 +228,7 @@ let node = svg
         let g = document.createElementNS("http://www.w3.org/2000/svg", "g");
         g.innerHTML = nodeTemplate;
         return g;
-    })
+    });
 
 d3.selectAll(".node")
     .filter(function (d) {
@@ -242,82 +242,150 @@ d3.selectAll(".node")
     })
     .classed("end-node", true);
 
-let allStartNodes = d3.selectAll(".start-node");
-let allEndNodes = d3.selectAll(".end-node");
-let allInteractableNodes = d3.selectAll(".start-node, .end-node");
+const selectNode = (nodes) => {
+    return new Promise((resolve, reject) => {
+        nodes.selectAll(".helper-point").on("mouseover", function (e) {
+            let currentNode = d3.select(this.parentNode).datum();
 
-allInteractableNodes.selectAll(".helper-point").on("mouseover", function (e) {
-    let selectedNode = d3.select(this.parentNode).datum();
+            let stickyNote = d3
+                .select(this.parentNode)
+                .select(".sticky-note")
+                .node();
 
-    let stickyNote = d3.select(this.parentNode).select(".sticky-note").node();
+            gsap.to(stickyNote, {
+                scale: 1.8,
+                transformOrigin: "center",
+                ease: "sine.out",
+                duration: 0.333,
+            });
 
-    gsap.to(stickyNote, {
-        scale: 1.8,
-        transformOrigin: "center",
-        ease: "sine.out",
-        duration: 0.333,
-    });
-
-    displayTooltipText(selectedNode);
-    d3.select(`#storyPreview-${selectedNode.id}`)
-        .style("left", `${e.layerX + 15}px`)
-        .style("top", `${e.layerY + 15}px`);
-});
-
-allInteractableNodes.selectAll(".helper-point").on("mouseout", function () {
-    let selectedNode = d3.select(this.parentNode).datum();
-
-    let stickyNote = d3.select(this.parentNode).select(".sticky-note").node();
-
-    gsap.to(stickyNote, {
-        scale: 1.0,
-        transformOrigin: "center",
-        ease: "sine.in",
-        duration: 0.333,
-    });
-
-    hideTooltipText(selectedNode);
-});
-
-let startNodeSelection;
-allStartNodes.on("click", function () {
-    startNodeSelection = d3.select(this).datum();
-    let pin = d3.select(this).select(".pin");
-    gsap.set(pin.node(), { opacity: 1 });
-    gsap.from(pin.node(), {
-        opacity: 0,
-        y: -20,
-        scale: 1.4,
-        transformOrigin: "center",
-        ease: "expo.out",
-    });
-    allStartNodes.on("click", null);
-    endSelection();
-});
-
-let endNodeSelection;
-function endSelection() {
-    allEndNodes.on("click", function () {
-        endNodeSelection = d3.select(this).datum();
-        let pin = d3.select(this).select(".pin");
-        gsap.set(pin.node(), { opacity: 1 });
-        gsap.from(pin.node(), {
-            opacity: 0,
-            y: -20,
-            scale: 1.4,
-            transformOrigin: "center",
-            ease: "expo.out",
+            displayTooltipText(currentNode);
+            d3.select(`#storyPreview-${currentNode.id}`)
+                .style("left", `${e.layerX + 15}px`)
+                .style("top", `${e.layerY + 15}px`);
         });
-        allEndNodes.on("click", null);
-        let result = dijkstra(
-            graph,
-            startNodeSelection.id,
-            endNodeSelection.id
-        );
+
+        nodes.selectAll(".helper-point").on("mouseout", function () {
+            let currentNode = d3.select(this.parentNode).datum();
+
+            let stickyNote = d3
+                .select(this.parentNode)
+                .select(".sticky-note")
+                .node();
+
+            gsap.to(stickyNote, {
+                scale: 1.0,
+                transformOrigin: "center",
+                ease: "sine.in",
+                duration: 0.333,
+            });
+
+            hideTooltipText(currentNode);
+        });
+
+        let selectedNode;
+        nodes.on("click", function () {
+            selectedNode = d3.select(this).datum();
+            let pin = d3.select(this).select(".pin");
+            gsap.set(pin.node(), { opacity: 1 });
+            gsap.from(pin.node(), {
+                opacity: 0,
+                y: -20,
+                scale: 1.4,
+                transformOrigin: "center",
+                ease: "expo.out",
+            });
+            nodes.on("click", null);
+            resolve(selectedNode);
+        });
+    });
+};
+
+// let allStartNodes = d3.selectAll(".start-node");
+// let allEndNodes = d3.selectAll(".end-node");
+// let allInteractableNodes = d3.selectAll(".start-node, .end-node");
+
+// allInteractableNodes.selectAll(".helper-point").on("mouseover", function (e) {
+//     let selectedNode = d3.select(this.parentNode).datum();
+
+//     let stickyNote = d3.select(this.parentNode).select(".sticky-note").node();
+
+//     gsap.to(stickyNote, {
+//         scale: 1.8,
+//         transformOrigin: "center",
+//         ease: "sine.out",
+//         duration: 0.333,
+//     });
+
+//     displayTooltipText(selectedNode);
+//     d3.select(`#storyPreview-${selectedNode.id}`)
+//         .style("left", `${e.layerX + 15}px`)
+//         .style("top", `${e.layerY + 15}px`);
+// });
+
+// allInteractableNodes.selectAll(".helper-point").on("mouseout", function () {
+//     let selectedNode = d3.select(this.parentNode).datum();
+
+//     let stickyNote = d3.select(this.parentNode).select(".sticky-note").node();
+
+//     gsap.to(stickyNote, {
+//         scale: 1.0,
+//         transformOrigin: "center",
+//         ease: "sine.in",
+//         duration: 0.333,
+//     });
+
+//     hideTooltipText(selectedNode);
+// });
+
+// let startNodeSelection;
+// allStartNodes.on("click", function () {
+//     startNodeSelection = d3.select(this).datum();
+//     let pin = d3.select(this).select(".pin");
+//     gsap.set(pin.node(), { opacity: 1 });
+//     gsap.from(pin.node(), {
+//         opacity: 0,
+//         y: -20,
+//         scale: 1.4,
+//         transformOrigin: "center",
+//         ease: "expo.out",
+//     });
+//     allStartNodes.on("click", null);
+//     endSelection();
+// });
+
+// let endNodeSelection;
+// function endSelection() {
+//     allEndNodes.on("click", function () {
+//         endNodeSelection = d3.select(this).datum();
+//         let pin = d3.select(this).select(".pin");
+//         gsap.set(pin.node(), { opacity: 1 });
+//         gsap.from(pin.node(), {
+//             opacity: 0,
+//             y: -20,
+//             scale: 1.4,
+//             transformOrigin: "center",
+//             ease: "expo.out",
+//         });
+//         allEndNodes.on("click", null);
+//         let result = dijkstra(
+//             graph,
+//             startNodeSelection.id,
+//             endNodeSelection.id
+//         );
+//         convertPath(result);
+//         tlTypewriter.play();
+//     });
+// }
+
+const runAlgorithm = (startNode, endNode) => {
+    return new Promise((resolve, reject) => {
+        let result = dijkstra(graph, startNode, endNode);
         convertPath(result);
         tlTypewriter.play();
-    });
-}
+        resolve();
+    })
+};
 
 // Function to update the node and link positions on each tick of the force layout
 function ticked() {
@@ -343,7 +411,7 @@ function applyZoom() {
         //.translateExtent([[0, 0], [width, height]])
         .on("zoom", zoomed);
     //
-    svg.call(zoom)
+    svg.call(zoom);
     function zoomed(event) {
         nodes.attr("transform", event.transform);
         link.attr("transform", event.transform);
@@ -469,11 +537,18 @@ function dijkstra(graph, startNodeId, endNodeId) {
         }
 
         // Update the distance of each neighbor
-        graph.links.filter(function (d) {
-            return d.source.id === currentNodeId || d.target.id === currentNodeId;
-        })
+        graph.links
+            .filter(function (d) {
+                return (
+                    d.source.id === currentNodeId ||
+                    d.target.id === currentNodeId
+                );
+            })
             .forEach(function (link) {
-                let neighborId = link.target.id === currentNodeId ? link.source.id : link.target.id;
+                let neighborId =
+                    link.target.id === currentNodeId
+                        ? link.source.id
+                        : link.target.id;
                 let newDistance = distance[currentNodeId] + link.weight;
                 if (newDistance < distance[neighborId]) {
                     distance[neighborId] = newDistance;
@@ -502,12 +577,15 @@ function dijkstra(graph, startNodeId, endNodeId) {
 function convertPath(result) {
     let nodesInPath = [];
     result.path.forEach((element) => {
-        nodesInPath.push(node.filter((d) => { return d.id === element }))
-    })
-    console.log(nodesInPath)
-    highlightNode(nodesInPath)
+        nodesInPath.push(
+            node.filter((d) => {
+                return d.id === element;
+            })
+        );
+    });
+    highlightNode(nodesInPath);
 
-    highlightLink(result.path)
+    highlightLink(result.path);
 
     for (let i = 0; i < result.path.length; i++) {
         let nodeTmp = graph.nodes.find(function (d) {
@@ -553,9 +631,9 @@ class PriorityQueue {
 }
 
 /******************
- * 
- * GSAP ANIMATIONS 
- * 
+ *
+ * GSAP ANIMATIONS
+ *
  */
 let tlStory = gsap.timeline({
     defaults: { duration: 1.5 },
@@ -584,8 +662,8 @@ tlSpawn.from(nodes.nodes(), {
         ease: "power3.inOut",
     },
     onComplete: function () {
-        applyZoom()
-    }
+        applyZoom();
+    },
 });
 tlSpawn.play();
 
@@ -611,92 +689,147 @@ tlTypewriter.to(keyboardSwitches, {
 
 //Animation for the nodes on the shortest path
 const highlightNode = (nodesInPath) => {
-    const highlightTl = gsap.timeline({paused: true})
-    nodesInPath.forEach((element)=>{
-        let animSelection = [element.select(".result-path-node").node()]  
+    const highlightTl = gsap.timeline({ paused: true });
+    nodesInPath.forEach((element) => {
+        let animSelection = [element.select(".result-path-node").node()];
 
-        highlightTl.to(animSelection[0], {
-            stroke: "red",
-        })
-        .fromTo(animSelection[0], {
-            scale: 0,
-            transformOrigin: "center"
-        },{
-            scale: 1
-        })
-    })
-    highlightTl.play()
-}
+        highlightTl
+            .to(animSelection[0], {
+                stroke: "red",
+            })
+            .fromTo(
+                animSelection[0],
+                {
+                    scale: 0,
+                    transformOrigin: "center",
+                },
+                {
+                    scale: 1,
+                }
+            );
+    });
+    highlightTl.play();
+};
 
 //Animation for the links on the shortest path
 const highlightLink = (path) => {
-    for (let i = 0; i < path.length-1; i++) {
+    for (let i = 0; i < path.length - 1; i++) {
         let myLink = link.filter((d) => {
-            return d.source.id === path[i] && d.target.id === path[i+1]
-        })
-        myLink.classed("shortest-path", true)
+            return d.source.id === path[i] && d.target.id === path[i + 1];
+        });
+        myLink.classed("shortest-path", true);
     }
-}
-
+};
 
 // tlTypewriter.play();
 
 /**
  * Makes a dialog box with a text appear on screen, that the user can click away in order to proceed
- * 
+ *
  * @param {String} dialog string that will be displayed on the box
  * @param {Function} onComplete function that will be executed after the box disappears
  */
 
-const showDialogBox = (dialog, onComplete = null) => {
-    const waitForUserInput = () => {
-        $(".dialog-box").css("cursor", "pointer");
-        $(".dialog-box").css("pointer-events", "all");
-        $(".dialog-box").on("click", () => {
-            $(".dialog-box").css("cursor", "default");
-            $(".dialog-box").css("pointer-events", "none");
-            tlDialogBox.to(".dialog-box", {
-                skewX: -25,
-                skewY: -25,
-                opacity: 0,
-                delay: 0.1,
-                ease: Back.easeOut.config(2),
-                onComplete: onComplete,
+const showDialogBox = (dialog) => {
+    return new Promise((resolve, reject) => {
+        const waitForUserInput = () => {
+            $(".dialog-box").css("cursor", "pointer");
+            $(".dialog-box").css("pointer-events", "all");
+            $(".dialog-box").on("click", () => {
+                $(".dialog-box").css("cursor", "default");
+                $(".dialog-box").css("pointer-events", "none");
+                tlDialogBox.to(".dialog-box", {
+                    skewX: -25,
+                    skewY: -25,
+                    opacity: 0,
+                    delay: 0.1,
+                    ease: Back.easeOut.config(2),
+                    onComplete: () => {
+                        resolve();
+                    },
+                });
             });
+        };
+
+        gsap.set(".dialog-box", { opacity: 1, skewX: 0, skewY: 0 });
+        gsap.set(".dialog", { text: "" });
+        gsap.set(".caret", { opacity: 0 });
+
+        let tlDialogBox = gsap.timeline();
+
+        tlDialogBox
+            .from(".dialog-box", {
+                opacity: 0,
+                skewX: 25,
+                skewY: 25,
+                ease: Back.easeIn.config(2),
+            })
+            .to(".dialog", {
+                text: dialog,
+                duration: 2,
+                delay: 0.5,
+            })
+            .to(".caret", {
+                opacity: 1,
+                onComplete: waitForUserInput,
+            });
+
+        gsap.to(".caret", {
+            transformOrigin: "center",
+            scale: 0.75,
+
+            repeat: -1,
+            ease: "power3.in",
+            duration: 1,
+            yoyo: true,
         });
-    };
-
-    gsap.set(".dialog-box", { opacity: 1 });
-    let tlDialogBox = gsap.timeline();
-
-    tlDialogBox
-        .from(".dialog-box", {
-            opacity: 0,
-            skewX: 25,
-            skewY: 25,
-            ease: Back.easeIn.config(2),
-        })
-        .to(".dialog", {
-            text: dialog,
-            duration: 2,
-            delay: 0.5,
-        })
-        .to(".caret", {
-            opacity: 1,
-            onComplete: waitForUserInput,
-        });
-
-    gsap.to(".caret", {
-        transformOrigin: "center",
-        scale: 0.75,
-
-        repeat: -1,
-        ease: "power3.in",
-        duration: 1,
-        yoyo: true,
     });
 };
 
-showDialogBox(
-    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae voluptatem eos ex impedit molestias labore. Libero iure corrupti cum consequuntur?"
-);
+let selectedStartNode, selectedEndNode;
+
+showDialogBox("This is box number 1")
+    .then((data1) => {
+        return selectNode(d3.selectAll(".start-node"));
+    })
+    .then((data) => {
+        selectedStartNode = data.id;
+        return showDialogBox(
+            `This was the data from the selection: ${data.id}`
+        );
+    })
+    .then((data) => {
+        return selectNode(d3.selectAll(".end-node"));
+    })
+    .then((data) => {
+        selectedEndNode = data.id;
+        return showDialogBox(
+            `This was the data from the selection: ${data.id}`
+        );
+    })
+    .then((data) => {
+        return runAlgorithm(selectedStartNode, selectedEndNode);
+    });
+
+// const getSomething = (data) => {
+//     return new Promise((resolve, reject) => {
+//         resolve(data);
+//         //reject("some error");
+//     });
+// };
+
+// const getAnotherThing = (data) => {
+//     return new Promise((resolve, reject) => {
+//         resolve(data)
+//     })
+// }
+
+// getSomething("promise 1").then((data) => {
+//     console.log(data);
+//     return getAnotherThing("promise 2");
+// }).then((newData) => {
+//     console.log(newData);
+//     return getSomething("promise 3");
+// }).then((newnewData) => {
+//     console.log(newnewData);
+// })
