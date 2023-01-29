@@ -3,15 +3,58 @@ body {
 }
 
 .algorithm-container {
+    position: relative;
+    height: 100%;
     max-width: fit-content;
     background-color: #f9f0e5;
     box-shadow: 0 0.25em 0.25em rgba(0, 0, 0, 0.33);
 }
 
 .result-container {
+    position: relative;
     max-width: fit-content;
     background-color: #f9f0e5;
     box-shadow: 0 0.25em 0.25em rgba(0, 0, 0, 0.33);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+}
+
+.dialog-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    width: 50%;
+    height: 33.333%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: hsla(0, 0%, 100%, 0.25);
+    border: 1px solid black;
+    border-radius: 15px;
+    box-shadow: 0 0.25em 0.25em rgba(0, 0, 0, 0.33);
+    backdrop-filter: blur(10px);
+    pointer-events:none;
+    opacity: 0;
+}
+
+.dialog-box > p {
+    text-align: justify;
+    padding: 1.2rem;
+    pointer-events: none;
+}
+
+.dialog-box > i {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    padding-bottom: 1rem;
+    padding-right: 1rem;
+    font-size: 1.5rem;
+    opacity: 0;
 }
 
 .hover {
@@ -20,8 +63,85 @@ body {
 
 .story-preview {
     position: absolute;
-    background: #ffd6a0;
+    background: linear-gradient(#ffc170, #ffd6a0);
     text-align: center;
     width: 15rem;
-    scale: 0;
+    border-radius: 5%;
+    pointer-events: none;
+}
+
+.story-preview > p {
+    text-align: justify;
+}
+
+#textBox{
+    /*background-color: #fed9ff;*/
+    max-height: 300px;
+    width: fit-content;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+    text-align: center;
+    padding: 20px;
+
+    scrollbar-width: none;
+}
+
+#textBox::-webkit-scrollbar {
+    display: none;
+}
+
+#typewriter {
+    width: fit-content;
+}
+/* Graph and Nodes */
+/* .node {
+    fill: #fff;
+    stroke: #000;
+    stroke-width: 1.5px;
+}
+
+.start-node {
+    fill: #ff0000;
+    stroke: #000;
+    stroke-width: 1.5px;
+}
+
+.end-node {
+    fill: #00ff00;
+    stroke: #000;
+    stroke-width: 1.5px;
+} */
+
+.start-node,
+.end-node {
+    cursor: pointer;
+}
+
+.start-node > .pin {
+    stroke: rgb(71, 71, 201);
+    stroke-width: 2px;
+}
+
+.end-node > .pin {
+    stroke: rgb(63, 187, 63);
+    stroke-width: 2px;
+}
+
+.pin {
+    opacity: 0;
+}
+
+/* .link {
+    stroke: #000;
+    stroke-width: 1.5px;
+} */
+
+/* .shortest-path {
+    stroke: #ff0000;
+    stroke-width: 5px
+} */
+
+#pencil {
+    opacity: 0;
 }

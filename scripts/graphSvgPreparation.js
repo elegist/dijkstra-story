@@ -1,7 +1,7 @@
-/**
- * This script takes care of all the important classes on the graph network svg, that are needed to properly animate it.
- * As long as the ID's are properly prepared in a svg creation program, this script will automatically assign all of the classes.
- */
+// /**
+//  * This script takes care of all the important classes on the graph network svg, that are needed to properly animate it.
+//  * As long as the ID's are properly prepared in a svg creation program, this script will automatically assign all of the classes.
+//  */
 
 const parent = document.getElementById("nodes");
 
