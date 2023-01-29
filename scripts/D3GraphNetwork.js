@@ -391,6 +391,8 @@ const selectNode = (nodes) => {
 
         let selectedNode;
         nodes.on("click", function () {
+            let currentNode = d3.select(this).datum();
+
             selectedNode = d3.select(this).datum();
             let pin = d3.select(this).select(".pin");
             gsap.set(pin.node(), { opacity: 1 });
@@ -402,6 +404,22 @@ const selectNode = (nodes) => {
                 ease: "expo.out",
             });
             nodes.on("click", null);
+            nodes.selectAll(".helper-point").on("mouseover", null);
+            nodes.selectAll(".helper-point").on("mouseout", null);
+
+            let stickyNote = d3
+                .select(this)
+                .select(".sticky-note")
+                .node();
+
+            gsap.to(stickyNote, {
+                scale: 1.0,
+                transformOrigin: "center",
+                ease: "sine.in",
+                duration: 0.333,
+            });
+            hideTooltipText(currentNode);
+
             resolve(selectedNode);
         });
     });
@@ -781,7 +799,6 @@ showDialogBox(
         return selectNode(d3.selectAll(".start-node"));
     })
     .then((data) => {
-        console.log(data);
         selectedStartNode = data.id;
         return showDialogBox(
             `Gute Wahl! Suche dir als nächstes ein Ende für deine Geschichte aus.`
