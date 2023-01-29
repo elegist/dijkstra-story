@@ -209,10 +209,10 @@ let simulation = d3
 let link = svg
     .append("g")
     .attr("class", "links")
-    .selectAll("line")
+    .selectAll("path")
     .data(graph.links)
     .enter()
-    .append("line")
+    .append("path")
     .attr("class", "link");
 
 //Add the nodes to the SVG
@@ -391,10 +391,14 @@ const runAlgorithm = (startNode, endNode) => {
 
 // Function to update the node and link positions on each tick of the force layout
 function ticked() {
-    link.attr("x1", (d) => d.source.x)
-        .attr("y1", (d) => d.source.y)
-        .attr("x2", (d) => d.target.x)
-        .attr("y2", (d) => d.target.y);
+    // link.attr("x1", (d) => d.source.x)
+    //     .attr("y1", (d) => d.source.y)
+    //     .attr("x2", (d) => d.target.x)
+    //     .attr("y2", (d) => d.target.y);
+    link.attr(
+        "d",
+        (d) => `M ${d.source.x} ${d.source.y} L ${d.target.x} ${d.target.y}`
+    );
 
     // nodes.attr("x", (d) => d.x - 35/2).attr("y", (d) => d.y - 51/2);
     node.attr(
@@ -699,7 +703,7 @@ const highlightNode = (nodesInPath) => {
 
         highlightTl
             .to(animSelection[0], {
-                stroke: "red",
+                stroke: "#3c5d76",
             })
             .fromTo(
                 animSelection[0],
@@ -717,27 +721,41 @@ const highlightNode = (nodesInPath) => {
 //Animation for the links on the shortest path
 const highlightLink = (path) => {
     const tlHightlight = gsap.timeline({
-        defaults: { duration: algorithmStepDuration, delay: algorithmStepDuration },
+        defaults: {
+            delay: algorithmStepDuration,
+        },
     });
+
+    let pencil = d3.select("#pencil");
+
     let myLink;
     for (let i = 0; i < path.length - 1; i++) {
         myLink = link.filter((d) => {
             return d.source.id === path[i] && d.target.id === path[i + 1];
         });
-        myLink.classed("shortest-path", true);
+        // myLink.classed("shortest-path", true);
         Array.from(myLink).forEach((link) => {
             d3.select(link)
-                .attr("stroke", "#000")
-                .attr("stroke-width", "1")
+                .attr("stroke", "#3c5d76")
+                .attr("stroke-width", "2")
+                .attr("stroke-dasharray", "8 2")
                 .attr("style", "opacity: 0;");
-            tlHightlight.to(".shortest-path", {
-                opacity: 1,
-            });
+
+            tlHightlight
+                .to(d3.select(link).node(), {
+                    opacity: 1,
+                })
+                .to(pencil.node(), {
+                    opacity: 1,
+                    motionPath: {
+                        path: link,
+                        align: link,
+                        alignOrigin: [0, 1],
+                    },
+                });
         });
     }
 };
-
-// tlTypewriter.play();
 
 /**
  * Makes a dialog box with a text appear on screen, that the user can click away in order to proceed
@@ -804,27 +822,26 @@ const showDialogBox = (dialog) => {
 
 let selectedStartNode, selectedEndNode;
 
-// showDialogBox("This is box number 1")
-//     .then((data1) => {
-//         return selectNode(d3.selectAll(".start-node"));
-//     })
-//     .then((data) => {
-//         selectedStartNode = data.id;
-//         return showDialogBox(
-//             `This was the data from the selection: ${data.id}`
-//         );
-//     })
-//     .then((data) => {
-//         return selectNode(d3.selectAll(".end-node"));
-//     })
-//     .then((data) => {
-//         selectedEndNode = data.id;
-//         return showDialogBox(
-//             `This was the data from the selection: ${data.id}`
-//         );
-//     })
-//     .then((data) => {
-//         return runAlgorithm(selectedStartNode, selectedEndNode);
-//     });
+showDialogBox("This is box number 1")
+    .then((data1) => {
+        return selectNode(d3.selectAll(".start-node"));
+    })
+    .then((data) => {
+        selectedStartNode = data.id;
+        return showDialogBox(
+            `This was the data from the selection: ${data.id}`
+        );
+    })
+    .then((data) => {
+        return selectNode(d3.selectAll(".end-node"));
+    })
+    .then((data) => {
+        selectedEndNode = data.id;
+        return showDialogBox(
+            `This was the data from the selection: ${data.id}`
+        );
+    })
+    .then((data) => {
+        return runAlgorithm(selectedStartNode, selectedEndNode);
+    });
 
-runAlgorithm("1", "12");

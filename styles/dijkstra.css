@@ -139,3 +139,6 @@ body {
     stroke-width: 5px
 } */
 
+#pencil {
+    opacity: 0;
+}
