@@ -670,7 +670,10 @@ const showDialogBox = (dialog, onComplete = null) => {
         });
     };
 
-    gsap.set(".dialog-box", { opacity: 1 });
+    gsap.set(".dialog-box", { opacity: 1, skewX: 0, skewY: 0 });
+    gsap.set(".dialog", { text: "" });
+    gsap.set(".caret", { opacity: 0 });
+
     let tlDialogBox = gsap.timeline();
 
     tlDialogBox
@@ -701,6 +704,3 @@ const showDialogBox = (dialog, onComplete = null) => {
     });
 };
 
-showDialogBox(
-    "Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae voluptatem eos ex impedit molestias labore. Libero iure corrupti cum consequuntur?"
-);
