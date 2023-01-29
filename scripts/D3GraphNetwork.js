@@ -1,10 +1,4 @@
-// Graph data
-let graph = {
-    nodes: [],
-    links: [],
-};
-
-let stories = {
+const stories = {
     1: {
         story: "The Warped Sandwich",
         text: "Michelle Parker had always loved idyllic Athens with its nasty, naughty nooks.",
@@ -133,44 +127,62 @@ let stories = {
     },
 };
 
-const addNode = (id, text, isStartNode = false, isEndNode = false) => {
-    if (isStartNode) {
-        graph.nodes.push({ id: id, text: text, startNode: isStartNode });
-    }
-    if (isEndNode) {
-        graph.nodes.push({ id: id, text: text, endNode: isEndNode });
-    }
-    if (!isStartNode && !isEndNode) {
-        graph.nodes.push({ id: id, text: text });
-    }
+let graph = {
+    nodes: [],
+    links: [],
 };
-
-const addLink = (from, to, weight) => {
-    graph.links.push({ source: from, target: to, weight: weight });
-    graph.links.push({ source: to, target: from, weight: weight });
-};
-
-for (const [id, storyInformation] of Object.entries(stories)) {
-    addNode(
-        id,
-        storyInformation.text,
-        storyInformation.startNode,
-        storyInformation.endNode
-    );
-    storyInformation.neighbors.forEach((neighbor) => {
-        let weightMultiplier = 1;
-        if (storyInformation.story !== stories[neighbor].story) {
-            weightMultiplier = 2;
-        }
-        addLink(
-            id,
-            neighbor,
-            Math.abs(parseInt(neighbor) - parseInt(id)) * weightMultiplier
-        );
-    });
-}
 
 const algorithmStepDuration = 1;
+
+/**
+ * Method that adds all the nodes with the corrosponding links to the graph object
+ * Automatically calculates logical weights between story nodes dependend on whether or not
+ * the story nodes are from the same origin story
+ */
+const buildNetwork = () => {
+    const addNode = (id, text, isStartNode = false, isEndNode = false) => {
+        if (isStartNode) {
+            graph.nodes.push({ id: id, text: text, startNode: isStartNode });
+        }
+        if (isEndNode) {
+            graph.nodes.push({ id: id, text: text, endNode: isEndNode });
+        }
+        if (!isStartNode && !isEndNode) {
+            graph.nodes.push({ id: id, text: text });
+        }
+    };
+
+    const addLink = (from, to, weight) => {
+        graph.links.push({ source: from, target: to, weight: weight });
+        graph.links.push({ source: to, target: from, weight: weight });
+    };
+
+    for (const [id, storyInformation] of Object.entries(stories)) {
+        addNode(
+            id,
+            storyInformation.text,
+            storyInformation.startNode,
+            storyInformation.endNode
+        );
+        storyInformation.neighbors.forEach((neighbor) => {
+            let weightMultiplier = 1;
+            if (storyInformation.story !== stories[neighbor].story) {
+                weightMultiplier = 2;
+            }
+            addLink(
+                id,
+                neighbor,
+                Math.abs(parseInt(neighbor) - parseInt(id)) * weightMultiplier
+            );
+        });
+    }
+};
+buildNetwork();
+
+/**
+ * Section that builds the visual svg network graph from the data of the graph array
+ * Automatically builds nodes with custom graphics and connections between them as paths
+ */
 
 // Set up the SVG canvas
 let container = d3.select("#algorithm-container");
@@ -216,8 +228,6 @@ let link = svg
     .attr("class", "link");
 
 //Add the nodes to the SVG
-let nodeTemplate = d3.select("#customNode").html();
-
 let node = svg
     .append("g")
     .attr("id", "nodes")
@@ -228,22 +238,116 @@ let node = svg
     .attr("class", "node")
     .insert(() => {
         let g = document.createElementNS("http://www.w3.org/2000/svg", "g");
-        g.innerHTML = nodeTemplate;
+        g.innerHTML = d3.select("#customNode").html();
         return g;
     });
 
+//Add class start-node if the startNode property in the graph object is true
 d3.selectAll(".node")
     .filter(function (d) {
         return d.startNode === true;
     })
     .classed("start-node", true);
 
+//Add class end-node if the endNode property in the graph object is true
 d3.selectAll(".node")
     .filter(function (d) {
         return d.endNode === true;
     })
     .classed("end-node", true);
 
+// Function to update the node and link positions on each tick of the force layout
+function ticked() {
+    link.attr(
+        "d",
+        (d) => `M ${d.source.x} ${d.source.y} L ${d.target.x} ${d.target.y}`
+    );
+
+    // nodes.attr("x", (d) => d.x - 35/2).attr("y", (d) => d.y - 51/2);
+    node.attr(
+        "transform",
+        (d) => `translate(${d.x - 35 / 2}, ${d.y - 51 / 2})`
+    );
+}
+
+/**
+ * Zooming and panning inside the svg
+ */
+// function applyZoom() {
+//     var zoom = d3
+//         .zoom()
+//         .scaleExtent([1, 10])
+//         //.translateExtent([[0, 0], [width, height]])
+//         .on("zoom", zoomed);
+//     //
+//     svg.call(zoom);
+//     function zoomed(event) {
+//         nodes.attr("transform", event.transform);
+//         link.attr("transform", event.transform);
+//     }
+// }
+
+// var specificNode = node.filter(function (d, i) {
+//     return d.startNode === true;
+// });
+
+// function panToSelection(selection) {
+//     var x = selection.attr("x");
+//     var y = selection.attr("y");
+//     zoom.translateTo(svg, x, y);
+// }
+
+/**
+ * Displays a story preview for the currently hovered node
+ * @param {d3Selection} selectedNode the current hovered node in selectNode()
+ */
+const displayTooltipText = (selectedNode) => {
+    let container = d3.select("#algorithm-container");
+
+    let storyPreview = container
+        .append("div")
+        .attr("class", "story-preview fs-5 p-4 shadow-sm")
+        .attr("id", `storyPreview-${selectedNode.id}`);
+
+    gsap.from(storyPreview.node(), {
+        opacity: 0,
+        scale: 1.4,
+        duration: 0.5,
+        ease: Back.easeOut.config(2),
+    });
+
+    storyPreview.append("h3").text(selectedNode.id);
+    storyPreview.append("p").text(selectedNode.text);
+}
+
+/**
+ * Hides a story preview for the currently exited node
+ * @param {d3Selection} selectedNode the current exited node in selectNode()
+ */
+const hideTooltipText = (selectedNode) => {
+    let container = d3.select("#algorithm-container");
+
+    let storyPreview = container.select(`#storyPreview-${selectedNode.id}`);
+
+    storyPreview.attr("id", null);
+
+    gsap.to(storyPreview.node(), {
+        opacity: 0,
+        scale: 1.4,
+        duration: 0.25,
+        ease: Back.easeIn.config(2),
+        onComplete: () => {
+            storyPreview.remove();
+        },
+    });
+}
+
+/**
+ * Lets users select from a pool of predefined start and / or end nodes.
+ * @param {d3Selection} nodes define the group of nodes that should be selected by the user.
+ * Should be either d3.selectAll(".start-node") or d3.selectAll(".end-node")
+ * @returns Promise resolved when node is selected
+ */
 const selectNode = (nodes) => {
     return new Promise((resolve, reject) => {
         nodes.selectAll(".helper-point").on("mouseover", function (e) {
@@ -303,83 +407,12 @@ const selectNode = (nodes) => {
     });
 };
 
-// let allStartNodes = d3.selectAll(".start-node");
-// let allEndNodes = d3.selectAll(".end-node");
-// let allInteractableNodes = d3.selectAll(".start-node, .end-node");
-
-// allInteractableNodes.selectAll(".helper-point").on("mouseover", function (e) {
-//     let selectedNode = d3.select(this.parentNode).datum();
-
-//     let stickyNote = d3.select(this.parentNode).select(".sticky-note").node();
-
-//     gsap.to(stickyNote, {
-//         scale: 1.8,
-//         transformOrigin: "center",
-//         ease: "sine.out",
-//         duration: 0.333,
-//     });
-
-//     displayTooltipText(selectedNode);
-//     d3.select(`#storyPreview-${selectedNode.id}`)
-//         .style("left", `${e.layerX + 15}px`)
-//         .style("top", `${e.layerY + 15}px`);
-// });
-
-// allInteractableNodes.selectAll(".helper-point").on("mouseout", function () {
-//     let selectedNode = d3.select(this.parentNode).datum();
-
-//     let stickyNote = d3.select(this.parentNode).select(".sticky-note").node();
-
-//     gsap.to(stickyNote, {
-//         scale: 1.0,
-//         transformOrigin: "center",
-//         ease: "sine.in",
-//         duration: 0.333,
-//     });
-
-//     hideTooltipText(selectedNode);
-// });
-
-// let startNodeSelection;
-// allStartNodes.on("click", function () {
-//     startNodeSelection = d3.select(this).datum();
-//     let pin = d3.select(this).select(".pin");
-//     gsap.set(pin.node(), { opacity: 1 });
-//     gsap.from(pin.node(), {
-//         opacity: 0,
-//         y: -20,
-//         scale: 1.4,
-//         transformOrigin: "center",
-//         ease: "expo.out",
-//     });
-//     allStartNodes.on("click", null);
-//     endSelection();
-// });
-
-// let endNodeSelection;
-// function endSelection() {
-//     allEndNodes.on("click", function () {
-//         endNodeSelection = d3.select(this).datum();
-//         let pin = d3.select(this).select(".pin");
-//         gsap.set(pin.node(), { opacity: 1 });
-//         gsap.from(pin.node(), {
-//             opacity: 0,
-//             y: -20,
-//             scale: 1.4,
-//             transformOrigin: "center",
-//             ease: "expo.out",
-//         });
-//         allEndNodes.on("click", null);
-//         let result = dijkstra(
-//             graph,
-//             startNodeSelection.id,
-//             endNodeSelection.id
-//         );
-//         convertPath(result);
-//         tlTypewriter.play();
-//     });
-// }
-
+/**
+ * Runs the dijkstra algorithm to determine the shortest path between to selected nodes
+ * @param {String} startNode the id of the selected start node
+ * @param {String} endNode the id of the selected end node
+ * @returns Promise resolve once the shortest path was calculated
+ */
 const runAlgorithm = (startNode, endNode) => {
     return new Promise((resolve, reject) => {
         let result = dijkstra(graph, startNode, endNode);
@@ -389,92 +422,11 @@ const runAlgorithm = (startNode, endNode) => {
     });
 };
 
-// Function to update the node and link positions on each tick of the force layout
-function ticked() {
-    // link.attr("x1", (d) => d.source.x)
-    //     .attr("y1", (d) => d.source.y)
-    //     .attr("x2", (d) => d.target.x)
-    //     .attr("y2", (d) => d.target.y);
-    link.attr(
-        "d",
-        (d) => `M ${d.source.x} ${d.source.y} L ${d.target.x} ${d.target.y}`
-    );
-
-    // nodes.attr("x", (d) => d.x - 35/2).attr("y", (d) => d.y - 51/2);
-    node.attr(
-        "transform",
-        (d) => `translate(${d.x - 35 / 2}, ${d.y - 51 / 2})`
-    );
-}
-
 /**
- * Zooming and panning inside the svg
+ * displays the text of the current node in the algorithm progress
+ * @param {d3Selection} selectedNode current node
  */
-function applyZoom() {
-    var zoom = d3
-        .zoom()
-        .scaleExtent([1, 10])
-        //.translateExtent([[0, 0], [width, height]])
-        .on("zoom", zoomed);
-    //
-    svg.call(zoom);
-    function zoomed(event) {
-        nodes.attr("transform", event.transform);
-        link.attr("transform", event.transform);
-    }
-}
-
-var specificNode = node.filter(function (d, i) {
-    return d.startNode === true;
-});
-
-function panToSelection(selection) {
-    var x = selection.attr("x");
-    var y = selection.attr("y");
-    zoom.translateTo(svg, x, y);
-}
-
-// function to display the text of a node
-function displayTooltipText(selectedNode) {
-    let container = d3.select("#algorithm-container");
-
-    let storyPreview = container
-        .append("div")
-        .attr("class", "story-preview fs-5 p-4 shadow-sm")
-        .attr("id", `storyPreview-${selectedNode.id}`);
-
-    gsap.from(storyPreview.node(), {
-        opacity: 0,
-        scale: 1.4,
-        duration: 0.5,
-        ease: Back.easeOut.config(2),
-    });
-
-    storyPreview.append("h3").text(selectedNode.id);
-    storyPreview.append("p").text(selectedNode.text);
-}
-
-// function to display the text of a node
-function hideTooltipText(selectedNode) {
-    let container = d3.select("#algorithm-container");
-
-    let storyPreview = container.select(`#storyPreview-${selectedNode.id}`);
-
-    storyPreview.attr("id", null);
-
-    gsap.to(storyPreview.node(), {
-        opacity: 0,
-        scale: 1.4,
-        duration: 0.25,
-        ease: Back.easeIn.config(2),
-        onComplete: () => {
-            storyPreview.remove();
-        },
-    });
-}
-
-// function to display the text of a node
-function displayNodeText(selectedNode) {
+const displayNodeText = (selectedNode) => {
     // create a new div for the text
     let textDiv = d3.select("#textBox");
 
@@ -500,20 +452,13 @@ function displayNodeText(selectedNode) {
         });
 }
 
-//fixed height and width make this obsolete
-// window.addEventListener("resize", () =>
-//     simulation
-//         .force(
-//             "center",
-//             d3.forceCenter(
-//                 width / 2,
-//                 height / 2
-//             )
-//         )
-//         .alphaTarget(0) // re-heat the simulation
-//         .restart()
-// );
-
+/**
+ * Implementation of the dijkstra algorithm. Finds the shortest path between two points
+ *
+ * @param {Object{Array, Array}} graph Represents the network made out of nodes. Graph should include all of the edge informations.
+ * @param {String} start Starting point of the algorithm.
+ * @param {String} end Ending point of the algorithm.
+ */
 function dijkstra(graph, startNodeId, endNodeId) {
     // Initialize letiables
     let unvisitedNodes = new PriorityQueue();
@@ -844,4 +789,3 @@ showDialogBox("This is box number 1")
     .then((data) => {
         return runAlgorithm(selectedStartNode, selectedEndNode);
     });
-
