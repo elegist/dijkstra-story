@@ -1,19 +1,59 @@
+@font-face {
+    font-family: Zeit;
+    src: url("../resources/fonts/Zeit-Light.otf") format("opentype");
+}
+
+:root {
+    --color-primary-500: hsl(198, 54%, 37%);
+    --color-primary-700: hsl(198, 54%, 17%);
+    --color-secondary-500: hsl(0, 0%, 60%);
+    --color-secondary-700: hsl(0, 0%, 40%);
+    --color-success-500: hsl(103, 34%, 49%);
+    --color-success-700: hsl(103, 34%, 29%);
+    --color-warning-500: hsl(36, 82%, 51%);
+    --color-warning-700: hsl(36, 82%, 31%);
+    --color-danger-500: hsl(4, 90%, 58%);
+    --color-danger-700: hsl(4, 90%, 38%);
+    --color-info-500: hsl(165, 7%, 11%);
+    --color-info-700: hsl(165, 7%, 1%);
+
+    --color-light: hsl(43, 34%, 80%);
+    --color-light-accent: hsl(98, 14%, 64%);
+    --color-main: hsl(41, 36%, 53%);
+    --color-dark-accent: hsl(17, 22%, 41%);
+    --color-dark: hsl(157, 12%, 21%);
+
+    --color-neutral-200: hsl(30, 37%, 93%);
+    --color-neutral-800: hsl(210, 5%, 16%);
+
+    --font-family-primary: Zeit;
+    --font-family-heading: var(--font-family-primary);
+    --font-family-body: var(--font-family-primary);
+
+    --breakpoint-sm: 567px;
+    --breakpoint-md: 768px;
+    --breakpoint-lg: 992px;
+    --breakpoint-xl: 1200px;
+    --breakpoint-xxl: 1400px;
+}
+
 body {
-    background-color: #cad3a9;
+    background-color: var(--color-light-accent);
+    font-family: var(--font-family-primary);
 }
 
 .algorithm-container {
     position: relative;
     height: 100%;
     max-width: fit-content;
-    background-color: #f9f0e5;
+    background-color: var(--color-neutral-200);
     box-shadow: 0 0.25em 0.25em rgba(0, 0, 0, 0.33);
 }
 
 .result-container {
     position: relative;
     max-width: fit-content;
-    background-color: #f9f0e5;
+    background-color: var(--color-neutral-200);
     box-shadow: 0 0.25em 0.25em rgba(0, 0, 0, 0.33);
 
     display: flex;
@@ -75,14 +115,20 @@ body {
 }
 
 #textBox{
-    /*background-color: #fed9ff;*/
-    max-height: 300px;
-    width: fit-content;
+    position: absolute;
+    width: 330px;
+    height: 60%;
+    background-color: var(--color-light);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -80%);
     overflow-x: hidden;
     overflow-y: scroll;
     scroll-behavior: smooth;
     text-align: center;
     padding: 20px;
+    margin: 0 auto;
+    mask-image: linear-gradient(transparent, black 10% 95%, transparent);
 
     scrollbar-width: none;
 }
