@@ -133,7 +133,7 @@ let graph = {
 };
 
 const algorithmStepDuration = 1;
-
+let storyFinished = false;
 /**
  * Method that adds all the nodes with the corrosponding links to the graph object
  * Automatically calculates logical weights between story nodes dependend on whether or not
@@ -318,7 +318,7 @@ const displayTooltipText = (selectedNode) => {
 
     storyPreview.append("h3").text(selectedNode.id);
     storyPreview.append("p").text(selectedNode.text);
-}
+};
 
 /**
  * Hides a story preview for the currently exited node
@@ -340,7 +340,7 @@ const hideTooltipText = (selectedNode) => {
             storyPreview.remove();
         },
     });
-}
+};
 
 /**
  * Lets users select from a pool of predefined start and / or end nodes.
@@ -418,7 +418,9 @@ const runAlgorithm = (startNode, endNode) => {
         let result = dijkstra(graph, startNode, endNode);
         convertPath(result);
         tlTypewriter.play();
-        resolve();
+        if (storyFinished) {
+            resolve();
+        }
     });
 };
 
@@ -450,7 +452,7 @@ const displayNodeText = (selectedNode) => {
                     .node().scrollHeight;
             },
         });
-}
+};
 
 /**
  * Implementation of the dijkstra algorithm. Finds the shortest path between two points
@@ -612,11 +614,7 @@ tlSpawn.from(nodes.nodes(), {
         grid: "auto",
         ease: "power3.inOut",
     },
-    onComplete: function () {
-        applyZoom();
-    },
 });
-tlSpawn.play();
 
 let tlTypewriter = gsap.timeline({ paused: true });
 let keyboardSwitches = $("#keyboard").children();
@@ -636,6 +634,9 @@ tlTypewriter.to(keyboardSwitches, {
         yoyo: true,
     },
     duration: 0.5,
+    onComplete: () => {
+        storyFinished = true;
+    },
 });
 
 //Animation for the nodes on the shortest path
@@ -718,8 +719,8 @@ const showDialogBox = (dialog) => {
                 $(".dialog-box").css("cursor", "default");
                 $(".dialog-box").css("pointer-events", "none");
                 tlDialogBox.to(".dialog-box", {
-                    skewX: -25,
-                    skewY: -25,
+                    skewX: -30,
+                    skewY: -30,
                     opacity: 0,
                     delay: 0.1,
                     ease: Back.easeOut.config(2),
@@ -739,13 +740,13 @@ const showDialogBox = (dialog) => {
         tlDialogBox
             .from(".dialog-box", {
                 opacity: 0,
-                skewX: 25,
-                skewY: 25,
+                skewX: 30,
+                skewY: 30,
                 ease: Back.easeIn.config(2),
             })
             .to(".dialog", {
                 text: dialog,
-                duration: 2,
+                duration: 1,
                 delay: 0.5,
             })
             .to(".caret", {
@@ -767,14 +768,23 @@ const showDialogBox = (dialog) => {
 
 let selectedStartNode, selectedEndNode;
 
-showDialogBox("This is box number 1")
+showDialogBox(
+    "Willkommen bei Dijkstra Story, die Story, die über den Shortest-Path-Algorithmus generiert wird!"
+)
     .then((data1) => {
+        tlSpawn.play();
+        return showDialogBox(
+            "Wähle zuerst einen Anfang für deine Geschichte aus. Hover über die aktiven Nodes."
+        );
+    })
+    .then((data) => {
         return selectNode(d3.selectAll(".start-node"));
     })
     .then((data) => {
+        console.log(data);
         selectedStartNode = data.id;
         return showDialogBox(
-            `This was the data from the selection: ${data.id}`
+            `Gute Wahl! Suche dir als nächstes ein Ende für deine Geschichte aus.`
         );
     })
     .then((data) => {
@@ -782,10 +792,9 @@ showDialogBox("This is box number 1")
     })
     .then((data) => {
         selectedEndNode = data.id;
-        return showDialogBox(
-            `This was the data from the selection: ${data.id}`
-        );
+        return showDialogBox(`Sehr gut! Deine Story wird nun generiert!`);
     })
+
     .then((data) => {
         return runAlgorithm(selectedStartNode, selectedEndNode);
     });
