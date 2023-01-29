@@ -76,8 +76,8 @@ body {
 
 #textBox{
     /*background-color: #fed9ff;*/
-    max-height: 440px;
-    width: 400px;
+    max-height: 300px;
+    width: fit-content;
     overflow-x: hidden;
     overflow-y: scroll;
     scroll-behavior: smooth;
@@ -91,6 +91,9 @@ body {
     display: none;
 }
 
+#typewriter {
+    width: fit-content;
+}
 /* Graph and Nodes */
 /* .node {
     fill: #fff;
