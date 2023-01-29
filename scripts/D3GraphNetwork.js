@@ -170,6 +170,8 @@ for (const [id, storyInformation] of Object.entries(stories)) {
     });
 }
 
+const algorithmStepDuration = 1;
+
 // Set up the SVG canvas
 let container = d3.select("#algorithm-container");
 let width = "1000";
@@ -384,7 +386,7 @@ const runAlgorithm = (startNode, endNode) => {
         convertPath(result);
         tlTypewriter.play();
         resolve();
-    })
+    });
 };
 
 // Function to update the node and link positions on each tick of the force layout
@@ -636,7 +638,7 @@ class PriorityQueue {
  *
  */
 let tlStory = gsap.timeline({
-    defaults: { duration: 1.5 },
+    defaults: { duration: algorithmStepDuration },
     onComplete: () => {
         tlTypewriter.restart();
         tlTypewriter.pause();
@@ -689,7 +691,9 @@ tlTypewriter.to(keyboardSwitches, {
 
 //Animation for the nodes on the shortest path
 const highlightNode = (nodesInPath) => {
-    const highlightTl = gsap.timeline({ paused: true });
+    const highlightTl = gsap.timeline({
+        defaults: { duration: algorithmStepDuration },
+    });
     nodesInPath.forEach((element) => {
         let animSelection = [element.select(".result-path-node").node()];
 
@@ -708,16 +712,28 @@ const highlightNode = (nodesInPath) => {
                 }
             );
     });
-    highlightTl.play();
 };
 
 //Animation for the links on the shortest path
 const highlightLink = (path) => {
+    const tlHightlight = gsap.timeline({
+        defaults: { duration: algorithmStepDuration, delay: algorithmStepDuration },
+    });
+    let myLink;
     for (let i = 0; i < path.length - 1; i++) {
-        let myLink = link.filter((d) => {
+        myLink = link.filter((d) => {
             return d.source.id === path[i] && d.target.id === path[i + 1];
         });
         myLink.classed("shortest-path", true);
+        Array.from(myLink).forEach((link) => {
+            d3.select(link)
+                .attr("stroke", "#000")
+                .attr("stroke-width", "1")
+                .attr("style", "opacity: 0;");
+            tlHightlight.to(".shortest-path", {
+                opacity: 1,
+            });
+        });
     }
 };
 
@@ -788,48 +804,27 @@ const showDialogBox = (dialog) => {
 
 let selectedStartNode, selectedEndNode;
 
-showDialogBox("This is box number 1")
-    .then((data1) => {
-        return selectNode(d3.selectAll(".start-node"));
-    })
-    .then((data) => {
-        selectedStartNode = data.id;
-        return showDialogBox(
-            `This was the data from the selection: ${data.id}`
-        );
-    })
-    .then((data) => {
-        return selectNode(d3.selectAll(".end-node"));
-    })
-    .then((data) => {
-        selectedEndNode = data.id;
-        return showDialogBox(
-            `This was the data from the selection: ${data.id}`
-        );
-    })
-    .then((data) => {
-        return runAlgorithm(selectedStartNode, selectedEndNode);
-    });
-
-// const getSomething = (data) => {
-//     return new Promise((resolve, reject) => {
-//         resolve(data);
-//         //reject("some error");
-//     });
-// };
-
-// const getAnotherThing = (data) => {
-//     return new Promise((resolve, reject) => {
-//         resolve(data)
+// showDialogBox("This is box number 1")
+//     .then((data1) => {
+//         return selectNode(d3.selectAll(".start-node"));
 //     })
-// }
+//     .then((data) => {
+//         selectedStartNode = data.id;
+//         return showDialogBox(
+//             `This was the data from the selection: ${data.id}`
+//         );
+//     })
+//     .then((data) => {
+//         return selectNode(d3.selectAll(".end-node"));
+//     })
+//     .then((data) => {
+//         selectedEndNode = data.id;
+//         return showDialogBox(
+//             `This was the data from the selection: ${data.id}`
+//         );
+//     })
+//     .then((data) => {
+//         return runAlgorithm(selectedStartNode, selectedEndNode);
+//     });
 
-// getSomething("promise 1").then((data) => {
-//     console.log(data);
-//     return getAnotherThing("promise 2");
-// }).then((newData) => {
-//     console.log(newData);
-//     return getSomething("promise 3");
-// }).then((newnewData) => {
-//     console.log(newnewData);
-// })
+runAlgorithm("1", "12");
