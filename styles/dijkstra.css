@@ -141,27 +141,21 @@ body {
     width: fit-content;
 }
 /* Graph and Nodes */
-/* .node {
-    fill: #fff;
-    stroke: #000;
-    stroke-width: 1.5px;
+
+.start-node .sticky-note > .sticky-note-body {
+    fill: #43a047;
 }
 
-.start-node {
-    fill: #ff0000;
-    stroke: #000;
-    stroke-width: 1.5px;
+.end-node .sticky-note > .sticky-note-body {
+    fill: #d32f2f;
 }
 
-.end-node {
-    fill: #00ff00;
-    stroke: #000;
-    stroke-width: 1.5px;
-} */
+.start-node .sticky-note > .sticky-note-corner {
+    fill: #2e7d32;
+}
 
-.start-node,
-.end-node {
-    cursor: pointer;
+.end-node .sticky-note > .sticky-note-corner  {
+    fill: #b71c1c;
 }
 
 .start-node > .pin {
@@ -177,16 +171,6 @@ body {
 .pin {
     opacity: 0;
 }
-
-/* .link {
-    stroke: #000;
-    stroke-width: 1.5px;
-} */
-
-/* .shortest-path {
-    stroke: #ff0000;
-    stroke-width: 5px
-} */
 
 #pencil {
     opacity: 0;

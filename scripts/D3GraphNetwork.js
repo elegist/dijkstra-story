@@ -352,6 +352,7 @@ const selectNode = (nodes) => {
     return new Promise((resolve, reject) => {
         nodes.selectAll(".helper-point").on("mouseover", function (e) {
             let currentNode = d3.select(this.parentNode).datum();
+            $(this).attr('cursor', 'pointer')
 
             let stickyNote = d3
                 .select(this.parentNode)
@@ -419,7 +420,6 @@ const selectNode = (nodes) => {
                 duration: 0.333,
             });
             hideTooltipText(currentNode);
-
             resolve(selectedNode);
         });
     });
@@ -678,6 +678,7 @@ const highlightNode = (nodesInPath) => {
                 {
                     scale: 1,
                 }
+                
             );
     });
 };
@@ -692,13 +693,13 @@ const highlightLink = (path) => {
 
     let pencil = d3.select("#pencil");
 
-    let myLink;
+    let filteredLink;
     for (let i = 0; i < path.length - 1; i++) {
-        myLink = link.filter((d) => {
+        filteredLink = link.filter((d) => {
             return d.source.id === path[i] && d.target.id === path[i + 1];
         });
-        // myLink.classed("shortest-path", true);
-        Array.from(myLink).forEach((link) => {
+        
+        Array.from(filteredLink).forEach((link) => {
             d3.select(link)
                 .attr("stroke", "#3c5d76")
                 .attr("stroke-width", "2")
