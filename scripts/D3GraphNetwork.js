@@ -4,14 +4,6 @@ let graph = {
     links: [],
 };
 
-let storiesTmp = [
-    "Harriet Johnson had always loved old-fashioned Skegness with its knotty, kind kettles. It was a place where she felt calm.",
-    "She was an intuitive, arrogant, brandy drinker with ample abs and blonde arms.",
-    "Her friends saw her as a combative, clean coward.",
-    "Once, she had even rescued an agreeable injured bird from a burning building.",
-    "That's the sort of woman he was.",
-];
-
 let stories = {
     1: {
         story: "The Warped Sandwich",
@@ -463,10 +455,13 @@ function dijkstra(graph, startNodeId, endNodeId) {
     distance[startNodeId] = 0;
     unvisitedNodes.updatePriority(startNodeId, 0);
 
+    let traversalArray = [];
+
     // Main loop
     while (unvisitedNodes.length > 0) {
         // Find the unvisited node with the smallest distance
         let currentNodeId = unvisitedNodes.dequeue();
+        traversalArray.push(currentNodeId);
 
         // Stop if we've reached the end node
         if (currentNodeId === endNodeId) {
@@ -498,6 +493,7 @@ function dijkstra(graph, startNodeId, endNodeId) {
 
     return {
         path: path,
+        traversalArray,
         distance: distance[endNodeId],
     };
 }
