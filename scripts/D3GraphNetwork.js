@@ -438,7 +438,7 @@ const runAlgorithm = (startNode, endNode) => {
             onComplete: () => {
                 tlTypewriter.restart();
                 tlTypewriter.pause();
-                resolve();
+                resolve(result.path);
             },
         });
 
@@ -538,7 +538,7 @@ const runAlgorithm = (startNode, endNode) => {
                 Array.from(filteredLink).forEach((link) => {
                     d3.select(link)
                         .attr("stroke", "#3c5d76")
-                        .attr("stroke-width", "2")
+                        .attr("stroke-width", "3")
                         .attr("stroke-dasharray", "8 2")
                         .attr("style", "opacity: 0;");
 
@@ -585,6 +585,26 @@ const runAlgorithm = (startNode, endNode) => {
         let result = dijkstra(graph, startNode, endNode);
         convertPath(result);
         tlTypewriter.play();
+    });
+};
+
+const showAllPaths = (resultPath) => {
+    return new Promise((resolve, reject) => {
+        let filteredLink = link.filter((d) => {
+            return !resultPath.includes(d.source.id);
+        });
+
+        d3.selectAll(filteredLink)
+            .attr("stroke", "red")
+            .attr("stroke-width", "1")
+            .attr("style", "opacity: 0;");
+
+        gsap.to(filteredLink.nodes(), {
+            opacity: 1,
+            onComplete: () => {
+                resolve();
+            },
+        });
     });
 };
 
@@ -788,7 +808,7 @@ const showDialogBox = (dialog) => {
     });
 };
 
-let selectedStartNode, selectedEndNode;
+let selectedStartNode, selectedEndNode, resultPath;
 
 showDialogBox(
     "Willkommen bei Dijkstra Story, die Story, die über den Shortest-Path-Algorithmus generiert wird!"
@@ -820,8 +840,11 @@ showDialogBox(
         return runAlgorithm(selectedStartNode, selectedEndNode);
     })
     .then((data) => {
-        return showDialogBox("Was ein Meisterwerk an einer Geschichte! Wir hoffen du hattest Spaß an der Dijkstra Story!");
+        resultPath = data;
+        showDialogBox(
+            "Was für ein Meisterwerk an Story! Danke, dass du Dijkstra Story genutzt hast. Dir werden nun alle möglichen Pfade angezeigt."
+        );
+    })
+    .then((data) => {
+        showAllPaths(resultPath);
     });
-
-// tlSpawn.play();
-// runAlgorithm("1", "6");
