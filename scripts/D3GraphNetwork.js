@@ -668,7 +668,12 @@ const highlightNode = (nodesInPath) => {
         let randomShift = randomNumberBetween(-1.8, 1.8);
         let randomScale = randomNumberBetween(1.0, 1.18);
 
-        gsap.set(animSelection, {x: randomShift, y: randomShift, scale: 0, transformOrigin: "center"})
+        gsap.set(animSelection, {
+            x: randomShift,
+            y: randomShift,
+            scale: 0,
+            transformOrigin: "center",
+        });
 
         highlightTl.to(animSelection, {
             stroke: "#3c5d76",
@@ -702,9 +707,6 @@ const highlightLink = (path) => {
                 .attr("style", "opacity: 0;");
 
             tlHightlight
-                .to(d3.select(link).node(), {
-                    opacity: 1,
-                })
                 .to(pencil.node(), {
                     opacity: 1,
                     motionPath: {
@@ -712,6 +714,11 @@ const highlightLink = (path) => {
                         align: link,
                         alignOrigin: [0, 1],
                     },
+                    ease: "power4.in",
+                })
+                .to(d3.select(link).node(), {
+                    opacity: 1,
+                    ease: "power4.out",
                 });
         });
     }
@@ -811,3 +818,6 @@ showDialogBox(
     .then((data) => {
         return runAlgorithm(selectedStartNode, selectedEndNode);
     });
+
+// tlSpawn.play();
+// runAlgorithm("1", "6");
