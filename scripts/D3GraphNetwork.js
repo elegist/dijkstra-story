@@ -350,6 +350,8 @@ const hideTooltipText = (selectedNode) => {
  */
 const selectNode = (nodes) => {
     return new Promise((resolve, reject) => {
+        d3.selectAll(nodes).classed("current-highlighted-note", true);
+
         nodes.selectAll(".helper-point").on("mouseover", function (e) {
             let currentNode = d3.select(this.parentNode).datum();
             $(this).attr("cursor", "pointer");
@@ -392,6 +394,7 @@ const selectNode = (nodes) => {
 
         let selectedNode;
         nodes.on("click", function () {
+            d3.selectAll(nodes).classed("current-highlighted-note", false)
             let currentNode = d3.select(this).datum();
 
             selectedNode = d3.select(this).datum();

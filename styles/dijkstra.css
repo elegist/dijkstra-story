@@ -142,30 +142,17 @@ body {
 }
 /* Graph and Nodes */
 
-.start-node .sticky-note > .sticky-note-body {
+.sticky-note > .sticky-note-body,
+.sticky-note > .sticky-note-corner {
+    transition: 1s;
+}
+
+.current-highlighted-note .sticky-note > .sticky-note-body {
     fill: #43a047;
 }
 
-.end-node .sticky-note > .sticky-note-body {
-    fill: #d32f2f;
-}
-
-.start-node .sticky-note > .sticky-note-corner {
+.current-highlighted-note .sticky-note > .sticky-note-corner {
     fill: #2e7d32;
-}
-
-.end-node .sticky-note > .sticky-note-corner  {
-    fill: #b71c1c;
-}
-
-.start-node > .pin {
-    stroke: rgb(71, 71, 201);
-    stroke-width: 2px;
-}
-
-.end-node > .pin {
-    stroke: rgb(63, 187, 63);
-    stroke-width: 2px;
 }
 
 .pin {
