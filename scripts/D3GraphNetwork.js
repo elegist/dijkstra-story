@@ -271,33 +271,6 @@ function ticked() {
 }
 
 /**
- * Zooming and panning inside the svg
- */
-// function applyZoom() {
-//     var zoom = d3
-//         .zoom()
-//         .scaleExtent([1, 10])
-//         //.translateExtent([[0, 0], [width, height]])
-//         .on("zoom", zoomed);
-//     //
-//     svg.call(zoom);
-//     function zoomed(event) {
-//         nodes.attr("transform", event.transform);
-//         link.attr("transform", event.transform);
-//     }
-// }
-
-// var specificNode = node.filter(function (d, i) {
-//     return d.startNode === true;
-// });
-
-// function panToSelection(selection) {
-//     var x = selection.attr("x");
-//     var y = selection.attr("y");
-//     zoom.translateTo(svg, x, y);
-// }
-
-/**
  * Displays a story preview for the currently hovered node
  * @param {d3Selection} selectedNode the current hovered node in selectNode()
  */
@@ -446,12 +419,12 @@ const runAlgorithm = (startNode, endNode) => {
          * displays the text of the current node in the algorithm progress
          * @param {d3Selection} selectedNode current node
          */
-        const displayNodeText = (selectedNode) => {
+        const displayNodeText = (selectedNode, weightInformation) => {
             // create a new div for the text
             let textDiv = d3.select("#textBox");
 
             // add the title and text of the node to the div
-            textDiv.append("h3").attr("id", `h3-${selectedNode.id}`);
+            textDiv.append("small").attr("id", `h3-${selectedNode.id}`);
             textDiv.append("p").attr("id", `p-${selectedNode.id}`);
 
             let heading = textDiv.select(`#h3-${selectedNode.id}`);
@@ -459,7 +432,7 @@ const runAlgorithm = (startNode, endNode) => {
 
             tlStory
                 .to(heading.node(), {
-                    text: `${selectedNode.id}`,
+                    text: `zu Knoten ${selectedNode.id} mit einer Gewichtung von ${weightInformation}`,
                 })
                 .to(paragraph.node(), {
                     text: `${selectedNode.text}`,
@@ -574,11 +547,23 @@ const runAlgorithm = (startNode, endNode) => {
 
             highlightLink(result.path);
 
+            let linkInformationForWeight;
             for (let i = 0; i < result.path.length; i++) {
                 let nodeTmp = graph.nodes.find(function (d) {
                     return d.id === result.path[i];
                 });
-                displayNodeText(nodeTmp);
+
+                if (i !== result.path.length - 1){
+                    linkInformationForWeight = link
+                        .filter(
+                            (d) =>
+                                d.source.id === result.path[i] &&
+                                d.target.id === result.path[i + 1]
+                        )
+                        .datum().weight;
+                }
+
+                displayNodeText(nodeTmp, linkInformationForWeight);
             }
         }
 
@@ -848,3 +833,5 @@ showDialogBox(
     .then((data) => {
         showAllPaths(resultPath);
     });
+// tlSpawn.play();
+// runAlgorithm("1", "17");
