@@ -352,7 +352,7 @@ const selectNode = (nodes) => {
     return new Promise((resolve, reject) => {
         nodes.selectAll(".helper-point").on("mouseover", function (e) {
             let currentNode = d3.select(this.parentNode).datum();
-            $(this).attr('cursor', 'pointer')
+            $(this).attr("cursor", "pointer");
 
             let stickyNote = d3
                 .select(this.parentNode)
@@ -408,10 +408,7 @@ const selectNode = (nodes) => {
             nodes.selectAll(".helper-point").on("mouseover", null);
             nodes.selectAll(".helper-point").on("mouseout", null);
 
-            let stickyNote = d3
-                .select(this)
-                .select(".sticky-note")
-                .node();
+            let stickyNote = d3.select(this).select(".sticky-note").node();
 
             gsap.to(stickyNote, {
                 scale: 1.0,
@@ -657,29 +654,27 @@ tlTypewriter.to(keyboardSwitches, {
     },
 });
 
+const randomNumberBetween = (min, max) => {
+    return Math.random() * (max - min) + min;
+};
+
 //Animation for the nodes on the shortest path
 const highlightNode = (nodesInPath) => {
     const highlightTl = gsap.timeline({
-        defaults: { duration: algorithmStepDuration },
+        defaults: { duration: algorithmStepDuration * 2 },
     });
     nodesInPath.forEach((element) => {
-        let animSelection = [element.select(".result-path-node").node()];
+        let animSelection = element.select(".result-path-node").node();
+        let randomShift = randomNumberBetween(-1.8, 1.8);
+        let randomScale = randomNumberBetween(1.0, 1.18);
 
-        highlightTl
-            .to(animSelection[0], {
-                stroke: "#3c5d76",
-            })
-            .fromTo(
-                animSelection[0],
-                {
-                    scale: 0,
-                    transformOrigin: "center",
-                },
-                {
-                    scale: 1,
-                }
-                
-            );
+        gsap.set(animSelection, {x: randomShift, y: randomShift, scale: 0, transformOrigin: "center"})
+
+        highlightTl.to(animSelection, {
+            stroke: "#3c5d76",
+            scale: 1 * randomScale,
+            ease: "back.out(1)",
+        });
     });
 };
 
@@ -687,7 +682,7 @@ const highlightNode = (nodesInPath) => {
 const highlightLink = (path) => {
     const tlHightlight = gsap.timeline({
         defaults: {
-            delay: algorithmStepDuration,
+            duration: algorithmStepDuration,
         },
     });
 
@@ -698,7 +693,7 @@ const highlightLink = (path) => {
         filteredLink = link.filter((d) => {
             return d.source.id === path[i] && d.target.id === path[i + 1];
         });
-        
+
         Array.from(filteredLink).forEach((link) => {
             d3.select(link)
                 .attr("stroke", "#3c5d76")
