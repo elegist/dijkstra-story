@@ -119,9 +119,6 @@ body {
 }
 
 #textBox {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
     position: absolute;
     width: 330px;
     height: 60%;
