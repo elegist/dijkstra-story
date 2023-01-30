@@ -48,7 +48,7 @@ const stories = {
         startNode: false,
         endNode: true,
     },
-    
+
     8: {
         story: "Dieb",
         text: "Ich stehe am Gate 17 und warte auf meinen Flug nach England.",
@@ -422,13 +422,7 @@ let simulation = d3
         })
     )
     .force("charge", d3.forceManyBody().strength(-0.07))
-    .force(
-        "center",
-        d3.forceCenter(
-            width / 2,
-            height / 2
-        )
-    )
+    .force("center", d3.forceCenter(width / 2, height / 2))
     .force("collide", d3.forceCollide(60).strength(0.07))
     .on("tick", ticked);
 
@@ -489,7 +483,7 @@ function ticked() {
  * Displays a story preview for the currently hovered node
  * @param {d3Selection} selectedNode the current hovered node in selectNode()
  */
-const displayTooltipText = (selectedNode) => {
+const displayTooltipText = (selectedNode, mouseX, mouseY) => {
     let container = d3.select("#algorithm-container");
 
     let storyPreview = container
@@ -497,15 +491,25 @@ const displayTooltipText = (selectedNode) => {
         .attr("class", "story-preview fs-5 p-4 shadow-sm")
         .attr("id", `storyPreview-${selectedNode.id}`);
 
+    storyPreview.append("h3").text(selectedNode.id);
+    storyPreview.append("p").text(selectedNode.text);
+
+    if (mouseY > container.node().clientHeight / 2) {
+        d3.select(`#storyPreview-${selectedNode.id}`)
+            .style("left", `${mouseX - storyPreview.node().clientWidth / 2}px`)
+            .style("top", `${mouseY - storyPreview.node().clientHeight}px`);
+    } else {
+        d3.select(`#storyPreview-${selectedNode.id}`)
+            .style("left", `${mouseX - storyPreview.node().clientWidth / 2}px`)
+            .style("top", `${mouseY}px`);
+    }
+
     gsap.from(storyPreview.node(), {
         opacity: 0,
         scale: 1.4,
         duration: 0.5,
         ease: Back.easeOut.config(2),
     });
-
-    storyPreview.append("h3").text(selectedNode.id);
-    storyPreview.append("p").text(selectedNode.text);
 };
 
 /**
@@ -556,10 +560,16 @@ const selectNode = (nodes) => {
                 duration: 0.333,
             });
 
-            displayTooltipText(currentNode);
-            d3.select(`#storyPreview-${currentNode.id}`)
-                .style("left", `${e.layerX + 15}px`)
-                .style("top", `${e.layerY + 15}px`);
+            displayTooltipText(
+                currentNode,
+                e.layerX,
+                e.layerY,
+                e.clientX,
+                e.clientHeight
+            );
+            // d3.select(`#storyPreview-${currentNode.id}`)
+            //     .style("left", `${e.layerX}px`)
+            //     .style("top", `${e.layerY}px`);
         });
 
         nodes.selectAll(".helper-point").on("mouseout", function () {
@@ -768,7 +778,7 @@ const runAlgorithm = (startNode, endNode) => {
                     return d.id === result.path[i];
                 });
 
-                if (i !== result.path.length - 1){
+                if (i !== result.path.length - 1) {
                     linkInformationForWeight = link
                         .filter(
                             (d) =>
