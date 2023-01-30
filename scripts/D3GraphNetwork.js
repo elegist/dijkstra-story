@@ -394,7 +394,7 @@ const selectNode = (nodes) => {
 
         let selectedNode;
         nodes.on("click", function () {
-            d3.selectAll(nodes).classed("current-highlighted-note", false)
+            d3.selectAll(nodes).classed("current-highlighted-note", false);
             let currentNode = d3.select(this).datum();
 
             selectedNode = d3.select(this).datum();
@@ -433,43 +433,159 @@ const selectNode = (nodes) => {
  */
 const runAlgorithm = (startNode, endNode) => {
     return new Promise((resolve, reject) => {
+        let tlStory = gsap.timeline({
+            defaults: { duration: algorithmStepDuration },
+            onComplete: () => {
+                tlTypewriter.restart();
+                tlTypewriter.pause();
+                resolve();
+            },
+        });
+
+        /**
+         * displays the text of the current node in the algorithm progress
+         * @param {d3Selection} selectedNode current node
+         */
+        const displayNodeText = (selectedNode) => {
+            // create a new div for the text
+            let textDiv = d3.select("#textBox");
+
+            // add the title and text of the node to the div
+            textDiv.append("h3").attr("id", `h3-${selectedNode.id}`);
+            textDiv.append("p").attr("id", `p-${selectedNode.id}`);
+
+            let heading = textDiv.select(`#h3-${selectedNode.id}`);
+            let paragraph = textDiv.select(`#p-${selectedNode.id}`);
+
+            tlStory
+                .to(heading.node(), {
+                    text: `${selectedNode.id}`,
+                })
+                .to(paragraph.node(), {
+                    text: `${selectedNode.text}`,
+
+                    onComplete: () => {
+                        d3.select("#textBox").node().scrollTop = d3
+                            .select("#textBox")
+                            .node().scrollHeight;
+                    },
+                });
+        };
+
+        let tlTypewriter = gsap.timeline({ paused: true });
+        let keyboardSwitches = $("#keyboard").children();
+
+        tlTypewriter.to(keyboardSwitches, {
+            attr: {
+                fill: "#c0c0cc",
+            },
+            transformOrigin: "center",
+            scale: 0.8,
+            ease: "elastic.inOut(1, 1)",
+            stagger: {
+                grid: "auto",
+                from: "random",
+                amount: 1.5,
+                repeat: -1,
+                yoyo: true,
+            },
+            duration: 0.5,
+        });
+
+        //Animation for the nodes on the shortest path
+        const highlightNode = (nodesInPath) => {
+            const highlightTl = gsap.timeline({
+                defaults: { duration: algorithmStepDuration * 2 },
+            });
+            nodesInPath.forEach((element) => {
+                let animSelection = element.select(".result-path-node").node();
+                let randomShift = randomNumberBetween(-1.8, 1.8);
+                let randomScale = randomNumberBetween(1.0, 1.18);
+
+                gsap.set(animSelection, {
+                    x: randomShift,
+                    y: randomShift,
+                    scale: 0,
+                    transformOrigin: "center",
+                });
+
+                highlightTl.to(animSelection, {
+                    stroke: "#3c5d76",
+                    scale: 1 * randomScale,
+                    ease: "back.out(1)",
+                });
+            });
+        };
+
+        //Animation for the links on the shortest path
+        const highlightLink = (path) => {
+            const tlHightlight = gsap.timeline({
+                defaults: {
+                    duration: algorithmStepDuration,
+                },
+            });
+
+            let pencil = d3.select("#pencil");
+
+            let filteredLink;
+            for (let i = 0; i < path.length - 1; i++) {
+                filteredLink = link.filter((d) => {
+                    return (
+                        d.source.id === path[i] && d.target.id === path[i + 1]
+                    );
+                });
+
+                Array.from(filteredLink).forEach((link) => {
+                    d3.select(link)
+                        .attr("stroke", "#3c5d76")
+                        .attr("stroke-width", "2")
+                        .attr("stroke-dasharray", "8 2")
+                        .attr("style", "opacity: 0;");
+
+                    tlHightlight
+                        .to(pencil.node(), {
+                            opacity: 1,
+                            motionPath: {
+                                path: link,
+                                align: link,
+                                alignOrigin: [0, 1],
+                            },
+                            ease: "power4.in",
+                        })
+                        .to(d3.select(link).node(), {
+                            opacity: 1,
+                            ease: "power4.out",
+                        });
+                });
+            }
+        };
+
+        //Take the algorithm result and reapply the graph data to each path element
+        function convertPath(result) {
+            let nodesInPath = [];
+            result.path.forEach((element) => {
+                nodesInPath.push(
+                    node.filter((d) => {
+                        return d.id === element;
+                    })
+                );
+            });
+            highlightNode(nodesInPath);
+
+            highlightLink(result.path);
+
+            for (let i = 0; i < result.path.length; i++) {
+                let nodeTmp = graph.nodes.find(function (d) {
+                    return d.id === result.path[i];
+                });
+                displayNodeText(nodeTmp);
+            }
+        }
+
         let result = dijkstra(graph, startNode, endNode);
         convertPath(result);
         tlTypewriter.play();
-        if (storyFinished) {
-            resolve();
-        }
     });
-};
-
-/**
- * displays the text of the current node in the algorithm progress
- * @param {d3Selection} selectedNode current node
- */
-const displayNodeText = (selectedNode) => {
-    // create a new div for the text
-    let textDiv = d3.select("#textBox");
-
-    // add the title and text of the node to the div
-    textDiv.append("h3").attr("id", `h3-${selectedNode.id}`);
-    textDiv.append("p").attr("id", `p-${selectedNode.id}`);
-
-    let heading = textDiv.select(`#h3-${selectedNode.id}`);
-    let paragraph = textDiv.select(`#p-${selectedNode.id}`);
-
-    tlStory
-        .to(heading.node(), {
-            text: `${selectedNode.id}`,
-        })
-        .to(paragraph.node(), {
-            text: `${selectedNode.text}`,
-
-            onComplete: () => {
-                d3.select("#textBox").node().scrollTop = d3
-                    .select("#textBox")
-                    .node().scrollHeight;
-            },
-        });
 };
 
 /**
@@ -544,28 +660,6 @@ function dijkstra(graph, startNodeId, endNodeId) {
     };
 }
 
-//Take the algorithm result and reapply the graph data to each path element
-function convertPath(result) {
-    let nodesInPath = [];
-    result.path.forEach((element) => {
-        nodesInPath.push(
-            node.filter((d) => {
-                return d.id === element;
-            })
-        );
-    });
-    highlightNode(nodesInPath);
-
-    highlightLink(result.path);
-
-    for (let i = 0; i < result.path.length; i++) {
-        let nodeTmp = graph.nodes.find(function (d) {
-            return d.id === result.path[i];
-        });
-        displayNodeText(nodeTmp);
-    }
-}
-
 //PriorityQueue
 class PriorityQueue {
     constructor() {
@@ -606,13 +700,6 @@ class PriorityQueue {
  * GSAP ANIMATIONS
  *
  */
-let tlStory = gsap.timeline({
-    defaults: { duration: algorithmStepDuration },
-    onComplete: () => {
-        tlTypewriter.restart();
-        tlTypewriter.pause();
-    },
-});
 
 let tlSpawn = gsap.timeline({ paused: true });
 let nodes = d3.selectAll(".node");
@@ -634,97 +721,8 @@ tlSpawn.from(nodes.nodes(), {
     },
 });
 
-let tlTypewriter = gsap.timeline({ paused: true });
-let keyboardSwitches = $("#keyboard").children();
-
-tlTypewriter.to(keyboardSwitches, {
-    attr: {
-        fill: "#c0c0cc",
-    },
-    transformOrigin: "center",
-    scale: 0.8,
-    ease: "elastic.inOut(1, 1)",
-    stagger: {
-        grid: "auto",
-        from: "random",
-        amount: 1.5,
-        repeat: -1,
-        yoyo: true,
-    },
-    duration: 0.5,
-    onComplete: () => {
-        storyFinished = true;
-    },
-});
-
 const randomNumberBetween = (min, max) => {
     return Math.random() * (max - min) + min;
-};
-
-//Animation for the nodes on the shortest path
-const highlightNode = (nodesInPath) => {
-    const highlightTl = gsap.timeline({
-        defaults: { duration: algorithmStepDuration * 2 },
-    });
-    nodesInPath.forEach((element) => {
-        let animSelection = element.select(".result-path-node").node();
-        let randomShift = randomNumberBetween(-1.8, 1.8);
-        let randomScale = randomNumberBetween(1.0, 1.18);
-
-        gsap.set(animSelection, {
-            x: randomShift,
-            y: randomShift,
-            scale: 0,
-            transformOrigin: "center",
-        });
-
-        highlightTl.to(animSelection, {
-            stroke: "#3c5d76",
-            scale: 1 * randomScale,
-            ease: "back.out(1)",
-        });
-    });
-};
-
-//Animation for the links on the shortest path
-const highlightLink = (path) => {
-    const tlHightlight = gsap.timeline({
-        defaults: {
-            duration: algorithmStepDuration,
-        },
-    });
-
-    let pencil = d3.select("#pencil");
-
-    let filteredLink;
-    for (let i = 0; i < path.length - 1; i++) {
-        filteredLink = link.filter((d) => {
-            return d.source.id === path[i] && d.target.id === path[i + 1];
-        });
-
-        Array.from(filteredLink).forEach((link) => {
-            d3.select(link)
-                .attr("stroke", "#3c5d76")
-                .attr("stroke-width", "2")
-                .attr("stroke-dasharray", "8 2")
-                .attr("style", "opacity: 0;");
-
-            tlHightlight
-                .to(pencil.node(), {
-                    opacity: 1,
-                    motionPath: {
-                        path: link,
-                        align: link,
-                        alignOrigin: [0, 1],
-                    },
-                    ease: "power4.in",
-                })
-                .to(d3.select(link).node(), {
-                    opacity: 1,
-                    ease: "power4.out",
-                });
-        });
-    }
 };
 
 /**
@@ -820,6 +818,9 @@ showDialogBox(
 
     .then((data) => {
         return runAlgorithm(selectedStartNode, selectedEndNode);
+    })
+    .then((data) => {
+        return showDialogBox("Was ein Meisterwerk an einer Geschichte! Wir hoffen du hattest Spaß an der Dijkstra Story!");
     });
 
 // tlSpawn.play();
