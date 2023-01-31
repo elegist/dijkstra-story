@@ -75,51 +75,89 @@ let previousButton = $("#previousButton"),
 let texts = [
     "Nutze die Buttons um den Algorithmus Schritt für Schritt verdeutlicht zu bekommen.",
     "Der kürzeste Weg wird anhand von Abständen zwischen den Knoten errechnet. Jede Verbindung hat eine Gewichtung gegeben, die den Abstand beschreibt",
-    "Wir suchen uns einen Startknoten aus, in diesem Fall Knoten A, und setzen den Abstand zu sich selbst auf 0.",
-    "Da wir die Abstände zu den übrigen Knoten noch nicht kennen, setzen wir diese provisorisch auf unendlich.",
-    "Wir untersuchen die Nachbarn des momentanen Knotens und aktualisieren die Abstandswerte, wenn sie kleiner sind, als der bisher bekannte",
-    "Wir fügen jeden noch nicht besuchten Knoten in eine Warteschlange ein.",
-    "Der nächste zu untersuchende Knoten ist der mit der kleinsten Gewichtung",
-    "Wir untersuchen die Nachbarn des momentanen Knotens und aktualisieren die Abstandswerte, wenn sie kleiner sind, als der bisher bekannte",
-    "Wir fügen jeden noch nicht besuchten Knoten in eine Warteschlange ein.",
-    "Der nächste zu untersuchende Knoten ist der mit der kleinsten Gewichtung",
-    "Wir untersuchen die Nachbarn des momentanen Knotens und aktualisieren die Abstandswerte, wenn sie kleiner sind, als der bisher bekannte",
-    "Wir fügen jeden noch nicht besuchten Knoten in eine Warteschlange ein.",
-    "Der nächste zu untersuchende Knoten ist der mit der kleinsten Gewichtung",
-    "Wir untersuchen die Nachbarn des momentanen Knotens und aktualisieren die Abstandswerte, wenn sie kleiner sind, als der bisher bekannte",
-    "Wir haben den Zielknoten erreicht und bilden nun rückwärts den kürzesten Pfad von A zu B",
+    "Wir wollen hier den kürzesten Weg von A zu B ermitteln.",
+    "Zunächst setzen wir den Abstand von A zu sich selbst auf 0 und die der restlichen provisorisch auf unendlich",
+
+    "Untersuche die Nachbarn des aktuellen Knotens.",
+    "Berechne: Kosten des momentanen Knotens + Abstand zu Nachbarn.",
+    "Aktualisiere den Wert, falls er kleiner ist, als der momentan zugewiesene.",
+    "Füge jeden unbesuchten Nachbarn in die Warteschlange ein",
+    "Die Untersuchung dieses Knotens ist nun abgeschlossen. Füge ihn zu dem Ergebnis hinzu.",
+    "Untersuche denjenigen Knoten in der Warteschlange mit den geringsten Kosten",
+
+    "Wir haben unseren Zielknoten B erreicht und fügen diesen nun auch dem Ergebnis hinzu",
 ];
 
 let index = 0;
 
 previousButton.on("click", () => {
-    if (index - 1 >= 0) {
-        index--;
-        infoText.text(texts[index]);
-    }
-
     tlAlgorithmInfo.reverse();
 });
 nextButton.on("click", () => {
-    if (index + 1 < texts.length) {
-        index++;
-        infoText.text(texts[index]);
-    }
-
-    if (index >= 2) {
-        tlAlgorithmInfo.play();
-        if (index !== texts.length - 1) {
-            nextButton.prop("disabled", true);
-            previousButton.prop("disabled", true);
-        }
-    }
+    tlAlgorithmInfo.play();
 });
 
 infoText.text(texts[index]);
 
-const enableButtons = () => {
-    nextButton.prop("disabled", false);
-    previousButton.prop("disabled", false);
+let animationSpeed = 0.1;
+let tlAlgorithmInfo = gsap.timeline({
+    defaults: {
+        duration: animationSpeed,
+        ease: "back.inOut(2)",
+        transformOrigin: "center",
+    },
+    paused: true,
+});
+
+gsap.set(".rowWeight", {
+    opacity: 0,
+    x: -15,
+});
+
+const displayText = (text) => {
+    let timeline = gsap.timeline({ defaults: { duration: animationSpeed } });
+
+    timeline.set("#infoText", { text: "" });
+
+    timeline.to("#infoText", {
+        text: text,
+    });
+
+    tlAlgorithmInfo.addPause();
+
+    return timeline;
+};
+
+const startNodeSetup = () => {
+    let timeline = gsap.timeline({ defaults: { duration: animationSpeed } });
+
+    timeline
+        .to("#nodeA", {
+            stroke: "#f44034",
+        })
+        .to("#rowWeightA", {
+            text: "0",
+            opacity: 1,
+            x: 0,
+        });
+
+    tlAlgorithmInfo.addPause();
+
+    return timeline;
+};
+
+const remainingNodesSetup = () => {
+    let timeline = gsap.timeline({ defaults: { duration: animationSpeed } });
+
+    timeline.to("#rowWeightB, #rowWeightC, #rowWeightD, #rowWeightE", {
+        text: "&infin;",
+        opacity: 1,
+        x: 0,
+    });
+
+    tlAlgorithmInfo.addPause();
+
+    return timeline;
 };
 
 const updateNodeWeight = (
@@ -163,8 +201,19 @@ const updateNodeWeight = (
         .to(`#rowWeight${target}`, {
             opacity: 1,
             x: 0,
-            duration: 2,
-        })
+        });
+
+    tlAlgorithmInfo.addPause();
+
+    return timeline;
+};
+
+const setCost = (source, target, currentWeight, parentWeight, addToWeight) => {
+    let timeline = gsap.timeline({ defaults: { duration: animationSpeed } });
+
+    let newWeight = parseInt(parentWeight) + parseInt(addToWeight);
+
+    timeline
         .to(`#rowWeight${target}`, {
             opacity: 0,
             x: -15,
@@ -186,106 +235,129 @@ const updateNodeWeight = (
             },
             "<"
         );
+
+    tlAlgorithmInfo.addPause();
+
     return timeline;
 };
 
 const updateQueue = (newQueue) => {
-    let timeline = gsap.timeline({ defaults: { duration: 1 } });
+    let timeline = gsap.timeline({ defaults: { duration: animationSpeed } });
 
     timeline.to("#queueMembers", {
         text: newQueue,
         ease: "back.out(2)",
     });
 
+    tlAlgorithmInfo.addPause();
+
     return timeline;
 };
 
-let animationSpeed = 0.666;
-let tlAlgorithmInfo = gsap.timeline({
-    defaults: {
-        duration: animationSpeed,
-        ease: "back.inOut(2)",
-        transformOrigin: "center",
-    },
-    paused: true,
-});
+const updateResult = (result) => {
+    let timeline = gsap.timeline({ defaults: { duration: animationSpeed } });
 
-gsap.set(".rowWeight", {
-    opacity: 0,
-    x: -15,
-});
+    timeline.to("#resultMembers", {
+        text: result,
+        ease: "back.out(2)",
+    });
+
+    tlAlgorithmInfo.addPause();
+
+    return timeline;
+};
+
+const selectNewNode = (oldNode, newNode) => {
+    let timeline = gsap.timeline({ defaults: { duration: animationSpeed } });
+
+    timeline
+        .to(`#node${oldNode}`, {
+            stroke: "black",
+        })
+        .to(`#rowWeight${newNode}, #rowName${newNode}`, {
+            color: "#f44034",
+        })
+        .to(`#node${newNode}`, {
+            stroke: "#f44034",
+        });
+
+    tlAlgorithmInfo.addPause();
+
+    return timeline;
+};
 
 tlAlgorithmInfo
-    .to("#nodeA", {
-        stroke: "#f44034",
-    })
-    .to("#rowWeightA", {
-        text: "0",
-        opacity: 1,
-        x: 0,
-    })
-    .addPause("+=0", enableButtons)
-    .to("#rowWeightB, #rowWeightC, #rowWeightD, #rowWeightE", {
-        text: "&infin;",
-        opacity: 1,
-        x: 0,
-    })
-    .addPause("+=0", enableButtons)
+    .add(displayText(texts[1]))
+    .add(displayText(texts[2]))
+    .add(displayText(texts[3]))
+    .add(startNodeSetup())
+    .add(remainingNodesSetup())
+    .add(displayText(texts[4]))
+
+    // first iteration
+    .add(displayText(texts[5]))
     .add(updateNodeWeight("A", "C", "&infin;", "0", "1"))
+    .add(displayText(texts[6]))
+    .add(setCost("A", "C", "&infin;", "0", "1"))
     .add(updateNodeWeight("A", "D", "&infin;", "0", "5"))
-    .addPause("+=0", enableButtons)
+    .add(setCost("A", "D", "&infin;", "0", "5"))
+    .add(displayText(texts[7]))
     .add(updateQueue("C, D"))
-    .addPause("+=0", enableButtons)
-    .to("#nodeA", {
-        stroke: "black",
-    })
-    .to("#rowWeightC, #rowNameC", {
-        color: "#f44034",
-    })
-    .to("#nodeC", {
-        stroke: "#f44034",
-    })
+    .add(displayText(texts[8]))
+    .add(updateResult("A"))
+    .add(displayText(texts[9]))
+
+    // select new node
+    .add(selectNewNode("A", "C"))
     .add(updateQueue("D"))
-    .addPause("+=0", enableButtons)
     .to("#rowWeightC, #rowNameC", {
         color: "black",
     })
+
+    // second iteration
+    .add(displayText(texts[5]))
     .add(updateNodeWeight("C", "D", "5", "1", "2"))
+    .add(displayText(texts[6]))
+    .add(setCost("C", "D", "5", "1", "2"))
     .add(updateNodeWeight("C", "E", "&infin;", "1", "1"))
-    .addPause("+=0", enableButtons)
+    .add(setCost("C", "E", "&infin;", "1", "1"))
+    .add(displayText(texts[7]))
     .add(updateQueue("E, D"))
-    .addPause("+=0", enableButtons)
-    .to("#nodeC", {
-        stroke: "black",
-    })
-    .to("#rowWeightE, #rowNameE", {
-        color: "#f44034",
-    })
-    .to("#nodeE", {
-        stroke: "#f44034",
-    })
+    .add(displayText(texts[8]))
+    .add(updateResult("A, C"))
+    .add(displayText(texts[9]))
+
+    // select new node
+    .add(selectNewNode("C", "E"))
     .add(updateQueue("D"))
-    .addPause("+=0", enableButtons)
     .to("#rowWeightE, #rowNameE", {
         color: "black",
     })
+
+    // third iteration
+    .add(displayText(texts[5]))
     .add(updateNodeWeight("E", "D", "3", "2", "3"))
-    .addPause("+=0", enableButtons)
+    .add(displayText(texts[6]))
+    .add(setCost("E", "D", "3", "2", "3"))
+    .add(displayText(texts[7]))
     .add(updateQueue("D"))
-    .addPause("+=0", enableButtons)
-    .to("#nodeE", {
-        stroke: "black",
-    })
-    .to("#rowWeightD, #rowNameD", {
-        color: "#f44034",
-    })
-    .to("#nodeD", {
-        stroke: "#f44034",
-    })
+    .add(displayText(texts[8]))
+    .add(updateResult("A, C, E"))
+    .add(displayText(texts[9]))
+
+    // select new node
+    .add(selectNewNode("E", "D"))
     .add(updateQueue(""))
-    .addPause("+=0", enableButtons)
     .to("#rowWeightD, #rowNameD", {
         color: "black",
     })
+
+    //fourth iteration
+    .add(displayText(texts[5]))
     .add(updateNodeWeight("D", "B", "&infin;", "3", "1"))
-    .addPause("#=0", enableButtons);
+    .add(displayText(texts[6]))
+    .add(setCost("D", "B", "&infin;", "3", "1"))
+    .add(updateResult("A, C, E, D"))
+
+    .add(displayText(texts[10]))
+    .add(updateResult("A, C, E, D, B"));

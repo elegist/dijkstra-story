@@ -309,6 +309,10 @@ section {
 }
 
 @media screen and (min-width: 992px) {
+    .info-headline {
+        padding: 0.5em;
+    }
+
     .dijkstra-img {
         width: 25vw;
     }
