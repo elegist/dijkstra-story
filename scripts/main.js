@@ -110,7 +110,7 @@ let texts = [
     "Aktualisiere den Wert, falls er kleiner ist, als der momentan zugewiesene.",
     "Füge jeden unbesuchten Nachbarn in die Warteschlange ein",
     "Die Untersuchung dieses Knotens ist nun abgeschlossen. Füge ihn zu dem Ergebnis hinzu.",
-    "Untersuche denjenigen Knoten in der Warteschlange mit den geringsten Kosten",
+    "Untersuche denjenigen Knoten in der Warteschlange mit den geringsten Kosten und entferne diesen aus der Warteschlange.",
 
     "Wir haben unseren Zielknoten B erreicht und fügen diesen nun auch dem Ergebnis hinzu",
 ];
@@ -121,10 +121,18 @@ previousButton.on("click", () => {
     tlAlgorithmInfo.reverse();
 });
 nextButton.on("click", () => {
+    gsap.to("#animationIndicator", {
+        opacity: 1,
+        duration: 0.25,
+    });
+    nextButton.prop("disabled", true);
+    previousButton.prop("disabled", true);
     tlAlgorithmInfo.play();
 });
 
 infoText.text(texts[index]);
+
+gsap.set("#animationIndicator", { opacity: 0 });
 
 let animationSpeed = 0.5;
 let tlAlgorithmInfo = gsap.timeline({
@@ -141,24 +149,31 @@ gsap.set(".rowWeight", {
     x: -15,
 });
 
-const buttonNotifier = () => {
-    gsap.to("#nextButton", {
-        scale: 1.2,
-        repeat: 1,
-        yoyo: true,
+const onCompleteHandle = () => {
+    gsap.to("#animationIndicator", {
+        opacity: 0,
+        duration: 0.25,
     });
+
+    setTimeout(() => {
+        nextButton.prop("disabled", false);
+        previousButton.prop("disabled", false);
+    }, 400);
 };
+
+let scaleFactor = 1.05,
+    borderStyle = "4px solid #f44034";
 
 const displayText = (text) => {
     let timeline = gsap.timeline({
         defaults: { duration: animationSpeed },
-        onComplete: buttonNotifier,
+        onComplete: onCompleteHandle,
     });
 
-    timeline.set("#infoText", { text: "" });
+    timeline.set("#infoText", { opacity: 0, text: text });
 
     timeline.to("#infoText", {
-        text: text,
+        opacity: 1,
     });
 
     tlAlgorithmInfo.addPause();
@@ -169,10 +184,14 @@ const displayText = (text) => {
 const startNodeSetup = () => {
     let timeline = gsap.timeline({
         defaults: { duration: animationSpeed },
-        onComplete: buttonNotifier,
+        onComplete: onCompleteHandle,
     });
 
     timeline
+        .to("#nodeTable", {
+            scale: scaleFactor,
+            border: borderStyle,
+        })
         .to("#nodeA", {
             stroke: "#f44034",
         })
@@ -180,6 +199,10 @@ const startNodeSetup = () => {
             text: "0",
             opacity: 1,
             x: 0,
+        })
+        .to("#nodeTable", {
+            scale: 1.0,
+            border: "2px solid black",
         });
 
     tlAlgorithmInfo.addPause();
@@ -190,14 +213,23 @@ const startNodeSetup = () => {
 const remainingNodesSetup = () => {
     let timeline = gsap.timeline({
         defaults: { duration: animationSpeed },
-        onComplete: buttonNotifier,
+        onComplete: onCompleteHandle,
     });
 
-    timeline.to("#rowWeightB, #rowWeightC, #rowWeightD, #rowWeightE", {
-        text: "&infin;",
-        opacity: 1,
-        x: 0,
-    });
+    timeline
+        .to("#nodeTable", {
+            scale: scaleFactor,
+            border: borderStyle,
+        })
+        .to("#rowWeightB, #rowWeightC, #rowWeightD, #rowWeightE", {
+            text: "&infin;",
+            opacity: 1,
+            x: 0,
+        })
+        .to("#nodeTable", {
+            scale: 1.0,
+            border: "2px solid black",
+        });
 
     tlAlgorithmInfo.addPause();
 
@@ -213,14 +245,22 @@ const updateNodeWeight = (
 ) => {
     let timeline = gsap.timeline({
         defaults: { duration: animationSpeed },
-        onComplete: buttonNotifier,
+        onComplete: onCompleteHandle,
     });
 
     let newWeight = parseInt(parentWeight) + parseInt(addToWeight);
 
     timeline
+        .to("#infoGraph", {
+            scale: scaleFactor,
+            border: borderStyle,
+        })
         .to(`.line${source}to${target}, #node${target}`, {
             stroke: "#6ba752",
+        })
+        .to("#nodeTable", {
+            scale: scaleFactor,
+            border: borderStyle,
         })
         .to(
             `#rowName${target}`,
@@ -258,7 +298,7 @@ const updateNodeWeight = (
 const setCost = (source, target, currentWeight, parentWeight, addToWeight) => {
     let timeline = gsap.timeline({
         defaults: { duration: animationSpeed },
-        onComplete: buttonNotifier,
+        onComplete: onCompleteHandle,
     });
 
     let newWeight = parseInt(parentWeight) + parseInt(addToWeight);
@@ -284,7 +324,11 @@ const setCost = (source, target, currentWeight, parentWeight, addToWeight) => {
                 color: "black",
             },
             "<"
-        );
+        )
+        .to("#infoGraph, #nodeTable", {
+            scale: 1,
+            border: "2px solid black",
+        });
 
     tlAlgorithmInfo.addPause();
 
@@ -294,13 +338,22 @@ const setCost = (source, target, currentWeight, parentWeight, addToWeight) => {
 const updateQueue = (newQueue) => {
     let timeline = gsap.timeline({
         defaults: { duration: animationSpeed },
-        onComplete: buttonNotifier,
+        onComplete: onCompleteHandle,
     });
 
-    timeline.to("#queueMembers", {
-        text: newQueue,
-        ease: "back.out(2)",
-    });
+    timeline
+        .to("#queue", {
+            scale: scaleFactor,
+            border: borderStyle,
+        })
+        .to("#queueMembers", {
+            text: newQueue,
+            ease: "back.out(2)",
+        })
+        .to("#queue", {
+            scale: 1,
+            border: "2px solid black",
+        });
 
     tlAlgorithmInfo.addPause();
 
@@ -310,13 +363,22 @@ const updateQueue = (newQueue) => {
 const updateResult = (result) => {
     let timeline = gsap.timeline({
         defaults: { duration: animationSpeed },
-        onComplete: buttonNotifier,
+        onComplete: onCompleteHandle,
     });
 
-    timeline.to("#resultMembers", {
-        text: result,
-        ease: "back.out(2)",
-    });
+    timeline
+        .to("#result", {
+            scale: scaleFactor,
+            border: borderStyle,
+        })
+        .to("#resultMembers", {
+            text: result,
+            ease: "back.out(2)",
+        })
+        .to("#result", {
+            scale: 1,
+            border: "2px solid black",
+        });
 
     tlAlgorithmInfo.addPause();
 
@@ -326,10 +388,14 @@ const updateResult = (result) => {
 const selectNewNode = (oldNode, newNode) => {
     let timeline = gsap.timeline({
         defaults: { duration: animationSpeed },
-        onComplete: buttonNotifier,
+        onComplete: onCompleteHandle,
     });
 
     timeline
+        .to("#nodeTable", {
+            scale: scaleFactor,
+            border: borderStyle,
+        })
         .to(`#node${oldNode}`, {
             stroke: "black",
         })
@@ -338,7 +404,28 @@ const selectNewNode = (oldNode, newNode) => {
         })
         .to(`#node${newNode}`, {
             stroke: "#f44034",
+        })
+        .to("#nodeTable", {
+            scale: 1,
+            border: "2px solid black",
         });
+
+    tlAlgorithmInfo.addPause();
+
+    return timeline;
+};
+
+const algorithmFinished = (text) => {
+    let timeline = gsap.timeline({
+        defaults: { duration: animationSpeed },
+        onComplete: () => gsap.set("#animationIndicator", { opacity: 0 }),
+    });
+
+    timeline.set("#infoText", { opacity: 0, text: text });
+
+    timeline.to("#infoText", {
+        opacity: 1,
+    });
 
     tlAlgorithmInfo.addPause();
 
@@ -419,4 +506,5 @@ tlAlgorithmInfo
     .add(updateResult("A, C, E, D"))
 
     .add(displayText(texts[10]))
-    .add(updateResult("A, C, E, D, B"));
+    .add(updateResult("A, C, E, D, B"))
+    .add(algorithmFinished("Damit ist der Wegfindungsalgorithmus abgeschlossen"));
