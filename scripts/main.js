@@ -11,13 +11,14 @@ tlHero
         y: 0,
     })
     .from(
-        "#appLink",
+        "#appLink, #infoLink",
         {
             opacity: 0,
             y: 100,
             scale: 1.6,
             ease: "back.out(1.7)",
             duration: 0.6,
+            stagger: 0.1,
         },
         "-=0.3"
     );
@@ -106,6 +107,19 @@ navLinks.forEach((link, index) => {
                 ease: "power4.inOut",
             },
         });
+    });
+});
+
+let infoLink = $("#infoLink");
+
+infoLink.on("click", () => {
+    gsap.to(window, {
+        duration: 0.7,
+        scrollTo: {
+            y: "#section2",
+            offsetY: $(".navbar").outerHeight(true),
+            ease: "power4.inOut",
+        },
     });
 });
 

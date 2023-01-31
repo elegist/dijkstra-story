@@ -25,7 +25,10 @@
     </head>
 
     <body>
-        <nav id="navbar" class="navbar sticky-top navbar-dark navbar-expand-lg bg-dark shadow">
+        <nav
+            id="navbar"
+            class="navbar sticky-top navbar-dark navbar-expand-lg bg-dark shadow"
+        >
             <div class="container">
                 <a href="#" class="navbar-brand">
                     <img
@@ -75,7 +78,7 @@
                                 data-bs-target="#navbarLinks"
                                 aria-current="page"
                                 class="nav-link"
-                                >Der Schöpfer
+                                >Vor- & Nachteile
                             </a>
                         </li>
                         <li class="nav-item py-2">
@@ -85,7 +88,7 @@
                                 data-bs-target="#navbarLinks"
                                 aria-current="page"
                                 class="nav-link"
-                                >Vor- & Nachteile
+                                >Der Schöpfer
                             </a>
                         </li>
                     </ul>
@@ -114,12 +117,19 @@
                         <div class="d-grid">
                             <a
                                 id="appLink"
-                                class="btn btn-primary btn-lg px-4"
+                                class="btn btn-primary btn-lg px-4 my-1"
                                 href="dijkstra.html"
                                 target="_blank"
                             >
                                 <i class="bi bi-box-arrow-up-right"></i>
                                 Probiere es aus!
+                            </a>
+                            <a
+                                id="infoLink"
+                                class="btn btn-outline-secondary btn-lg px-4 my-1"
+                            >
+                                Lerne den Algorithmus kennen
+                                <i class="bi bi-box-arrow-down"></i>
                             </a>
                         </div>
                     </div>
@@ -255,54 +265,7 @@
             </div>
         </section>
 
-        <section
-            id="section3"
-            class="dijkstra-info container-fluid text-center bg-light-accent"
-        >
-            <div class="container">
-                <h1 class="fw-bold pb-5 text-color-dark">Der Schöpfer</h1>
-                <div class="row m-auto">
-                    <img
-                        src="resources/imgs/450px-Edsger_Wybe_Dijkstra.jpg"
-                        class="img-fluid dijkstra-img m-auto col-lg-7 pb-3"
-                        alt="Edsger Dijkstra"
-                    />
-                    <div class="col-lg-5 m-auto">
-                        <p class="text-color-dark about-dijkstra">
-                            Edsger Dijkstra wurde am 11. Mai 1930 in Rotterdam
-                            geboren. Er studierte Mathematik und theoretische
-                            Physik an der Universität Leiden. Erst durch
-                            Zuspruch von seinem Betreuer am "Mathematisch
-                            Centrum" in Amsterdam wechselte er in das
-                            Programmierfeld. Dijkstra wird als erster
-                            Programmierer Niederlandes bezeichnet. Im Zuge
-                            seiner Doktorarbeit entwickelte er einen
-                            Digital-Computer genannt Electrologica X1. Später
-                            wurde Dijkstra Mathematikprofessor an der
-                            Technischen Hochschule Eindhoven. <br />
-                            Dijkstra ist hauptsächlich für die Entwicklung des
-                            namengebenden Dijkstra-Algorithmus bekannt, hat aber
-                            unter anderem auch den Bankieralgorithmus
-                            entwickelt, welcher Deadlocks vermeiden soll.
-                            Außerdem veröffentlichte er eine wissenschaftliche
-                            Abhandlung mit dem Titel "Go To Statement Considered
-                            Harmful", in welchem er über den GoTo-Befehl
-                            schreibt und begründet, warum dieser nicht genutzt
-                            werden sollte. Dijkstra führte den Begriff der
-                            strukturierten Programmierung in die Informatik ein.
-                            <br />
-                            Dijkstra starb am 6. August 2002 in Nuenen in einem
-                            Alter von 71 Jahren.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section
-            id="section4"
-            class="pros-cons container-fluid text-center pb-3"
-        >
+        <section id="section3" class="pros-cons container-fluid text-center">
             <div class="container text-center">
                 <h1 class="fw-bold pb-5 text-color-dark">Vor- und Nachteile</h1>
                 <div class="row">
@@ -353,6 +316,50 @@
             </div>
         </section>
 
+        <section
+            id="section4"
+            class="dijkstra-info container-fluid text-center bg-light-accent pb-3"
+        >
+            <div class="container">
+                <h1 class="fw-bold pb-5 text-color-dark">Der Schöpfer</h1>
+                <div class="row m-auto">
+                    <img
+                        src="resources/imgs/450px-Edsger_Wybe_Dijkstra.jpg"
+                        class="img-fluid dijkstra-img m-auto col-lg-7 pb-3"
+                        alt="Edsger Dijkstra"
+                    />
+                    <div class="col-lg-5 m-auto">
+                        <p class="text-color-dark about-dijkstra">
+                            Edsger Dijkstra wurde am 11. Mai 1930 in Rotterdam
+                            geboren. Er studierte Mathematik und theoretische
+                            Physik an der Universität Leiden. Erst durch
+                            Zuspruch von seinem Betreuer am "Mathematisch
+                            Centrum" in Amsterdam wechselte er in das
+                            Programmierfeld. Dijkstra wird als erster
+                            Programmierer Niederlandes bezeichnet. Im Zuge
+                            seiner Doktorarbeit entwickelte er einen
+                            Digital-Computer genannt Electrologica X1. Später
+                            wurde Dijkstra Mathematikprofessor an der
+                            Technischen Hochschule Eindhoven. <br />
+                            Dijkstra ist hauptsächlich für die Entwicklung des
+                            namengebenden Dijkstra-Algorithmus bekannt, hat aber
+                            unter anderem auch den Bankieralgorithmus
+                            entwickelt, welcher Deadlocks vermeiden soll.
+                            Außerdem veröffentlichte er eine wissenschaftliche
+                            Abhandlung mit dem Titel "Go To Statement Considered
+                            Harmful", in welchem er über den GoTo-Befehl
+                            schreibt und begründet, warum dieser nicht genutzt
+                            werden sollte. Dijkstra führte den Begriff der
+                            strukturierten Programmierung in die Informatik ein.
+                            <br />
+                            Dijkstra starb am 6. August 2002 in Nuenen in einem
+                            Alter von 71 Jahren.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <footer class="py-3 bg-dark">
             <div
                 class="container d-flex flex-wrap justify-content-between align-items-center"
@@ -376,7 +383,11 @@
             </div>
         </footer>
 
-        <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+        <script
+            src="https://code.jquery.com/jquery-3.6.3.min.js"
+            integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
+            crossorigin="anonymous"
+        ></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/Flip.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/MotionPathPlugin.min.js"></script>
