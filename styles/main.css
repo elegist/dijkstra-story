@@ -221,6 +221,10 @@ p {
     font-family: var(--font-family-heading);
 }
 
+.navbar-toggler > .navbar-toggler-icon {
+    color: var(--color-neutral-200) !important;
+}
+
 .hero {
     /* Hiding the hero for aninmation initially */
     clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0%, 100%);
