@@ -1035,7 +1035,7 @@ showDialogBox(
     .then((data1) => {
         tlSpawn.play();
         return showDialogBox(
-            "Wähle zuerst einen Anfang für deine Geschichte aus. Hover über die aktiven Nodes."
+            "Wähle zuerst einen Anfang für deine Geschichte aus. Hover über die aktiven Nodes um ihren Inhalt zu sehen und Klicke um deine Auswahl festzusetzen."
         );
     })
     .then((data) => {
@@ -1061,7 +1061,7 @@ showDialogBox(
     .then((data) => {
         resultPath = data;
         showDialogBox(
-            "Was für ein Meisterwerk an Story! Danke, dass du Dijkstra Story genutzt hast. Dir werden nun alle möglichen Pfade angezeigt."
+            "Was für ein Meisterwerk an einer Story! Danke, dass du Dijkstra Story genutzt hast. Dir werden nun alle möglichen Pfade angezeigt."
         );
     })
     .then((data) => {
