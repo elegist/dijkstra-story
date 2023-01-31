@@ -99,7 +99,7 @@ nextButton.on("click", () => {
 
 infoText.text(texts[index]);
 
-let animationSpeed = 0.1;
+let animationSpeed = 0.5;
 let tlAlgorithmInfo = gsap.timeline({
     defaults: {
         duration: animationSpeed,
