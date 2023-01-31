@@ -1,3 +1,9 @@
+let restartButton = $("#restartButton");
+
+restartButton.on("click", () => {
+    window.location.reload();
+});
+
 const stories = {
     1: {
         story: "Gulasch",
@@ -649,7 +655,10 @@ const runAlgorithm = (startNode, endNode) => {
             let textDiv = d3.select("#textBox");
 
             // add the title and text of the node to the div
-            textDiv.append("small").attr("id", `h3-${selectedNode.id}`);
+            textDiv
+                .append("small")
+                .attr("id", `h3-${selectedNode.id}`)
+                .attr("class", "node-info");
             textDiv.append("p").attr("id", `p-${selectedNode.id}`);
 
             let heading = textDiv.select(`#h3-${selectedNode.id}`);
