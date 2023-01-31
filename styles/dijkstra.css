@@ -195,10 +195,6 @@ body {
     pointer-events: none;
 }
 
-.story-preview > p {
-    text-align: justify;
-}
-
 #textBox > h3 {
     text-align: center;
 }
