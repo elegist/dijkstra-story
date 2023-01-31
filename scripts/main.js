@@ -72,7 +72,7 @@ navLinks.forEach((link, index) => {
         gsap.to(window, {
             duration: 0.7,
             scrollTo: {
-                y: "#section" + (index + 1),
+                y: "#scrollTrigger" + (index + 1),
                 offsetY: $(".navbar").outerHeight(true),
                 ease: "power4.inOut",
             },
@@ -86,7 +86,7 @@ infoLink.on("click", () => {
     gsap.to(window, {
         duration: 0.7,
         scrollTo: {
-            y: "#section2",
+            y: "#scrollTrigger2",
             offsetY: $(".navbar").outerHeight(true),
             ease: "power4.inOut",
         },
