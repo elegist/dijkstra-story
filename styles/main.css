@@ -142,8 +142,6 @@ p {
     font-family: var(--font-family-body);
 }
 
-/* buttons */
-
 .btn {
     font-family: var(--font-family-heading);
 }
@@ -193,13 +191,13 @@ p {
 }
 
 .btn-warning {
-    color: var(--color-neutral-200);
+    color: var(--color-neutral-800);
     background: var(--color-warning-500);
     border: 0.12rem solid var(--color-neutral-800);
 }
 
 .btn-warning:is(:hover, :focus) {
-    color: var(--color-neutral-800) !important;
+    color: var(--color-neutral-200) !important;
     background: var(--color-warning-700);
     border: 0.12rem solid var(--color-neutral-800);
 }

@@ -42,6 +42,90 @@ body {
     font-family: var(--font-family-primary);
 }
 
+/* buttons */
+
+.btn {
+    font-family: var(--font-family-heading);
+}
+
+.btn-primary {
+    background: var(--color-primary-500);
+    border: 0.12rem solid var(--color-neutral-800);
+}
+
+.btn-primary:is(:hover, :focus) {
+    color: var(--color-neutral-200) !important;
+    background: var(--color-primary-700);
+    border: 0.12rem solid var(--color-neutral-800);
+}
+
+.btn-secondary {
+    background: var(--color-secondary-500);
+    border: 0.12rem solid var(--color-neutral-800);
+}
+
+.btn-secondary:is(:hover, :focus) {
+    color: var(--color-neutral-800) !important;
+    background: var(--color-secondary-700);
+    border: 0.12rem solid var(--color-neutral-800);
+}
+
+.btn-outline-secondary {
+    color: var(--color-neutral-800) !important;
+    border: 0.12rem solid var(--color-neutral-800);
+}
+
+.btn-outline-secondary:is(:hover, :focus) {
+    color: var(--color-neutral-200) !important;
+    background: var(--color-secondary-700);
+    border: 0.12rem solid var(--color-neutral-800);
+}
+
+.btn-success {
+    background: var(--color-success-500);
+    border: 0.12rem solid var(--color-neutral-800);
+}
+
+.btn-success:is(:hover, :focus) {
+    color: var(--color-neutral-800) !important;
+    background: var(--color-success-700);
+    border: 0.12rem solid var(--color-neutral-800);
+}
+
+.btn-warning {
+    color: var(--color-neutral-800);
+    background: var(--color-warning-500);
+    border: 0.12rem solid var(--color-neutral-800);
+}
+
+.btn-warning:is(:hover, :focus) {
+    color: var(--color-neutral-200) !important;
+    background: var(--color-warning-700);
+    border: 0.12rem solid var(--color-neutral-800);
+}
+
+.btn-danger {
+    background: var(--color-danger-500);
+    border: 0.12rem solid var(--color-neutral-800);
+}
+
+.btn-danger:is(:hover, :focus) {
+    color: var(--color-neutral-800) !important;
+    background: var(--color-danger-700);
+    border: 0.12rem solid var(--color-neutral-800);
+}
+
+.btn-info {
+    color: var(--color-neutral-200) !important;
+    background: var(--color-info-500);
+    border: 0.12rem solid var(--color-neutral-800);
+}
+
+.btn-info:is(:hover, :focus) {
+    background: var(--color-info-700);
+    border: 0.12rem solid var(--color-neutral-800);
+}
+
 .algorithm-container {
     position: relative;
     height: 100%;
