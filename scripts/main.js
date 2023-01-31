@@ -114,8 +114,19 @@ gsap.set(".rowWeight", {
     x: -15,
 });
 
+const buttonNotifier = () => {
+    gsap.to("#nextButton", {
+        scale: 1.2,
+        repeat: 1,
+        yoyo: true,
+    });
+};
+
 const displayText = (text) => {
-    let timeline = gsap.timeline({ defaults: { duration: animationSpeed } });
+    let timeline = gsap.timeline({
+        defaults: { duration: animationSpeed },
+        onComplete: buttonNotifier,
+    });
 
     timeline.set("#infoText", { text: "" });
 
@@ -129,7 +140,10 @@ const displayText = (text) => {
 };
 
 const startNodeSetup = () => {
-    let timeline = gsap.timeline({ defaults: { duration: animationSpeed } });
+    let timeline = gsap.timeline({
+        defaults: { duration: animationSpeed },
+        onComplete: buttonNotifier,
+    });
 
     timeline
         .to("#nodeA", {
@@ -147,7 +161,10 @@ const startNodeSetup = () => {
 };
 
 const remainingNodesSetup = () => {
-    let timeline = gsap.timeline({ defaults: { duration: animationSpeed } });
+    let timeline = gsap.timeline({
+        defaults: { duration: animationSpeed },
+        onComplete: buttonNotifier,
+    });
 
     timeline.to("#rowWeightB, #rowWeightC, #rowWeightD, #rowWeightE", {
         text: "&infin;",
@@ -167,7 +184,10 @@ const updateNodeWeight = (
     parentWeight,
     addToWeight
 ) => {
-    let timeline = gsap.timeline({ defaults: { duration: animationSpeed } });
+    let timeline = gsap.timeline({
+        defaults: { duration: animationSpeed },
+        onComplete: buttonNotifier,
+    });
 
     let newWeight = parseInt(parentWeight) + parseInt(addToWeight);
 
@@ -209,7 +229,10 @@ const updateNodeWeight = (
 };
 
 const setCost = (source, target, currentWeight, parentWeight, addToWeight) => {
-    let timeline = gsap.timeline({ defaults: { duration: animationSpeed } });
+    let timeline = gsap.timeline({
+        defaults: { duration: animationSpeed },
+        onComplete: buttonNotifier,
+    });
 
     let newWeight = parseInt(parentWeight) + parseInt(addToWeight);
 
@@ -242,7 +265,10 @@ const setCost = (source, target, currentWeight, parentWeight, addToWeight) => {
 };
 
 const updateQueue = (newQueue) => {
-    let timeline = gsap.timeline({ defaults: { duration: animationSpeed } });
+    let timeline = gsap.timeline({
+        defaults: { duration: animationSpeed },
+        onComplete: buttonNotifier,
+    });
 
     timeline.to("#queueMembers", {
         text: newQueue,
@@ -255,7 +281,10 @@ const updateQueue = (newQueue) => {
 };
 
 const updateResult = (result) => {
-    let timeline = gsap.timeline({ defaults: { duration: animationSpeed } });
+    let timeline = gsap.timeline({
+        defaults: { duration: animationSpeed },
+        onComplete: buttonNotifier,
+    });
 
     timeline.to("#resultMembers", {
         text: result,
@@ -268,7 +297,10 @@ const updateResult = (result) => {
 };
 
 const selectNewNode = (oldNode, newNode) => {
-    let timeline = gsap.timeline({ defaults: { duration: animationSpeed } });
+    let timeline = gsap.timeline({
+        defaults: { duration: animationSpeed },
+        onComplete: buttonNotifier,
+    });
 
     timeline
         .to(`#node${oldNode}`, {
