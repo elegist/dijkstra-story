@@ -392,7 +392,7 @@ const selectNewNode = (oldNode, newNode) => {
     });
 
     timeline
-        .to("#nodeTable", {
+        .to("#nodeTable, #infoGraph", {
             scale: scaleFactor,
             border: borderStyle,
         })
@@ -405,7 +405,7 @@ const selectNewNode = (oldNode, newNode) => {
         .to(`#node${newNode}`, {
             stroke: "#f44034",
         })
-        .to("#nodeTable", {
+        .to("#nodeTable, #infoGraph", {
             scale: 1,
             border: "2px solid black",
         });
