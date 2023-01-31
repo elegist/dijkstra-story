@@ -258,6 +258,11 @@ p {
 
 /* sections */
 
+h1 {
+    text-align: center;
+    padding-top: 2rem;
+}
+
 section {
     min-height: 50vh;
     padding-top: 2.5rem;
@@ -271,9 +276,10 @@ section {
 }
 
 .info-headline {
-    background: var(--color-dark-accent);
     color: var(--color-neutral-200);
+    font-size: 1.25rem;
     padding: 1.5em;
+    background: var(--color-dark-accent);
     border-radius: 0.75rem;
     box-shadow: 0 0.15em 0.15em rgba(0, 0, 0, 0.2);
     margin: 1.5rem auto;
@@ -329,8 +335,20 @@ section {
 }
 
 @media screen and (min-width: 992px) {
+    .algorithm-info p {
+        max-width: 60ch;
+        margin: auto;
+        text-align: left;
+    }
+
+    .algorithm-explanation {
+        max-width: 50%;
+        margin: auto;
+    }
+
     .info-headline {
         padding: 0.5em;
+        width: 60%;
     }
 
     .dijkstra-img {

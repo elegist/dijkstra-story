@@ -41,7 +41,7 @@ gsap.to(".algorithm-info", {
 gsap.to(".dijkstra-info", {
     scrollTrigger: {
         trigger: ".dijkstra-info",
-        start: "top center",
+        start: "-100px center",
         toggleActions: "play none none reverse",
     },
     "clip-path": "polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%)",
