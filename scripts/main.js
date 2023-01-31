@@ -22,6 +22,19 @@ tlHero
         "-=0.3"
     );
 
+// algorithm info section
+
+gsap.to(".algorithm-info", {
+    scrollTrigger: {
+        trigger: ".algorithm-info",
+        start: "top center",
+        toggleActions: "play none none reverse",
+    },
+    "clip-path": "polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%)",
+    opacity: 1,
+    y: 0,
+});
+
 // dijkstra info section
 
 gsap.to(".dijkstra-info", {

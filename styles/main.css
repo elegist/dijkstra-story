@@ -250,6 +250,13 @@ section {
     padding-top: 2.5rem;
 }
 
+.algorithm-info {
+    /* Hiding the section for aninmation initially */
+    clip-path: polygon(0 100%, 100% 100%, 100% 100%, 0%, 100%);
+    opacity: 0;
+    transform: translateY(100px);
+}
+
 .info-headline {
     background: var(--color-dark-accent);
     color: var(--color-neutral-200);
