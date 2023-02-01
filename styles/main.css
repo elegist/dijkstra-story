@@ -233,6 +233,10 @@ p {
     font-family: var(--font-family-heading);
 }
 
+.navbar-nav > .nav-item > .nav-link:is(:hover) {
+    text-decoration: underline;
+}
+
 .navbar-toggler > .navbar-toggler-icon {
     color: var(--color-neutral-200) !important;
 }

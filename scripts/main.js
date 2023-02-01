@@ -65,9 +65,23 @@ gsap.from(".list-group-item", {
 
 // scroll to's
 
-let navLinks = document.querySelectorAll(".nav-link");
+let linksSm = document.querySelectorAll(".link-sm"),
+    linksLg = document.querySelectorAll(".link-lg");
 
-navLinks.forEach((link, index) => {
+linksSm.forEach((link, index) => {
+    link.addEventListener("click", () => {
+        gsap.to(window, {
+            duration: 0.7,
+            scrollTo: {
+                y: "#scrollTrigger" + (index + 1),
+                offsetY: $(".navbar").outerHeight(true),
+                ease: "power4.inOut",
+            },
+        });
+    });
+});
+
+linksLg.forEach((link, index) => {
     link.addEventListener("click", () => {
         gsap.to(window, {
             duration: 0.7,
