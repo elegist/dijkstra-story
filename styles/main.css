@@ -51,10 +51,6 @@ body {
     background: var(--color-light-accent) !important;
 }
 
-.bg-light-accent * {
-    color: var(--color-neutral-200) !important;
-}
-
 .bg-main {
     background: var(--color-main) !important;
 }
