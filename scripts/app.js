@@ -1061,7 +1061,7 @@ showDialogBox(
     .then((data) => {
         resultPath = data;
         showDialogBox(
-            "Was für ein Meisterwerk an einer Story! Danke, dass du Dijkstra Story genutzt hast. Dir werden nun alle möglichen Pfade angezeigt."
+            "Was für ein Meisterwerk an einer Story! Dir werden nun alle möglichen Pfade angezeigt. Wenn du gerne mehr über die Funktionsweise des Dijkstras erfahren möchtest, schau doch nochmal auf der Hauptseite vorbei."
         );
     })
     .then((data) => {
