@@ -279,7 +279,7 @@ section {
     color: var(--color-neutral-200);
     font-size: 1.25rem;
     padding: 1.5em;
-    background: var(--color-primary-500);
+    background: var(--color-dark);
     border-radius: 0.75rem;
     box-shadow: 0 0.15em 0.15em rgba(0, 0, 0, 0.2);
     margin: 1.5rem auto;
