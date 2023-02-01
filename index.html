@@ -175,22 +175,6 @@
                 </h2>
                 <div class="algorithm-explanation">
                     <div class="row">
-                        <div class="col-md m-auto">
-                            <div class="queue-result-row" id="queue">
-                                Queue:
-                                <span
-                                    id="queueMembers"
-                                    class="fst-italic fw-bold"
-                                ></span>
-                            </div>
-                            <div class="queue-result-row" id="result">
-                                Result:
-                                <span
-                                    id="resultMembers"
-                                    class="fst-italic fw-bold"
-                                ></span>
-                            </div>
-                        </div>
                         <div class="col">
                             <svg
                                 id="infoGraph"
@@ -450,18 +434,27 @@
                                 </table>
                             </div>
                         </div>
+
+                        <div class="m-auto">
+                            <div class="queue-result-row" id="queue">
+                                Queue:
+                                <span
+                                    id="queueMembers"
+                                    class="fst-italic fw-bold"
+                                ></span>
+                            </div>
+                            <div class="queue-result-row" id="result">
+                                Result:
+                                <span
+                                    id="resultMembers"
+                                    class="fst-italic fw-bold"
+                                ></span>
+                            </div>
+                        </div>
                     </div>
 
-                    <p id="infoText" class="text-center mx-auto">
-                        Lorem ipsum dolor sit amet, consectetur adipisicing
-                        elit. Sed velit est, ducimus debitis eius modi, quaerat
-                        ipsam perspiciatis officiis, minus blanditiis! Tempora
-                        assumenda magni molestias, quaerat maxime in porro
-                        deserunt!
-                    </p>
-
                     <div
-                        class="btn-group"
+                        class="btn-group mt-3"
                         role="group"
                         aria-label="Explanation navigation"
                     >
@@ -475,7 +468,15 @@
                         </button>
                     </div>
 
-                    <div id="animationIndicator" class="text-center mt-3">
+                    <p id="infoText" class="text-center mx-auto">
+                        Lorem ipsum dolor sit amet, consectetur adipisicing
+                        elit. Sed velit est, ducimus debitis eius modi, quaerat
+                        ipsam perspiciatis officiis, minus blanditiis! Tempora
+                        assumenda magni molestias, quaerat maxime in porro
+                        deserunt!
+                    </p>
+
+                    <div id="animationIndicator" class="text-center">
                         <div class="spinner-border" role="status">
                             <span class="visually-hidden"
                                 >Animation playing...</span
