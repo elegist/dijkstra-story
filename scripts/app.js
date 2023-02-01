@@ -353,7 +353,7 @@ let graph = {
     links: [],
 };
 
-const algorithmStepDuration = 1;
+const algorithmStepDuration = 1.4;
 let storyFinished = false;
 /**
  * Method that adds all the nodes with the corrosponding links to the graph object
