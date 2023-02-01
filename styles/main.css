@@ -17,11 +17,11 @@
     --color-info-500: hsl(165, 7%, 11%);
     --color-info-700: hsl(165, 7%, 1%);
 
-    --color-light: hsl(43, 34%, 80%);
+    --color-light: hsl(44, 27%, 83%);
     --color-light-accent: hsl(98, 14%, 64%);
     --color-main: hsl(41, 36%, 53%);
     --color-dark-accent: hsl(17, 22%, 41%);
-    --color-dark: hsl(157, 12%, 21%);
+    --color-dark: hsl(157, 12%, 26%);
 
     --color-neutral-200: hsl(30, 37%, 93%);
     --color-neutral-800: hsl(210, 5%, 16%);
@@ -86,12 +86,14 @@ body {
     );
 }
 
-.bg-fade-top-bottom {
+.bg-fade-top {
     background: linear-gradient(
         transparent,
         var(--color-light-accent),
         var(--color-light-accent),
-        transparent
+        var(--color-light-accent),
+        var(--color-light-accent),
+        var(--color-light-accent)
     );
 }
 
@@ -276,10 +278,10 @@ section {
 }
 
 .info-headline {
-    color: var(--color-neutral-200);
+    color: var(--color-neutral-800);
     font-size: 1.25rem;
     padding: 1.5em;
-    background: var(--color-dark);
+    background: var(--color-light-accent);
     border-radius: 0.75rem;
     box-shadow: 0 0.15em 0.15em rgba(0, 0, 0, 0.2);
     margin: 1.5rem auto;

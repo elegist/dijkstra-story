@@ -507,4 +507,6 @@ tlAlgorithmInfo
 
     .add(displayText(texts[10]))
     .add(updateResult("A, C, E, D, B"))
-    .add(algorithmFinished("Damit ist der Wegfindungsalgorithmus abgeschlossen"));
+    .add(
+        algorithmFinished("Damit ist der Wegfindungsalgorithmus abgeschlossen")
+    );
