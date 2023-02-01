@@ -592,7 +592,6 @@ const selectNode = (nodes) => {
                 ease: "sine.in",
                 duration: 0.333,
             });
-
             hideTooltipText(currentNode);
         });
 
@@ -623,6 +622,7 @@ const selectNode = (nodes) => {
                 ease: "sine.in",
                 duration: 0.333,
             });
+            nodes.selectAll(".helper-point").attr("cursor", "default");
             hideTooltipText(currentNode);
             resolve(selectedNode);
         });
