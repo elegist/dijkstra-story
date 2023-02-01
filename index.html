@@ -21,7 +21,7 @@
         />
         <!-- Custom styles -->
         <link rel="stylesheet" href="styles/main.css" />
-        <link rel="icon" href="resources/icons/favicon.ico">
+        <link rel="icon" href="resources/icons/favicon.ico" />
         <title>Dijkstra Story</title>
     </head>
 
@@ -160,13 +160,13 @@
                                 <i class="bi bi-box-arrow-up-right"></i>
                                 Probiere es aus!
                             </a>
-                            <a
+                            <button
                                 id="infoLink"
                                 class="btn btn-outline-secondary btn-lg px-4 my-1"
                             >
                                 Lerne den Algorithmus kennen
                                 <i class="bi bi-arrow-down"></i>
-                            </a>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -185,8 +185,7 @@
                 <p>
                     Dir ist ein Netzwerk an verschiedenen Knoten bekannt, und
                     zwischen all diesen Knoten bestehen Verbindungen dargestellt
-                    durch eine
-                    <span class="fst-italic">Adjazenzmatrix</span>.
+                    durch eine Adjazenzmatrix.
                     <br />
                     Diese Verbindungen zwischen den Knoten haben alle eine
                     bestimmte nicht-negativwertige Gewichtung, die die Distanz
@@ -271,6 +270,7 @@
                                                 stroke-width="2"
                                             />
                                             <path
+                                                class="weightDtoE weightEtoD"
                                                 id="weightDtoE"
                                                 d="M45.884 75.932C45.7 75.932 45.496 75.916 45.272 75.884C45.048 75.86 44.86 75.828 44.708 75.788V75.104C44.972 75.184 45.288 75.224 45.656 75.224C46.288 75.224 46.832 75.124 47.288 74.924C47.752 74.724 48.104 74.452 48.344 74.108C48.592 73.764 48.716 73.388 48.716 72.98C48.716 72.436 48.548 72.016 48.212 71.72C47.884 71.416 47.376 71.26 46.688 71.252L46.316 71.348C46.052 71.428 45.924 71.464 45.932 71.456L45.728 70.82C46.064 70.756 46.38 70.66 46.676 70.532C47.172 70.324 47.572 70.048 47.876 69.704C48.18 69.352 48.332 68.98 48.332 68.588C48.332 68.132 48.196 67.8 47.924 67.592C47.66 67.376 47.32 67.268 46.904 67.268C46.544 67.268 46.196 67.332 45.86 67.46C45.532 67.588 45.248 67.744 45.008 67.928L44.684 67.388C44.908 67.164 45.264 66.948 45.752 66.74C46.248 66.524 46.752 66.416 47.264 66.416C47.992 66.416 48.58 66.576 49.028 66.896C49.476 67.208 49.7 67.688 49.7 68.336C49.7 68.904 49.476 69.42 49.028 69.884C48.58 70.348 48.048 70.688 47.432 70.904C47.512 70.896 47.624 70.892 47.768 70.892C48.24 70.892 48.656 70.98 49.016 71.156C49.376 71.332 49.652 71.572 49.844 71.876C50.044 72.172 50.144 72.508 50.144 72.884C50.144 73.468 49.968 73.992 49.616 74.456C49.264 74.92 48.764 75.28 48.116 75.536C47.476 75.8 46.732 75.932 45.884 75.932Z"
                                                 fill="black"

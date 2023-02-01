@@ -28,21 +28,21 @@ const stories = {
     },
     4: {
         story: "Gulasch",
-        text: "Ich gehe in der Supermarkt, um mir alle nötigen Zutaten zu kaufen.",
+        text: "Ich gehe in den Supermarkt, um mir alle nötigen Zutaten zu kaufen.",
         neighbors: ["5", "10", "17", "24", "36", "44"],
         startNode: false,
         endNode: false,
     },
     5: {
         story: "Gulasch",
-        text: "Zuhause angekommen, packe ich die Zutaten aus und bereite alles vor um das Gericht zuzubereiten.",
+        text: "Zuhause angekommen, packe ich die Zutaten aus und bereite alles vor, um das Gericht zuzubereiten.",
         neighbors: ["6", "12", "19", "23", "37", "46"],
         startNode: false,
         endNode: false,
     },
     6: {
         story: "Gulasch",
-        text: "Schweiß bildete sich auf meiner Stirn, als ich den Herd anmachte und die Zutaten hineingab.",
+        text: "Schweiß bildet sich auf meiner Stirn, als ich den Herd anmache und die Zutaten hineingebe.",
         neighbors: ["7", "14", "20", "29", "33", "47"],
         startNode: false,
         endNode: false,
@@ -157,14 +157,14 @@ const stories = {
     },
     22: {
         story: "Albtraum DB",
-        text: "Mein Bus kommt aber schon bald also muss das Frühstuck heute ausfallen.",
+        text: "Mein Bus kommt aber schon bald, also muss das Frühstück heute ausfallen.",
         neighbors: ["23", "35", "44"],
         startNode: false,
         endNode: false,
     },
     23: {
         story: "Albtraum DB",
-        text: "Es ist zwar noch früh aber der Bus ist voll besetzt also muss ich stehen.",
+        text: "Es ist zwar noch früh, aber der Bus ist voll besetzt, also muss ich stehen.",
         neighbors: ["24", "35", "45"],
         startNode: false,
         endNode: false,
@@ -199,7 +199,7 @@ const stories = {
     },
     28: {
         story: "Albtraum DB",
-        text: "Am Bahnhof angekommen, nehme ich die Beine in die Hand und schaffe es noch zum Zug als gerade die Türen schließen. Glück gehabt.",
+        text: "Am Bahnhof angekommen, nehme ich die Beine in die Hand und schaffe es noch zum Zug, als gerade die Türen schließen. Glück gehabt.",
         neighbors: ["29", "36", "43"],
         startNode: false,
         endNode: false,
@@ -235,7 +235,7 @@ const stories = {
 
     33: {
         story: "Mond",
-        text: "Ich mache mich bereit für meine Trip zum Mond. Letzte Checks und Vorbereitungen sind fast abgeschlossen.",
+        text: "Ich mache mich bereit für meinen Trip zum Mond. Letzte Checks und Vorbereitungen sind fast abgeschlossen.",
         neighbors: ["33"],
         startNode: true,
         endNode: false,
@@ -249,7 +249,7 @@ const stories = {
     },
     35: {
         story: "Mond",
-        text: "Liftoff. Die g-Kräfte drücken mich in den Sitz und ich versuche einen kühlen Kopf zu behalten",
+        text: "Liftoff. Die G-Kräfte drücken mich in den Sitz und ich versuche einen kühlen Kopf zu behalten.",
         neighbors: ["36", "42"],
         startNode: false,
         endNode: false,
@@ -270,7 +270,7 @@ const stories = {
     },
     38: {
         story: "Mond",
-        text: "Die Erforschung des Mondes erweist sich schwieriger als gedacht. Dennoch kann ich Proben nehmen und die Oberfläche für ein paar Tage erforschen.",
+        text: "Die Erforschung des Mondes erweist sich schwieriger, als gedacht. Dennoch kann ich Proben nehmen und die Oberfläche für ein paar Tage erforschen.",
         neighbors: ["39", "46"],
         startNode: false,
         endNode: false,
@@ -285,7 +285,7 @@ const stories = {
 
     40: {
         story: "Dschungel",
-        text: "Ich bin tief in einem dicht bewachsenen Djungel und versuche einen Ausweg zu finden.",
+        text: "Ich bin tief in einem dicht bewachsenen Dschungel und versuche einen Ausweg zu finden.",
         neighbors: ["41"],
         startNode: true,
         endNode: false,
@@ -313,7 +313,7 @@ const stories = {
     },
     44: {
         story: "Dschungel",
-        text: "Als wir den Rand des Djungels erreichten, verabschiedete sich der Elefant und flog in All.",
+        text: "Als wir den Rand des Dschungels erreichten, verabschiedete sich der Elefant und flog in All.",
         neighbors: ["45"],
         startNode: false,
         endNode: false,
@@ -327,14 +327,14 @@ const stories = {
     },
     46: {
         story: "Dschungel",
-        text: "Ich entschied mich meine Reise fortzuführen und stieß auf eine Gruppe sprechender Kakteen.",
+        text: "Ich entschied mich, meine Reise fortzuführen und stieß auf eine Gruppe sprechender Kakteen.",
         neighbors: ["47"],
         startNode: false,
         endNode: false,
     },
     47: {
         story: "Dschungel",
-        text: "Sie luden mich ein ihrer Kaktus Gesellschaft beizutreten, um mir die Geheimnisse es Zeitreisens beizubringen.",
+        text: "Sie luden mich ein, ihrer Kaktus Gesellschaft beizutreten, um mir die Geheimnisse des Zeitreisens beizubringen.",
         neighbors: ["48"],
         startNode: false,
         endNode: false,
@@ -1044,7 +1044,7 @@ showDialogBox(
     .then((data) => {
         selectedStartNode = data.id;
         return showDialogBox(
-            `Gute Wahl! Suche dir als nächstes ein Ende für deine Geschichte aus.`
+            `Suche dir als nächstes ein Ende für deine Geschichte aus.`
         );
     })
     .then((data) => {

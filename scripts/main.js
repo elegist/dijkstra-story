@@ -114,10 +114,10 @@ let previousButton = $("#previousButton"),
     infoText = $("#infoText");
 
 let texts = [
-    "Nutze die Buttons um den Algorithmus Schritt für Schritt verdeutlicht zu bekommen.",
+    "Nutze die Buttons, um den Algorithmus Schritt für Schritt verdeutlicht zu bekommen.",
     "Der kürzeste Weg wird anhand von Abständen zwischen den Knoten errechnet. Jede Verbindung hat eine Gewichtung gegeben, die den Abstand beschreibt.",
     "Der kürzeste Weg von A zu B soll herausgefunden werden.",
-    "Zunächst wird der Abstand von A zu sich selbst auf 0 und die der restlichen vorrübergehend auf unendlich gesetzt.",
+    "Zunächst wird der Abstand von A zu sich selbst auf 0 und die der restlichen Knoten vorrübergehend auf unendlich gesetzt.",
 
     "Die Nachbarn des aktuellen Knotens werden untersucht",
     "Die Kosten des momentanen Knotens werden auf den Abstand der Nachbarn addiert",
