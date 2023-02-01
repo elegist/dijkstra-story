@@ -101,18 +101,18 @@ let previousButton = $("#previousButton"),
 
 let texts = [
     "Nutze die Buttons um den Algorithmus Schritt für Schritt verdeutlicht zu bekommen.",
-    "Der kürzeste Weg wird anhand von Abständen zwischen den Knoten errechnet. Jede Verbindung hat eine Gewichtung gegeben, die den Abstand beschreibt",
-    "Wir wollen hier den kürzesten Weg von A zu B ermitteln.",
-    "Zunächst setzen wir den Abstand von A zu sich selbst auf 0 und die der restlichen provisorisch auf unendlich",
+    "Der kürzeste Weg wird anhand von Abständen zwischen den Knoten errechnet. Jede Verbindung hat eine Gewichtung gegeben, die den Abstand beschreibt.",
+    "Der kürzeste Weg von A zu B soll herausgefunden werden.",
+    "Zunächst wird der Abstand von A zu sich selbst auf 0 und die der restlichen vorrübergehend auf unendlich gesetzt.",
 
-    "Untersuche die Nachbarn des aktuellen Knotens.",
-    "Berechne: Kosten des momentanen Knotens + Abstand zu Nachbarn.",
-    "Aktualisiere den Wert, falls er kleiner ist, als der momentan zugewiesene.",
-    "Füge jeden unbesuchten Nachbarn in die Warteschlange ein",
-    "Die Untersuchung dieses Knotens ist nun abgeschlossen. Füge ihn zu dem Ergebnis hinzu.",
-    "Untersuche denjenigen Knoten in der Warteschlange mit den geringsten Kosten und entferne diesen aus der Warteschlange.",
+    "Die Nachbarn des aktuellen Knotens werden untersucht",
+    "Die Kosten des momentanen Knotens werden auf den Abstand der Nachbarn addiert",
+    "Wenn das Ergebnis kleiner ist, als der momentan zugewiesene Wert, wird dieser ersetzt.",
+    "Jeder unbesuchte Nachbar wird in die Warteschlange eingefügt.",
+    "Die Untersuchung dieses Knotens ist nun abgeschlossen. Er wird dem Ergebnis hinzugefügt.",
+    "Der Knoten in der Warteschlange mit den geringsten Kosten ist der nächste zu untersuchende Knoten.",
 
-    "Wir haben unseren Zielknoten B erreicht und fügen diesen nun auch dem Ergebnis hinzu",
+    "Der Zielknoten B wurde erreicht und er wird ebenfalls dem Ergebnis hinzugefügt.",
 ];
 
 let index = 0;
