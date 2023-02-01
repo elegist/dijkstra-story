@@ -235,7 +235,7 @@ const stories = {
 
     33: {
         story: "Mond",
-        text: "Ich mache mich bereit für meine Trip zum Mond. Letzte Checks und Vorbereitungen sind fast abgeschlossen.",
+        text: "Ich mache mich bereit für meinen Trip zum Mond. Letzte Checks und Vorbereitungen sind fast abgeschlossen.",
         neighbors: ["33"],
         startNode: true,
         endNode: false,
@@ -285,7 +285,7 @@ const stories = {
 
     40: {
         story: "Dschungel",
-        text: "Ich bin tief in einem dicht bewachsenen Djungel und versuche einen Ausweg zu finden.",
+        text: "Ich bin tief in einem dicht bewachsenen Dschungel und versuche einen Ausweg zu finden.",
         neighbors: ["41"],
         startNode: true,
         endNode: false,
@@ -313,7 +313,7 @@ const stories = {
     },
     44: {
         story: "Dschungel",
-        text: "Als wir den Rand des Djungels erreichten, verabschiedete sich der Elefant und flog in All.",
+        text: "Als wir den Rand des Dschungels erreichten, verabschiedete sich der Elefant und flog in All.",
         neighbors: ["45"],
         startNode: false,
         endNode: false,
