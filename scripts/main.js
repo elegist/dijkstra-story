@@ -69,7 +69,7 @@ let linksSm = document.querySelectorAll(".link-sm"),
     linksLg = document.querySelectorAll(".link-lg");
 
 linksSm.forEach((link, index) => {
-    link.addEventListener("click", () => {
+    link.on("click", () => {
         gsap.to(window, {
             duration: 0.7,
             scrollTo: {
@@ -82,7 +82,7 @@ linksSm.forEach((link, index) => {
 });
 
 linksLg.forEach((link, index) => {
-    link.addEventListener("click", () => {
+    link.on("click", () => {
         gsap.to(window, {
             duration: 0.7,
             scrollTo: {
